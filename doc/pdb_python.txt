@@ -1,0 +1,187 @@
+﻿PDB调试python程序  
+
+=============================
+http://www.cnblogs.com/coderzh/archive/2009/12/26/emacspythonide.html
+在Emacs中，通过M-x pdb可调出pdb对python代码进行调试。但是发现在Windows系统中，总进入不了调试模式。主要原因有：
+
+1. windows中，找不到pdb.py位置。需自己制定pdb的路径。可以通过下面的方法设置pdb的路径：
+
+
+;; pdb setup, note the python version
+(setq pdb-path 'c:/python25/Lib/pdb.py
+       gud-pdb-command-name (symbol-name pdb-path))
+ (defadvice pdb (before gud-query-cmdline activate)
+   "Provide a better default command line when called interactively."
+   (interactive
+    (list (gud-query-cmdline pdb-path
+                 (file-name-nondirectory buffer-file-name)))))
+
+
+2. windows中，调用pdb时，未使用python -i 参数。 
+
+针对上面两个问题，我的解决办法是，不设置pdb具体路径，M-x pdb 回车后，出现下面命令:
+
+Run pdb (like this): pdb 
+然后手动修改一下：
+
+Run pdb (like this): python -i -m pdb test.py
+这样就搞定了。
+
+6. 如何调试GAE程序
+GAE是一个Web应用，需要跨线程进行调试，而pdb本身对线程调试支持不好。使用pdb进行线程调试时，只有在需要调试的地方插入下面代码：
+
+import pdb
+pdb.set_trace()
+然后直接运行被调试代码，而不是通过python pdb来执行，就可以多线程代码进行调试了。
+
+但是Google App Engine这样的Web应用，使用这个方法还是不能调试，和stdin和stdout有关，最后找到一个很好的解决方法：
+
+
+def set_trace():
+    import pdb, sys
+    debugger = pdb.Pdb(stdin=sys.__stdin__,
+        stdout=sys.__stdout__)
+    debugger.set_trace(sys._getframe().f_back)
+===============================================
+
+用PDB库调试Python程序
+如果使用过微软技术的朋友应该体会过 微软的Visual Studio系列IDE给debug程序带来的方便，换了个工作就没有Visual Studio了，对于我这种从未在非GUI环境下调试过程序的人来说实在有点不爽，今天花了点时间看了一下Python自带的pdb库，发现用pdb来调 试程序还是很方便的，当然了，什么远程调试，多线程之类，pdb是搞不定的。
+
+用pdb调试有多种方式可选：
+
+1. 命令行启动目标程序，加上-m参数，这样调用myscript.py的话断点就是程序的执行第一行之前
+python -m pdb myscript.py
+
+2. 在Python交互环境中启用调试
+>>> import pdb
+>>> import mymodule
+>>> pdb.run(‘mymodule.test()’)
+
+3. 比较常用的，就是在程序中间插入一段程序，相对于在一般IDE里面打上断点然后启动debug，不过这种方式是hardcode的
+
+if __name__ == "__main__":     a = 1     import pdb     pdb.set_trace()     b = 2     c = a + b     print (c)
+然后正常运行脚本，到了pdb.set_trace()那就会定下来，就可以看到调试的提示符(Pdb)了
+
+常用的调试命令
+
+h(elp)，会打印当前版本Pdb可用的命令，如果要查询某个命令，可以输入 h [command]，例如：“h l” — 查看list命令
+l(ist)，可以列出当前将要运行的代码块
+(Pdb) l
+497 pdb.set_trace()
+498 base_data = {}
+499 new_data = {}
+500 try:
+501 execfile(base_file_name,{},base_data)
+502 -> execfile(new_file_name,{},new_data)
+503 except:
+504 logger.writeLog(“error! load result log error!”)
+505 print “load cmp logs error!”
+506 raise Exception, “load cmp logs error!”
+507
+
+b(reak)， 设置断点，例如 “b 77″，就是在当前脚本的77行打上断点，还能输入函数名作为参数，断点就打到具体的函数入口，如果只敲b，会显示现有的全部断点
+(Pdb) b 504
+Breakpoint 4 at /home/jchen/regression/regressionLogCMP.py:504
+
+condition bpnumber [condition]，设置条件断点，下面语句就是对第4个断点加上条件“a==3”
+(Pdb) condition 4 a==3
+(Pdb) b
+Num Type Disp Enb Where
+4 breakpoint keep yes at /home/jchen/regression/regressionLogCMP.py:504
+stop only if a==3
+
+cl(ear)，如果后面带有参数，就是清除指定的断点（我在Python2.4上从来没成功过！！！）；如果不带参数就是清除所有的断点
+(Pdb) cl
+Clear all breaks? y
+
+disable/enable，禁用/激活断点
+(Pdb) disable 3
+(Pdb) b
+Num Type Disp Enb Where
+3 breakpoint keep no at /home/jchen/regression/regressionLogCMP.py:505
+
+n(ext)，让程序运行下一行，如果当前语句有一个函数调用，用n是不会进入被调用的函数体中的
+ 
+
+s(tep)，跟n相似，但是如果当前有一个函数调用，那么s会进入被调用的函数体中
+c(ont(inue))，让程序正常运行，直到遇到断点
+j(ump)，让程序跳转到指定的行数
+(Pdb) j 497
+> /home/jchen/regression/regressionLogCMP.py(497)compareLog()
+-> pdb.set_trace()
+
+a(rgs)，打印当前函数的参数
+(Pdb) a
+_logger =
+_base = ./base/MRM-8137.log
+_new = ./new/MRM-8137.log
+_caseid = 5550001
+_toStepNum = 10
+_cmpMap = {‘_bcmpbinarylog’: ‘True’, ‘_bcmpLog’: ‘True’, ‘_bcmpresp’: ‘True’}
+
+p，最有用的命令之一，打印某个变量
+(Pdb) p _new
+u’./new/MRM-8137.log’
+
+！，感叹号后面跟着语句，可以直接改变某个变量
+q(uit)，退出调试
+发现在命令行下调试程序也是一件挺有意思的事情，记录下来分享一下
+
+
+
+
+>断点设置
+(Pdb)b 10 #断点设置在本py的第10行
+或(Pdb)b ots.py:20 #断点设置到 ots.py第20行
+删除断点（Pdb）b #查看断点编号
+(Pdb)cl 2 #删除第2个断点
+
+>运行
+(Pdb)n #单步运行
+(Pdb)s #细点运行 也就是会下到，方法
+(Pdb)c #跳到下个断点
+>查看
+(Pdb)p param #查看当前 变量值
+(Pdb)l #查看运行到某处代码
+(Pdb)a #查看全部栈内变量
+(Pdb)w 列出目前call stack 中的所在层。
+(Pdb)d 在call stack中往下移一层
+(Pdb)u 在call stack中往上移一层。如果在上移一层之后按下 n ,则会在上移之后的一层执行下一个叙述,之前的 function call 就自动返回。
+(Pdb)cl 清除指定的断点。如果没有带参数,则清除所有断点。
+(Pdb)disable 取消所有断点的功能,但仍然保留这些断点。
+(Pdb)enable 恢复断点的功能。
+(Pdb)ignore 设定断点的忽略次数。如果没指定 count,其初始 为 0。当 count 为 0 时,断点会正常动作。若有指定 count,则每次执行到该中断, count 就少 1,直到 count 数为 0。
+(Pdb)condition bpnumber [condition]
+(Pdb)j(ump) lineNo. 跳到某行执行。只有在 call stack 的最底部才能作用。
+(Pdb)l 列出目前所在档案中的位置。连续地 l 命令会一直列到档案结尾,可以使用指定行数或范围来打印。
+(Pdb)pp 和 p 命令类似,但是使用 pprint module(没用过 pprint,详情请参考 Python Library Reference)。
+(Pdb)alias 以一个"别名"代替"一群除错命令",有点类似 c/c++ 的 macro(详情请参考 Python Library Reference)。
+(Pdb)unalias 取消某个 alias。
+(Pdb)[!]statement 在目前的环境(context)中执行叙述。
+
+====================
+h(elp)，会打印当前版本Pdb可用的命令，如果要查询某个命令，可以输入 h [command]，例如：“h l” — 查看list命令
+l(ist)，可以列出当前将要运行的代码块
+b(reak)， 设置断点，例如 “b 77″，就是在当前脚本的77行打上断点，还能输入函数名作为参数，断点就打到具体的函数入口，如果只敲b，会显示现有的全部断点
+			b 10 / b ots.py:20 
+condition bpnumber [condition]，设置条件断点，下面语句就是对第4个断点加上条件“a==3”
+cl(ear)，如果后面带有参数，就是清除指定的断点（我在Python2.4上从来没成功过！！！）；如果不带参数就是清除所有的断点
+disable/enable，禁用/激活断点
+	disable 取消所有断点的功能,但仍然保留这些断点。
+n(ext)，让程序运行下一行
+s(tep)，跟n相似，但是如果当前有一个函数调用，那么s会进入被调用的函数体中
+c(ont(inue))，让程序正常运行，直到遇到断点
+j(ump)，让程序跳转到指定的行数
+a(rgs)，打印当前函数的参数  ---  查看全部栈内变量
+p，最有用的命令之一，打印某个变量
+!，感叹号后面跟着语句，可以直接改变某个变量
+	[!]statement 在目前的环境(context)中执行叙述
+q(uit)，退出调试
+	pp 和 p 命令类似,但是使用 pprint module
+w 列出目前call stack 中的所在层
+d 在call stack中往下移一层
+u 在call stack中往上移一层。如果在上移一层之后按下 n ,则会在上移之后的一层执行下一个叙述,之前的 function call 就自动返回
+cl 清除指定的断点。如果没有带参数,则清除所有断点
+ignore 设定断点的忽略次数。如果没指定 count,其初始 为 0。当 count 为 0 时,断点会正常动作。若有指定 count,则每次执行到该中断, count 就少 1,直到 count 数为 0
+alias 以一个"别名"代替"一群除错命令",有点类似 c/c++ 的 macro
+unalias 取消某个 alias

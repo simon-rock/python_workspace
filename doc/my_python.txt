@@ -1,0 +1,152 @@
+﻿1.manual
+    example: shutil
+    help(shutil)    -- in pdb : pp help(shutil)
+    shutil.__all__  -- same in pdb
+    shutil.__doc__  -- same in pdb
+2.Queue
+    import Queue, threading
+    The Queue module implements multi-producer, multi-consumer queues.see the threading module.
+    FIFO,LIFO,PriorityQueue
+    Queue.get([block[, timeout]])
+    Queue.put(item[, block[, timeout]])
+    Queue.task_done()
+    Queue.join()
+
+3.lxml
+    import xml.etree.ElementTree as ET            -- error?
+    import xml.dom.minidom as minidom
+    from lxml import etree as ET
+    etree.parse()
+    doc = ET.parse(filename)
+    doc.getroot().attrib['width'] = '1600px';   -- change attribute
+    在布尔上下文中，如果 ElementTree 元素对象不包含子元素（即如果 len(element) 为 0），则其值会被认为是 False 。这就意味着 if element.find('...') 并非在测试是否 find() 方法找到了匹配项；而是在测试匹配的元素是否包含子元素！想要测试 find() 方法是否返回了某个元素的话，需要使用 if element.find('...') is not None
+    
+4.print class info
+    class Friend():
+    def __init__(self, name):
+    self.name = name
+
+    def __str__(self):
+    return "Friend : %s" % self.name
+
+    if __name__ == '__main__':
+    friend = Friend('Liang')
+    print friend
+    output >> Friend name : Liang
+
+5 Python os.path模块
+    http://hi.baidu.com/1234lylp/item/a1d8e140707222e6a4c066c7
+    os.path.abspath(path)
+    返回path规范化的绝对路径。
+    >>> os.path.abspath('test.csv')             #'C:\\Python25\    est.csv'
+    >>> os.path.abspath('c:\    est.csv')       #'c:\    est.csv'
+    >>> os.path.abspath('../csv\    est.csv')   #'C:\\csv\    est.csv'
+
+    os.path.split(path)
+    将path分割成目录和文件名二元组返回。
+    >>> os.path.split('c:\\csv\    est.csv')    #('c:\\csv', 'test.csv')
+    >>> os.path.split('c:\\csv\\')              #('c:\\csv', '')
+
+    os.path.dirname(path)
+    返回path的目录。其实就是os.path.split(path)的第一个元素。
+    >>> os.path.dirname('c:\\csv    est.csv')   #'c:\\'
+    >>> os.path.dirname('c:\\csv')              #'c:\\'
+
+    os.path.basename(path)
+    返回path最后的文件名。如何path以／或\结尾，那么就会返回空值。即os.path.split(path)的第二个元素。
+    >>> os.path.basename('c:\    est.csv')      #'test.csv'
+    >>> os.path.basename('c:\\csv')             #'csv' （这里csv被当作文件名处理了）
+    >>> os.path.basename('c:\\csv\\')           #''
+
+    os.path.commonprefix(list)
+    返回list中，所有path共有的最长的路径。
+    如：
+    >>> os.path.commonprefix(['/home/td','/home/td/ff','/home/td/fff'])          #'/home/td'
+
+    os.path.exists(path)
+    如果path存在，返回True；如果path不存在，返回False。
+    >>> os.path.exists('c:\\')                                                     #True
+    >>> os.path.exists('c:\\csv\    est.csv')                                    #False
+
+    os.path.isabs(path)
+    如果path是绝对路径，返回True。
+
+    os.path.isfile(path)
+    如果path是一个存在的文件，返回True。否则返回False。
+    >>> os.path.isfile('c:\\boot.ini')                                            #True
+    >>> os.path.isfile('c:\\csv\    est.csv')                                    #False
+    >>> os.path.isfile('c:\\csv\\')                                                #False
+
+    os.path.isdir(path)
+    如果path是一个存在的目录，则返回True。否则返回False。
+    >>> os.path.isdir('c:\\')                                                    #True
+    >>> os.path.isdir('c:\\csv\\')                                                #False
+    >>> os.path.isdir('c:\\windows\    est.csv')                                #False
+
+    os.path.join(path1[, path2[, ...]])
+    将多个路径组合后返回，第一个绝对路径之前的参数将被忽略。
+    >>> os.path.join('c:\\', 'csv', 'test.csv')                                    #'c:\\csv\    est.csv'
+    >>> os.path.join('windows    emp', 'c:\\', 'csv', 'test.csv')                    #'c:\\csv\    est.csv'
+    >>> os.path.join('/home/aa','/home/aa/bb','/home/aa/bb/c')                    #'/home/aa/bb/c'
+
+    os.path.normcase(path)
+    在Linux和Mac平台上，该函数会原样返回path，在windows平台上会将路径中所有字符转换为小写，并将所有斜杠转换为饭斜杠。
+    >>> os.path.normcase('c:/windows\\system32\\')                                #'c:\\windows\\system32\\'
+
+    os.path.normpath(path)
+    规范化路径。
+    >>> os.path.normpath('c://windows\\System32\\../Temp/')                        #'c:\\windows\    emp'
+
+    os.path.splitdrive(path)
+    >>> os.path.splitdrive('c:\\windows')                                        #('c:', '\\windows')
+
+    os.path.splitext(path)
+    >>> os.path.splitext('c:\\csv\    est.csv')                                    #('c:\\csv\    est', '.csv')
+     
+    os.path.getsize(path)
+    返回path的文件的大小（字节）。
+
+    >>> os.path.getsize('c:\\boot.ini')                                            #299L
+    
+6.if file_list: 判断list 是否为空
+7.xml 打开
+    try:
+      doc_org = ET.parse(filename)
+    except:
+      info = 'Error: can not parse:%s\n' % filename
+      error_log.write(info)
+      raise
+      xml 插入说明 会覆盖原来的
+    pi = ET.ProcessingInstruction(
+        'xml-stylesheet',
+        'type="text/css" href="%s"' % ('./customcolors.css')
+        )
+    root.getroot().addprevious(pi)
+    root.write(name, pretty_print = True)
+    判断是否找到节点
+    process_node = doc.find(r'process')
+    if None != process_node:
+8.生成路径，不存在创建
+    tmp_path = os.path.join(options.outdir, 'TMP')
+    if not os.path.exists(tmp_path):
+        os.makedirs(tmp_path)
+
+9.字符串切割成列表
+    self.set_ids = process_node.attrib['set_id'].split(' ')  
+
+10.转为数字，默认为0，不知会否抛异常
+    prod = int(id_node.get('prodtype', '0'))
+
+11遍历子节点方法
+        xpath = 'asset/DiCi/%s' % (self.region)
+        subdcas = doc.find(xpath)
+        if subdcas:
+          for dca in subdcas:
+            id = dca.attrib['id']
+12.获取当前脚本的路径
+path_tools = os.path.dirname(os.path.abspath(__file__))   
+
+13. 列表可以存入字符或方法
+    PROCESS_MAP = {} 列表
+    PROCESS_MAP[counter.auto_inc()] = 'Start Processing Phase1 from this step'
+    PROCESS_MAP[counter.auto_inc()] = make_output_dir     

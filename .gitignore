@@ -1,0 +1,44 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.Po
+# Compiled Dynamic libraries
+*.so
+*.dylib
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+
+# g++ out
+
+# folder
+bin/
+.deps/
+
+# msvc out
+
+@log file
+*.log
+
+# MSVC
+*.ncb
+*.suo
+*.pdb
+*.exe
+*.ilk
+*.user
+*.manifest
+*.obj
+*.idb
+*.dmp
+*.dep
+*.pch
+*.idb 
+*.netmodule 
+*.aps
+*.dep
+*.htm
+*.embed.manifest.res

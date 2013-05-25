@@ -1,0 +1,18 @@
+<root>
+<entry>
+  <host>64.172.22.154</host>
+  <referer>-</referer>
+  <userAgent>-</userAgent>
+  <dateTime>19/Aug/2001:01:46:01</dateTime>
+  <reqID>-0500</reqID>
+  <reqType>GET</reqType>
+  <resource>/</resource>
+  <protocol>HTTP/1.1</protocol>
+  <statusCode>200</statusCode>
+  <byteCount>2131</byteCount>
+  <deep><dateTime>19/Aug/2002:01:46:01</dateTime></deep>
+</entry>
+<entry>
+  <dateTime>19/Aug/2003:01:46:01</dateTime>
+</entry>
+</root>
