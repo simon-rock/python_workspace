@@ -137,7 +137,7 @@
 10.转为数字，默认为0，不知会否抛异常
     prod = int(id_node.get('prodtype', '0'))
 
-11遍历子节点方法
+411遍历子节点方法
         xpath = 'asset/DiCi/%s' % (self.region)
         subdcas = doc.find(xpath)
         if subdcas:
@@ -150,3 +150,9 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
     PROCESS_MAP = {} 列表
     PROCESS_MAP[counter.auto_inc()] = 'Start Processing Phase1 from this step'
     PROCESS_MAP[counter.auto_inc()] = make_output_dir     
+    使用时要根据内容类型分别处理使用isinstance
+    for key, fun in PROCESS_MAP.iteritems():
+        if isinstance(fun, FunctionType):
+            print '\t%s\t%s' %(key, fun.__name__)
+        elif isinstance(fun, str):
+            print '\t%s\t%s' % (key, fu)
