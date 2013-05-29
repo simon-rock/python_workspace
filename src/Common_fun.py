@@ -198,12 +198,21 @@ def test_copy():
     copy_file("./data", "src.txt", "./data", "tar.txt")
     find_all_files(r"D:\eworkspace\data\SIF_Q1_13\NA\04*[.sif|.gz]")
 
-# 测试执行命令
+# 测试执行命令,失败询问是否继续，不继续，发送邮件
 def test_runprog():
     args = ('D:\\eworkspace\\process_data\\7z.exe', 'Xx', 'D:\\eworkspace\\data\\SIF_Q1_13\\NA\\04AM13100N04000SAA79.gz', '-oD:\\eworkspace')
     runprog(args)
 
 def test_other():
+    #写文件
+    last_run_log = open('lastrun.log', 'w')
+    last_run_log.write(begin + '\n')
+    last_run_log.flush()
+    last_run_log.close()
+
+    #获得运行目录
+    os.getcwd()
+    
     #改变程序工作目录
     os.chdir("c:")
     
