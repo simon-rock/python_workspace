@@ -1,4 +1,4 @@
-﻿#encoding: utf-8
+#encoding: utf-8
 import os
 import shutil
 import os
@@ -6,6 +6,7 @@ import glob
 import sys
 from stat import *
 
+from optparse import OptionParser, SUPPRESS_HELP
 # for mail
 #modules for mail notification
 import smtplib
@@ -17,7 +18,7 @@ from email import Encoders
 from socket import gethostname
 
 class RunProgError(Exception):
-  pass
+    pass
 
 #安全拷贝文件 重命名
 def copy_file(src_path, src_file, dest_path, dest_file=None):
@@ -57,7 +58,8 @@ def find_all_files(src):
     else:
         for result in src_list:
             print result
-            pt, ext = os.path.splitext(result)
+            pt, ext = os.path.splitext(result) # 分割文件名和后缀
+            #pt, ext = os.path.split(result)  分割路径和文件名
             print "%s [%s]" % (pt , ext)
 # 添加写标志
 def make_writable(path):
@@ -154,6 +156,26 @@ def send_notification(subject, formatted_msg, **kwargs):
     message = formatted_msg % kwargs
     sendmail(sender, recipients, cc, subject, message)
 
+def get_options(args=None):
+    """Parse command line options and parameters."""
+
+    parser = OptionParser(add_help_option=False, usage='%prog <arg> [option]', description="")
+
+    parser.add_option('-c', '--config', action='store', default="ncdbconfig.xml", dest='config', help='ncdb configuration files')
+    parser.add_option('-b', '--begin',action='store', type='int', default=0, dest='begin', help='begin step')
+    parser.add_option('-e', '--end',action='store', type='int', default=-1, dest='end', help='end step')
+    parser.add_option('-n', '--notify', dest='notify', action='store_true',
+                      default=False, help='notify by mail or not')
+    parser.add_option('-p', '--polygons only', action="store_true", dest='poly', default=False)
+    parser.add_option('-a', '--pointaddr only', action="store_true", dest='pointaddr', default=False)
+    parser.add_option('-h', '--help', dest='help', action='store_true', default=False)
+
+    global HELP
+    HELP = parser.format_help().strip()
+    options, args = parser.parse_args(args)
+    print HELP
+    return options, args
+
 #发送邮件
 def sendmail(fromaddr, toaddrs, bccaddrs, subject, body, attach=[]):
     """Send an email message with the given parameters using SMTP."""
@@ -194,7 +216,7 @@ def sendmail(fromaddr, toaddrs, bccaddrs, subject, body, attach=[]):
 
 # ============== test ================
 # 拷贝函数测试
-def test_copy():ggg
+def test_copy():
     copy_file("./data", "src.txt", "./data", "tar.txt")
     find_all_files(r"D:\eworkspace\data\SIF_Q1_13\NA\04*[.sif|.gz]")
 
@@ -216,7 +238,12 @@ def test_other():
     
     #改变程序工作目录
     os.chdir("c:")
-    
+
+def test_getoption(argv = None):
+    (options, argv) = get_options(argv)
+    global OPTION
+    OPTION = options
+    #if options.help:
 if __name__ == "__main__":
-    test_runprog()
+    test_getoption()
 
