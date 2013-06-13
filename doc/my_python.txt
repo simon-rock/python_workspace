@@ -1,4 +1,6 @@
-﻿1.manual
+﻿*****没有BOM时 必须指定 #encoding: utf-8 标识脚本的编码 才能加utf8注释
+*****有BOM时 可以不加
+1.manual
     example: shutil
     help(shutil)    -- in pdb : pp help(shutil)
     shutil.__all__  -- same in pdb
@@ -156,3 +158,6 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
             print '\t%s\t%s' %(key, fun.__name__)
         elif isinstance(fun, str):
             print '\t%s\t%s' % (key, fu)
+
+14.python 靠对齐，tab等于8个空格，最好使用spacs对齐
+15.对于emacs 的rope,代码不能有中文,即使是utf8格式
