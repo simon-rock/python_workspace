@@ -20,8 +20,11 @@ bin/
 
 # msvc out
 
-@log file
+#log file
 *.log
+
+#emacs folder
+.ropeproject
 
 # MSVC
 *.ncb

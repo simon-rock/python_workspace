@@ -61,6 +61,7 @@ def find_all_files(src):
             pt, ext = os.path.splitext(result) # 分割文件名和后缀
             #pt, ext = os.path.split(result)  分割路径和文件名
             print "%s [%s]" % (pt , ext)
+
 # 添加写标志
 def make_writable(path):
     if os.path.exists(path):
@@ -243,7 +244,8 @@ def test_getoption(argv = None):
     (options, argv) = get_options(argv)
     global OPTION
     OPTION = options
-    #if options.help:
+    if options.help:
+        print HELP
 if __name__ == "__main__":
     test_getoption()
 
