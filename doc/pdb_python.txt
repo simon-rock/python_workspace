@@ -24,7 +24,7 @@ http://www.cnblogs.com/coderzh/archive/2009/12/26/emacspythonide.html
 Run pdb (like this): pdb 
 然后手动修改一下：
 
-Run pdb (like this): python -i -m pdb test.py
+Run pdb (like this): python -i -m pdb test.py argv[0] argv[1]
 这样就搞定了。
 
 6. 如何调试GAE程序
@@ -49,7 +49,7 @@ def set_trace():
 
 用pdb调试有多种方式可选：
 
-1. 命令行启动目标程序，加上-m参数，这样调用myscript.py的话断点就是程序的执行第一行之前
+1. 命令行启动目标程序，加上-m参数，b这样调用myscript.py的话断点就是程序的执行第一行之前
 python -m pdb myscript.py
 
 2. 在Python交互环境中启用调试

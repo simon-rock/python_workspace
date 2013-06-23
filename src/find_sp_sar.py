@@ -5,6 +5,8 @@ import shutil
 import os
 from optparse import OptionParser, SUPPRESS_HELP
 from stat import *
+
+#参数获得
 def get_options(args=None):
     """Parse command line options and parameters."""
 
@@ -19,6 +21,11 @@ def get_options(args=None):
     #print HELP
     return options, args
 
+
+#dir       : 为当前遍历的目录
+#wildcard  : 过滤指定后缀的文件
+#recursion : 是否迭代，还是只处理一层
+#white_list: 将白名单的文件名跳出来存在set() 中
 def listfiles(dir,wildcard,recursion, white_list):
     exts = wildcard.split(" ")
     files = os.listdir(dir)
@@ -35,6 +42,7 @@ def listfiles(dir,wildcard,recursion, white_list):
                     #file.write(name + "\n")
                     break
 
+#创建文件夹，是否清空文件夹
 def make_dir(path, clean=False):
     '''make directory'''
     if not os.path.exists(path):
@@ -43,11 +51,13 @@ def make_dir(path, clean=False):
         shutil.rmtree(path)
         os.makedirs(path)
 
-# 添加写标志
+# 添加写标志--只能linux 用windows 应带加载win32api 模块的
 def make_writable(path):
     if os.path.exists(path):
         os.chmod(path, S_IWRITE)
 
+
+# 拷贝文件到指定目录--默认文件名和源文件相同
 def copy_file(src, dest_path, dest_file=None):
     if not dest_file:
         path, name = os.path.split(src)  #分割路径和文件名
@@ -66,7 +76,7 @@ def copy_file(src, dest_path, dest_file=None):
     #make_writable(dest)
     #os.rename(dst_name, "final_name")
 
-
+# 遍历文件将white_list 中的文件拷贝到out中
 def selectfilesfromfolder(dir, out, recursion, white_list):
     files = os.listdir(dir)
     for name in files:

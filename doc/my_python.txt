@@ -161,3 +161,31 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
 
 14.python 靠对齐，tab等于8个空格，最好使用spacs对齐
 15.对于emacs 的rope,代码不能有中文,即使是utf8格式
+16.
+#!/usr/bin/env python
+#coding=utf-8
+#encoding: utf-8
+
+17.
+一些windows 功能需要安装 pywin32
+import win32con, win32api
+# create a file, just to show how to manipulate it
+thefile = 'test'
+f = open('test', 'w')
+f.close( )
+# to make the file hidden...:
+win32api.SetFileAttributes (thefile, win32con.FILE_ATTRIBUTE_HIDDEN)
+# to make the file readonly:
+win32api.SetFileAttributes(thefile, win32con.FILE_ATTRIBUTE_READONLY)
+# to be able to delete the file we need to set it back to normal:
+win32api.SetFileAttributes(thefile, win32con.FILE_ATTRIBUTE_NORMAL)
+# and finally we remove the file we just made 
+os.remove(thefile)
+----issue----
+doc             :   http://ASPN.ActiveState.com/ASPN/Python/Reference/Products/ActivePython/PythonWin32Extensions/win32file.html
+setup error     :   ImportError: DLL load failed: 找不到指定的模块  (http://huangliangnumber1.blog.163.com/blog/static/47811748201142264938177/)
+C:\Python26\Lib\site-packages\pywin32_system32\*   == > C:\Windows\System32
+
+18.
+pdb 调试 python 添加的参数直接 加载后面
+python -i -m pdb test.py argv[0]

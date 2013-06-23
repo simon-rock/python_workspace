@@ -1,3 +1,4 @@
+#encoding: utf-8
 #http://xsong512.iteye.com/blog/1171106
 import urllib  
 import hashlib  
@@ -22,9 +23,9 @@ class Spider:
         print len(r)  
         print r[0].tag  
         '''  
-        encode('gb2312')  
-????????????????  
-??:http://blogold.chinaunix.net/u2/60332/showart_2109290.html  
+这里直接输出中文print r[0].text 会报错，所以用了encode('gb2312')  
+并且在文件头部声明了文件编码类型  
+参考：http://blogold.chinaunix.net/u2/60332/showart_2109290.html  
         '''  
         print r[0].text.encode('gb2312')  
         print 'done'  

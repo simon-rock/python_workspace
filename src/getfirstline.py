@@ -1,3 +1,4 @@
+#值显示文件的第一行
 from optparse import OptionParser, SUPPRESS_HELP
 import os
 def get_options(args=None):
