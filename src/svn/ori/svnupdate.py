@@ -11,15 +11,14 @@ def checkout():
     #print os.popen(cmd).read()
     return os.system(cmd)
 
+while True:
+    ret=checkout()
+    if(ret==0):
+        print 'check out success'
+    else:
+        print 'check out fail'
+    time.sleep(svnconfig.setting['interval'])
 
 if __name__ == "__main__":
-    print sys.path
+    #checkout()
     print os.path
-    while True:
-        ret=checkout()
-        if(ret==0):
-            print 'check out success'
-        else:
-            print 'check out fail'
-        time.sleep(svnconfig.setting['interval'])
-

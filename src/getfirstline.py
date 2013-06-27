@@ -16,6 +16,7 @@ def main(argv = None):
     print argv
     for f in argv:
         path, filename = os.path.split(f)
+        # 安行读取文件
         file_obj = open(f)
         l = file_obj.readline()
         print "[%s] %s" %(filename, l)
