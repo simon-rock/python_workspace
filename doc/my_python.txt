@@ -189,3 +189,14 @@ C:\Python26\Lib\site-packages\pywin32_system32\*   == > C:\Windows\System32
 18.
 pdb 调试 python 添加的参数直接 加载后面
 python -i -m pdb --annotate=3 test.py argv[0]
+
+19.
+http://blog.csdn.net/lanphaday/article/details/1483728
+使用profile 模块可以得到程序统计信息
+import profile
+profile.run("main()", "run.log")
+python -m profile  profile_t.py
+python -m cProfile profile_t.py
+
+20.
+multiprocessing 多进程模块
