@@ -200,3 +200,13 @@ python -m cProfile profile_t.py
 
 20.
 multiprocessing 多进程模块
+
+21.编码
+utf16
+你 0x4f63
+文件中 向右为高
+unicode Big Endian      高位存在低字节 FEFF    4f6e    UCS-2
+unicode Little Endian   低位存在高字节 FFFE    6e4f    UCS-2
+utf8 单字节编码 有字节0开始，多字节编码首字节1格式代表 几个字节，之后使用10开头
+例   〇 E3 80 87（1110 0011）
+    Č   c4 8c（1100）
