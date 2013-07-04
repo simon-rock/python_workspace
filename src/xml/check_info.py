@@ -1,4 +1,5 @@
-#encoding: utf-8
+#coding: utf-8
+#提取所有州信息，查看是否有重名的
 from lxml import etree as ET
 import lxml
 

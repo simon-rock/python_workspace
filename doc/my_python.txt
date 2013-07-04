@@ -163,7 +163,7 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
 15.对于emacs 的rope,代码不能有中文,即使是utf8格式
 16.
 #!/usr/bin/env python
-#coding=utf-8                   -- 不行
+#coding: utf-8
 #encoding: utf-8
 
 17.
