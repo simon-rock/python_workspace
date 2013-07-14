@@ -210,3 +210,25 @@ unicode Little Endian   低位存在高字节 FFFE    6e4f    UCS-2
 utf8 单字节编码 有字节0开始，多字节编码首字节1格式代表 几个字节，之后使用10开头
 例   〇 E3 80 87（1110 0011）
     Č   c4 8c（1100）
+
+22.
+list  遍历
+    for i in list:
+        print i
+    如果元素为tuple
+    for i,j in list:
+        print i,j
+dict  遍历
+    for k in dict.iterkeys():
+        print k         # 查看有什么key
+        print dict["key1"], dict["key2"]
+        print dict.key1, dict.key2
+23
+    type(x) 可查看类型
+    isinstance(object, classinfo) 测试是否是这个类型 例isinstance(1, int)
+
+    python 中string 包含两种 str 和 unicode
+    内部使用unicode，
+    任何string 包含 encode()    unicode -> str
+                    decode()    str -> unicode
+    参数是字符串的编码 或是要转出的字符串编码
