@@ -9,18 +9,20 @@ import sutil
 from optparse import OptionParser
 from lxml import etree as ET
 
-g_url      = u""#= svn_clone_config.setting['svn']      # no include "/"
-g_user     = ""#= svn_clone_config.setting['user']
-g_pwd      = ""#=svn_clone_config.setting['pwd']
+g_url      = u""    #= svn_clone_config.setting['svn']          # no include "/"                远端svn地址
+g_user     = ""     #= svn_clone_config.setting['user']
+g_pwd      = ""     #=svn_clone_config.setting['pwd']
 
-tmp_path   = u""#= svn_clone_config.setting['tmp']      # no include "/"
-local_path = u""#= svn_clone_config.setting['local_path']   # no include "/"
-local_svn_checkout_name = u""  # lcoal checkout folder name
-compensation = 0
-#version_path = svn_clone_config.setting['reversion_path']
-version    = 0#svn_clone_config.setting['reversion']    # source svn version
-local_version = 0                                       # local svn version
+tmp_path   = u""    #= svn_clone_config.setting['tmp']          # no include "/"                下载文件的临时目录
+local_path = u""    #= svn_clone_config.setting['local_path']   # no include "/"                本地svn副本的目录
+local_svn_checkout_name = u""                                   # lcoal checkout folder name    本地svn副本的目录名字
+compensation = 0                                                # 远端版本和本地版本的差值 local_version+compensation = source_version
+                    #version_path = svn_clone_config.setting['reversion_path']
+version    = 0      #svn_clone_config.setting['reversion']      # source svn version    上次同步的远端版本
+local_version = 0                                               # local svn version     当前版本
 
+#从配置文件获取工程信息
+# xml_path  配置文件全路径
 def get_config(xml_path):
     print " ----",xml_path,"----"
     global g_url
@@ -97,7 +99,8 @@ def get_config(xml_path):
     else:
         print "need compensation!"
         exit(-1)
-         
+        
+#分析参数
 def get_options(args=None):
     """setup and get options"""
     usage = "usage: %prog [options]"
@@ -113,6 +116,7 @@ def get_options(args=None):
 
     return options, other
 
+#获取本地版本信息，失败退出，并检验
 def check_local_version():
     client = pysvn.Client()
     client.update(local_path)
@@ -125,15 +129,15 @@ def check_local_version():
     entry = client.info(local_path)
     global local_version
     local_version = entry.commit_revision.number
-    #if entry.commit_revision.number + compensation != version:
-    #         print "local version path[%d]+[%d] is different from [%d]" % (entry.commit_revision.number, compensation, version)
-    #         exit(-1)
     if local_version + compensation != version:
              print "local version path[%d]+[%d] is different from [%d]" % (local_version, compensation, version)
              exit(-1)
     return version
 #        raise Exception ("")
 
+#获取svn提交记录的 版本对应的体校信息
+#start_version  本地当前版本（对应远端的版本号）
+#msgs           返回 版本->提交信息的list
 def get_msgs(start_version, msgs):
     client = pysvn.Client()
     list_of_revprop_names =[]
@@ -174,13 +178,18 @@ def get_msgs(start_version, msgs):
         #print newmsg.encode('utf8')
         msgs[m['revision'].number] = msg.decode('utf8')
 
+#调试用暂停
 def pause_for_debug():
     print "entry any key to continue..."
     pause = raw_input()
-    
+
+#下载指定版本间的更新文件
+#现在用于获取相邻版本间差异，并在本地提交，提交后更新配置文件中本地同步版本信息
+#reversion      指定版本信息 例 1:10，现在为1:2
+#msg            提交时信息，现在应为后者提交信息
+#elem           配置文件的版本节点，用于更新配置文件
 def download_code(reversion, msg, elem):
     print "----- process : ", reversion
-    #pause = raw_input()
     value = reversion
     url = g_url
     targetPath = tmp_path
@@ -247,8 +256,10 @@ def download_code(reversion, msg, elem):
     update_local_clone(summary, msg)
     elem.text = str(revision_max0)
     print "----- commite success : ", reversion
-#    pause_for_debug()
 
+#chenkin 更新到本地svn
+#summary    更新的文件
+#msg        更新的提交信息
 def update_local_clone(summary, msg):
     changelist = []
     client = pysvn.Client()
@@ -324,6 +335,8 @@ def update_local_clone(summary, msg):
 
     print "current version : ", local_version
 
+#根据msgs中 版本和提交信息，逐一下载更新内容，本地提交附带提交信息
+#提交后清理本地临时目录
 def update_by_version(xml_path, msgs):
     first = True
     start_num = 0
@@ -345,6 +358,7 @@ def update_by_version(xml_path, msgs):
         #os.mkdir(tmp_path)
         print "----- clear tmp success : "
 
+#判断是否为控制台运行，还是emacs 运行
 def isconsole():
     if sys.stdin.encoding == None:
         return False

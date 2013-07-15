@@ -161,68 +161,68 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
 
 14.python 靠对齐，tab等于8个空格，最好使用spacs对齐
 15.对于emacs 的rope,代码不能有中文,即使是utf8格式
-16.
-#!/usr/bin/env python
-#coding: utf-8
-#encoding: utf-8
+16.标识编码，之一冒号必须紧跟着
+    #!/usr/bin/env python
+    #coding: utf-8
+    #encoding: utf-8
 
 17.
-一些windows 功能需要安装 pywin32
-import win32con, win32api
-# create a file, just to show how to manipulate it
-thefile = 'test'
-f = open('test', 'w')
-f.close( )
-# to make the file hidden...:
-win32api.SetFileAttributes (thefile, win32con.FILE_ATTRIBUTE_HIDDEN)
-# to make the file readonly:
-win32api.SetFileAttributes(thefile, win32con.FILE_ATTRIBUTE_READONLY)
-# to be able to delete the file we need to set it back to normal:
-win32api.SetFileAttributes(thefile, win32con.FILE_ATTRIBUTE_NORMAL)
-# and finally we remove the file we just made 
-os.remove(thefile)
-----issue----
-doc             :   http://ASPN.ActiveState.com/ASPN/Python/Reference/Products/ActivePython/PythonWin32Extensions/win32file.html
-setup error     :   ImportError: DLL load failed: 找不到指定的模块  (http://huangliangnumber1.blog.163.com/blog/static/47811748201142264938177/)
-C:\Python26\Lib\site-packages\pywin32_system32\*   == > C:\Windows\System32
+    一些windows 功能需要安装 pywin32
+    import win32con, win32api
+    # create a file, just to show how to manipulate it
+    thefile = 'test'
+    f = open('test', 'w')
+    f.close( )
+    # to make the file hidden...:
+    win32api.SetFileAttributes (thefile, win32con.FILE_ATTRIBUTE_HIDDEN)
+    # to make the file readonly:
+    win32api.SetFileAttributes(thefile, win32con.FILE_ATTRIBUTE_READONLY)
+    # to be able to delete the file we need to set it back to normal:
+    win32api.SetFileAttributes(thefile, win32con.FILE_ATTRIBUTE_NORMAL)
+    # and finally we remove the file we just made 
+    os.remove(thefile)
+    ----issue----
+    doc             :   http://ASPN.ActiveState.com/ASPN/Python/Reference/Products/ActivePython/PythonWin32Extensions/win32file.html
+    setup error     :   ImportError: DLL load failed: 找不到指定的模块  (http://huangliangnumber1.blog.163.com/blog/static/47811748201142264938177/)
+    C:\Python26\Lib\site-packages\pywin32_system32\*   == > C:\Windows\System32
 
 18.
-pdb 调试 python 添加的参数直接 加载后面
-python -i -m pdb --annotate=3 test.py argv[0]
+    pdb 调试 python 添加的参数直接 加载后面
+    python -i -m pdb --annotate=3 test.py argv[0]
 
 19.
-http://blog.csdn.net/lanphaday/article/details/1483728
-使用profile 模块可以得到程序统计信息
-import profile
-profile.run("main()", "run.log")
-python -m profile  profile_t.py
-python -m cProfile profile_t.py
+    http://blog.csdn.net/lanphaday/article/details/1483728
+    使用profile 模块可以得到程序统计信息
+    import profile
+    profile.run("main()", "run.log")
+    python -m profile  profile_t.py
+    python -m cProfile profile_t.py
 
 20.
-multiprocessing 多进程模块
+    multiprocessing 多进程模块
 
 21.编码
-utf16
-你 0x4f63
-文件中 向右为高
-unicode Big Endian      高位存在低字节 FEFF    4f6e    UCS-2
-unicode Little Endian   低位存在高字节 FFFE    6e4f    UCS-2
-utf8 单字节编码 有字节0开始，多字节编码首字节1格式代表 几个字节，之后使用10开头
-例   〇 E3 80 87（1110 0011）
-    Č   c4 8c（1100）
+    utf16
+    你 0x4f63
+    文件中 向右为高
+    unicode Big Endian      高位存在低字节 FEFF    4f6e    UCS-2
+    unicode Little Endian   低位存在高字节 FFFE    6e4f    UCS-2
+    utf8 单字节编码 有字节0开始，多字节编码首字节1格式代表 几个字节，之后使用10开头
+    例   〇 E3 80 87（1110 0011）
+        Č   c4 8c（1100）
 
 22.
-list  遍历
-    for i in list:
-        print i
-    如果元素为tuple
-    for i,j in list:
-        print i,j
-dict  遍历
-    for k in dict.iterkeys():
-        print k         # 查看有什么key
-        print dict["key1"], dict["key2"]
-        print dict.key1, dict.key2
+    list  遍历
+        for i in list:
+            print i
+        如果元素为tuple
+        for i,j in list:
+            print i,j
+    dict  遍历
+        for k in dict.iterkeys():
+            print k         # 查看有什么key
+            print dict["key1"], dict["key2"]
+            print dict.key1, dict.key2
 23
     type(x) 可查看类型
     isinstance(object, classinfo) 测试是否是这个类型 例isinstance(1, int)
