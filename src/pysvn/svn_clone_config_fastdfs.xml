@@ -1,0 +1,9 @@
+<config>
+	<svn>http://fastdfs.googlecode.com/svn</svn>
+	<user>gaoyu</user>
+	<pwd>111111</pwd>
+	<local_path>O:/svn_clone/fastdfs</local_path>
+	<tmp_path>D:/svn_tmp</tmp_path>
+	<reversion>312</reversion>
+	<compensation>0</compensation>
+</config>
