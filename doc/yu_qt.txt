@@ -1,0 +1,20 @@
+﻿1.
+http://www.360doc.com/content/13/0308/15/9200790_270190195.shtml   使用windows 基础
+http://blog.csdn.net/dbzhang800/article/details/6540089
+http://blog.csdn.net/longhuihu/article/details/5679842
+2.
+不使用connect 下将信号和相应绑定
+    CenterOnOpt 声明控件 OK 按钮
+    OK->setObjectName(QString::fromUtf8("OK")); 使用下面将控件和名字对应
+    void CenterOnOpt::on_OK1_clicked()          CenterOnOpt中声明on_OK开头函数即可，应该是使用模板模板查看声明了相应函数没有
+3.qrc 中资源别名
+<RCC>
+    <qresource prefix="/icon" >
+        <file alias="center" >Resources/center.png</file>
+        <file alias="move" >Resources/move.png</file>
+        <file alias="zoomin" >Resources/zoomin.png</file>
+        <file alias="zoomout" >Resources/zoomout.png</file>
+    </qresource>
+</RCC>
+tool 引用 QAction(QIcon(":/icon/move"),
+ 
