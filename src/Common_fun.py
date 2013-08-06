@@ -41,6 +41,21 @@ def copy_file(src_path, src_file, dest_path, dest_file=None):
     make_writable(dest)
     os.rename(dst_name, "final_name")
 
+#拷贝文件 到指定路径
+def copy_file(src, dest_path, dest_file=None):
+    if not dest_file:
+        path, name = os.path.split(src)  #分割路径和文件名
+        dest_file = name
+    dest = os.path.join(dest_path, dest_file)
+    if not os.path.exists(src):
+        print '%s not exist' % (src)
+        return
+    try:
+        shutil.copy(src, dest)
+    except Exception, e:
+        print 'copy_file, exception:', e
+        raise
+        
 # 不存在创建文档
 # 存在并且有clean标志则删除重建
 def make_dir(path, clean=False):

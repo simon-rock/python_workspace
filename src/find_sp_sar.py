@@ -15,6 +15,7 @@ def get_options(args=None):
     parser.add_option('-s', '--sar_folder', action='store', type='string', default="D:/work/Enhanced/SAR_samsung/sar/SAR", dest='sar_folder', help='sar folder')
     parser.add_option('-d', action='store', type='string', default="d:/test", dest='out_folder', help='out folder')
     parser.add_option('-h', '--help', dest='help', action='store_true', default=False, help="show this doc")
+    parser.add_option('-f', '--file', dest='err_log', type='string', action='store', help="load err file")
     global HELP
     HELP = parser.format_help().strip()
     options, args = parser.parse_args(args)
@@ -41,7 +42,11 @@ def listfiles(dir,wildcard,recursion, white_list):
                     white_list.add(ports[0]+".svg")
                     #file.write(name + "\n")
                     break
-
+# 从error 日志加载svg 文件列表                    
+def listfiles(OPTION.err_log, white_list):
+    file_obj = open(f)
+    l = file_obj.readline()
+    print l
 #创建文件夹，是否清空文件夹
 def make_dir(path, clean=False):
     '''make directory'''
@@ -96,6 +101,7 @@ def main(argv = None):
     white_list = set()
     make_dir(OPTION.out_folder)
     listfiles(OPTION.white_folder, "PNG", 1, white_list)
+    listfiles(OPTION.err_log, white_list)
     #print len(white_list)
     selectfilesfromfolder(OPTION.sar_folder, OPTION.out_folder, 1, white_list)
     
