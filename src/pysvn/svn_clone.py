@@ -1,5 +1,4 @@
 #coding: utf-8
-import svn_clone_config
 import pysvn
 import time, sys, string
 from urlparse import urlparse
