@@ -26,6 +26,8 @@ bin/
 #emacs folder
 .ropeproject
 
+#python 
+*.pyc
 # MSVC
 *.ncb
 *.suo
