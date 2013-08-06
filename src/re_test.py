@@ -11,10 +11,17 @@ for item in range(len(tu)):
 
 res = re.search(prog_s, strr)
 
-
+print "-----"
 if len(res.groups()) == 2:
-    x = string.atof(res.groups()[0])
-    y = string.atof(res.groups()[1])
+    #x = string.atof(res.group(1))
+    #x = float(res.groups()[0])
+    #y = string.atof(res.groups()[1])
+    x = float(res.group(1))
+    y = float(res.group(2))
+    print "sf"
+    
 
 print x , y
+
+
 #http://bbs.csdn.net/topics/330087864
