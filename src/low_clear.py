@@ -4,7 +4,7 @@
 import os
 import sys
 import win32con, win32api
-filename = 0
+filenamenum = 0
 
 # windows 下 修改文件属性
 def make_writable(path):
@@ -35,7 +35,13 @@ def traverse_file(path):
         #处理文件夹
         for item in os.listdir(path):
             itemsrc = os.path.join(path, item)
-            traverse_file(itemsrc)
+            global filenamenum
+            filenamenum += 1
+            newpath = "%s\\%d" % (path, filenamenum)
+            os.rename(itemsrc, newpath)
+            print newpath,"---->",itemsrc
+            traverse_file(newpath)
+
         try:
             dirpath, filename = os.path.split(path)
             newpath = "%s\\root" % dirpath
@@ -53,7 +59,7 @@ if __name__ == "__main__":
     print dirpath
     #print os.path.realpath(file)
     if os.path.exists(dirpath):
-        delete_all_file(dirpath)
+        traverse_file(dirpath)
         os.mkdir(dirpath)
     else:
         print "no path"
