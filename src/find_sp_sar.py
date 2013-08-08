@@ -43,7 +43,7 @@ def listfiles(dir,wildcard,recursion, white_list):
                     #file.write(name + "\n")
                     break
 # 从error 日志加载svg 文件列表                    
-def listfiles(OPTION.err_log, white_list):
+def listfiles_form_log(err_log, white_list):
     file_obj = open(f)
     l = file_obj.readline()
     print l
@@ -101,7 +101,7 @@ def main(argv = None):
     white_list = set()
     make_dir(OPTION.out_folder)
     listfiles(OPTION.white_folder, "PNG", 1, white_list)
-    listfiles(OPTION.err_log, white_list)
+    #listfiles(OPTION.err_log, white_list)
     #print len(white_list)
     selectfilesfromfolder(OPTION.sar_folder, OPTION.out_folder, 1, white_list)
     
