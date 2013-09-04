@@ -47,3 +47,6 @@ bin/
 *.dep
 *.htm
 *.embed.manifest.res
+
+#emacs config
+.ropeproject/
