@@ -253,6 +253,9 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
      $ pip uninstall <package_name> 
      
 25
+    svg
+    pySVG pygal
+    cairosvg 依赖 pycairo
     安装pycairo
     http://www.crifan.com/python_cairo_module_pycairo/
     linux http://cairographics.org/pycairo/
