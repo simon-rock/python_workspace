@@ -253,10 +253,26 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
      $ pip uninstall <package_name> 
      
 25
-    svg
-    pySVG pygal
-    cairosvg 依赖 pycairo
-    安装pycairo
-    http://www.crifan.com/python_cairo_module_pycairo/
-    linux http://cairographics.org/pycairo/
-    windows http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo
+    svg     (https://code.google.com/p/svgfig/
+            https://code.google.com/p/svgplotlib/
+            http://pythonhosted.org/svgwrite/
+            https://pypi.python.org/pypi/svglib/                load svg file and convert it to pdf with other tools
+            http://savannah.nongnu.org/projects/things/         Things is a Retained-Mode Canvas Animation API
+            http://mensch.org/simpleSVG/                        draw image with svg
+            https://github.com/btel/svg_utils                   no use
+            http://www.cell-game.com/page.php?s=jav_blog&p=6    altsci cell --  a env about svg
+            http://www.cairographics.org/cookbook/librsvgpython/ about cairo 
+            https://pypi.python.org/pypi/eea.converter/1.0      This package provides utilities to convert images and PDF files using ImageMagick.
+            librsvg http://mirrors.kernel.org/sourceware/cygwin/x86/release/librsvg2/    use in linux
+            )
+            http://www.open-open.com/lib/view/open1367482261390.html     open source project map
+    pySVG   例子不完整，个版本接口差异大，没有相应的文档
+        pip install --upgrade pysvg==0.2.1          -- testgtd.py testParser.py testturtle.py
+        http://pydoc.net/Python/pysvg/0.2.1/pysvg.parser/
+        https://code.google.com/p/pysvg/source/browse/trunk/?r=26#trunk%2FpySVG%2Fsrc%2Ftests%2Ftestoutput
+    pygal -- draw chart using svg       : http://pygal.org/             
+    cairosvg -- convert svg to png --依赖 pycairo, test failed
+        安装pycairo
+        http://www.crifan.com/python_cairo_module_pycairo/
+        linux http://cairographics.org/pycairo/
+        windows http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo
