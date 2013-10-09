@@ -1,0 +1,2 @@
+﻿vector _HAS_ITERATOR_DEBUGGING and _SECURE_SCL 绑定 在debug上 不用用户定义
+#if !(defined) #elseif #else #endif #if (defined) #undef
