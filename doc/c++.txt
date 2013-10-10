@@ -1,0 +1,2 @@
+﻿typedef is same to define on template
+in template class, no use, no compile 
