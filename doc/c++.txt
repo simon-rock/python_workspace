@@ -1,2 +1,3 @@
-﻿typedef is same to define on template
-in template class, no use, no compile 
+﻿map operator < 
+in class bool operator <(const T& r) const
+out of class bool operator < (const T& l, const T& r);
