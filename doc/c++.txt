@@ -1,5 +1,1 @@
-﻿map operator < 
-in class bool operator <(const T& r) const
-out of class bool operator < (const T& l, const T& r);
-
-new T[0] 会返回一地址，可能导致未定义行为，msvc 默认8字节
+﻿
