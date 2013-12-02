@@ -28,3 +28,6 @@
     局部坐标（pos（））即是相对当前active widget的坐标，左上角坐标为（0， 0）。
 5.鼠标跟踪
 在qt中，鼠标跟踪对应函数mouseMoveEvent。但是，默认情况下他并不能如期象你想象的那样响应鼠标的移动。此时，你只需在合适的位置调用一下函数setMouseTracking(true)即可。
+
+6.res
+http://www.cnblogs.com/tornadomeet/archive/2012/09/23/2699077.html
