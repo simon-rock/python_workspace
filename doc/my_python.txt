@@ -205,12 +205,12 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
     utf16
     你 0x4f63
     文件中 向右为高
-    unicode Big Endian      高位存在低字节 FEFF    4f6e    UCS-2
-    unicode Little Endian   低位存在高字节 FFFE    6e4f    UCS-2
+    unicode Big Endian      高位存在低字节，从左向右类似字符串       FEFF    4f6e    UCS-2
+    unicode Little Endian   低位存在低字节                       FFFE    6e4f    UCS-2
     utf8 单字节编码 有字节0开始，多字节编码首字节1格式代表 几个字节，之后使用10开头
     例   〇 E3 80 87（1110 0011）
         Č   c4 8c（1100）
-
+    所有计算机为小段
 22.
     list  遍历
         for i in list:
@@ -265,7 +265,7 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
             https://pypi.python.org/pypi/eea.converter/1.0      This package provides utilities to convert images and PDF files using ImageMagick.
             librsvg http://mirrors.kernel.org/sourceware/cygwin/x86/release/librsvg2/    use in linux
             )
-            http://www.open-open.com/lib/view/open1367482261390.html     open source project map
+            http://www.open-open.com/lib/view/open1367482261390.html     open source project map**
     pySVG   例子不完整，个版本接口差异大，没有相应的文档
         pip install --upgrade pysvg==0.2.1          -- testgtd.py testParser.py testturtle.py
         http://pydoc.net/Python/pysvg/0.2.1/pysvg.parser/
@@ -276,3 +276,6 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
         http://www.crifan.com/python_cairo_module_pycairo/
         linux http://cairographics.org/pycairo/
         windows http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo
+        
+26.其他
+http://www.cnblogs.com/coser/archive/2011/12/11/2284245.html
