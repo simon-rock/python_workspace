@@ -232,6 +232,35 @@ def sendmail(fromaddr, toaddrs, bccaddrs, subject, body, attach=[]):
     # Close the connection.
     server.close()
 
+# 遍历目录处理操作
+# indir      当前目录
+# out        当前输出目录
+# handle_folder_process 处理目录方法，通常是自己自己
+# handle_file_process   处理文件方法
+# build_tree 是否构建相同的目录树
+def traverse_handle(indir, out, handle_folder_process, handle_file_process, build_tree = True):
+    make_dir(out)
+    for o in os.listdir(indir):
+        o_path = os.path.join(indir, o)
+        if build_tree:
+            o_out = os.path.join(out, o)
+        else:
+            o_out = out
+        if os.path.isdir(o_path):            
+            handle_folder_process(o_path, o_out, handle_folder_process, handle_file_process, build_tree)
+        if os.path.isfile(o_path):
+            handle_file_process(o_path, out)
+
+#解压文件 gz
+def ungzip(gzfile, outfile):
+    "I think unzip if need"
+    f = gzip.open(gzfile)
+    uf = open(outfile, "wb")
+    data = f.read()
+    uf.write(data)
+    uf.close()
+    f.close()
+
 # ============== test ================
 # 拷贝函数测试
 def test_copy():
@@ -259,6 +288,7 @@ def test_other():
 
 def test_getoption(argv = None):
     (options, argv) = get_options(argv)
+    svg_files = list(file for file_spec in argv for file in glob.glob(argv))
     global OPTION
     OPTION = options
     if options.help:

@@ -233,7 +233,7 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
                     decode()    str -> unicode
     参数是字符串的编码 或是要转出的字符串编码
 24
-    python 包管理工具easy_install或者pip
+    python 包管理工具easy_install或者pip, c:\Python26\Scripts\
     setuptools-0.6c11 for python 2.6
     easy_install.exe pip
     example: pip install pygal
