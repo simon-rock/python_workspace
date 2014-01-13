@@ -277,5 +277,7 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
         linux http://cairographics.org/pycairo/
         windows http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo
         
-26.其他
-http://www.cnblogs.com/coser/archive/2011/12/11/2284245.html
+26.
+引用其他*.py中定义常量
+import module
+module.globle
