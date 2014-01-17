@@ -223,6 +223,11 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
             print k         # 查看有什么key
             print dict["key1"], dict["key2"]
             print dict.key1, dict.key2
+    for key, fun in PROCESS_MAP.iteritems():
+        if isinstance(fun, FunctionType):
+            print '\t%s\t%s' %(key, fun.__name__)
+        elif isinstance(fun, str):
+            print '\t%s\t%s' % (key, fu)
 23
     type(x) 可查看类型
     isinstance(object, classinfo) 测试是否是这个类型 例isinstance(1, int)
@@ -277,7 +282,14 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
         linux http://cairographics.org/pycairo/
         windows http://www.lfd.uci.edu/~gohlke/pythonlibs/#pycairo
         
-26.
-引用其他*.py中定义常量
-import module
-module.globle
+26.引用其他*.py中定义常量
+    import module
+    module.globle
+27.
+    sys.path.append() 添加执行目录， 为查找脚本或执行程序时添加查找路径
+    os.environ.keys() 平台下的环境变量字典
+28.全局变量 ,全局字典
+    global x
+    x = {}
+29. 根据NBMG_SCRIPT_MODE 来生成NBGMActionScriptReader_v1 或 NBGMTaskReader_v1 对象
+    Reader = NBMG_SCRIPT_MODE and NBGMActionScriptReader_v1 or NBGMTaskReader_v1
