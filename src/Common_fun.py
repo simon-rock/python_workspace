@@ -251,6 +251,46 @@ def traverse_handle(indir, out, handle_folder_process, handle_file_process, buil
         if os.path.isfile(o_path):
             handle_file_process(o_path, out)
 
+def handle_file_process(in_file, out_path): #    def landmark_process(file, out):
+#    print "[", file, "]  ==>>  [", out,"]"
+    if file.endswith("obj.gz"):
+        print "process : ", file
+        gzout = file[0:file.index(".gz")]
+        ungzip(file, gzout)
+        args = [gzout, '-d', out]
+        obj2bin.main(args)
+        path, filename = os.path.split(gzout)
+        pt, ext = os.path.splitext(filename)
+        if not lm_table.has_key(pt):
+            lm_table[pt] = ",0,0\n"
+        #table_path = os.path.join(out, "landmark_table.txt")
+        #fp = open(table_path, "a")
+        #fp.write("%s,,0,0\n"%pt)
+        #fp.close()
+    elif file.endswith("jpg.gz"):
+        print "process : ", file
+        gzout = file[0:file.index(".gz")]
+        ungzip(file, gzout)
+        png_path = gzout.replace(".jpg", ".PNG")
+        path, filename = os.path.split(png_path)
+        png_path = os.path.join(out, TEMP_PNG,filename)
+        args = [CONVERT, gzout, png_path]
+        runprog(args)
+    elif file.endswith("png.gz"):
+        print "process : ", file
+        gzout = file[0:file.index(".gz")]
+        ungzip(file, gzout)
+        png_path = gzout.replace(".png", ".PNG")
+        path, filename = os.path.split(png_path)
+        png_path = os.path.join(out, TEMP_PNG,filename)
+        args = [CONVERT, gzout, png_path]
+        runprog(args)
+    elif file.endswith("_link.xml.gz"):
+        print "process : ", file
+        gzout = file[0:file.index(".gz")]
+        ungzip(file, gzout)
+        load_landmark_reference_point(gzout)
+        
 #解压文件 gz
 def ungzip(gzfile, outfile):
     "I think unzip if need"
