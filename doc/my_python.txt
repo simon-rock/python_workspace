@@ -249,13 +249,17 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
     2) 升级一个包
      $ easy_install -U "<package_name>>=<version>"
     pip的用法
-    1) 安装一个包
+    1) install package
      $ pip install <package_name>
-     $ pip install <package_name>==<version>
+     $ pip install "<package_name>==<version>" (== >= <= > <; version==a,>b)
     2) 升级一个包 (如果不提供version号，升级到最新版本）
      $ pip install --upgrade <package_name>>=<version>
-    3）删除一个包
+    3）remove package
      $ pip uninstall <package_name> 
+    4)only download
+    pip install --no-install GDAL
+    5)only install
+    pip install --no-download GDAL
      
 25
     svg     (https://code.google.com/p/svgfig/
@@ -293,3 +297,17 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
     x = {}
 29. 根据NBMG_SCRIPT_MODE 来生成NBGMActionScriptReader_v1 或 NBGMTaskReader_v1 对象
     Reader = NBMG_SCRIPT_MODE and NBGMActionScriptReader_v1 or NBGMTaskReader_v1
+    
+30.python lib on windows(需要编译) -- Unofficial Windows Binaries for Python Extension Packages
+http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml
+    不过可能遇到编译版本不匹配问题
+31.windows pip 安装默认使用vs 2008，可以通过下面方式修改--安装GDAL （gdal）
+    1）pip 默认使用vs 2008 编译，所以会提示找不到vcvarsall-bat
+        SET VS90COMNTOOLS=%VS80COMNTOOLS%（http://stackoverflow.com/questions/2817869/error-unable-to-find-vcvarsall-bat）
+    2）windows 安装 GDAL 不能通过pip，因为会报缺少头文件， 因为linux安装gdal后头文件和库会拷贝到共通目录
+        将gdal的文件拷贝到GDAL根目录下在python setup build，python setup install
+    3）将gdal的bin 目录中dll 拷贝到c:\Python27\Lib\site-packages\ 下， 运行提示加载_gdal失败（depends 查看_gdal.pyd, 确实不能加载）！！！未解决！！！
+        http://www.cnblogs.com/zhangjun1130/archive/2010/11/11/1874897.html *
+        http://bbs.arceyes.com/thread-14696-1-1.html                        *
+        http://osgeo-org.1560.x6.nabble.com/ImportError-OSGeo4W-problems-with-Python-GDAL-td4959683.html
+        http://stackoverflow.com/questions/6009506/unable-to-install-python-and-gdal-dll-load-failed
