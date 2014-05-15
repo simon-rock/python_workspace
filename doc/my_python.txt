@@ -245,7 +245,7 @@ path_tools = os.path.dirname(os.path.abspath(__file__))
     easy_install的用法：
     1） 安装一个包
      $ easy_install <package_name>
-     $ easy_install "<package_name>==<version>"
+     $ easy_install "<package_name>==<version>"（== >= <= > <）
     2) 升级一个包
      $ easy_install -U "<package_name>>=<version>"
     pip的用法
@@ -311,3 +311,16 @@ http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml
         http://bbs.arceyes.com/thread-14696-1-1.html                        *
         http://osgeo-org.1560.x6.nabble.com/ImportError-OSGeo4W-problems-with-Python-GDAL-td4959683.html
         http://stackoverflow.com/questions/6009506/unable-to-install-python-and-gdal-dll-load-failed
+32.kartograph 安装
+    使用python2.6,pip_141,http,修改json 使用
+    Shapely-1.3.2.win32-py2.6
+    setuptools-0.6c11.win32-py2.6 安装 pip_141
+    pyproj-1.9.4dev.win32-py2.6
+    lxml-3.3.5.win32-py2.6
+    gdalwin32exe160
+    GDAL-1.6.0.win32-py2.6
+    使用github 安装注意替换pip_141下载http
+    之后修改option 中json的使用
+        cfg = json.loads(content, object_hook=OrderedDict)      # for python 2.6
+        cfg = json.loads(content, object_pairs_hook=OrderedDict) # for python 2.7
+    json 使用{} 包含，官网例子错误
