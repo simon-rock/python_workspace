@@ -1,4 +1,184 @@
-document.write("<h1>This is a heading</h1>");
-document.write("<p>This is a paragraph</p>");
+http://www.codecademy.com/  simon29rock@gmail.com
+http://www.w3school.com.cn/js/
+http://www.w3schools.com/js/default.asp
+http://blog.csdn.net/ithomer/article/details/5784002
 
-<button type="button" onclick="alert('Welcome!')">点击这里</button>
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+document.write("<h1>This is a heading</h1>");
+document.write("<p>This is a paragraph.</p>");
+</script>
+</body>
+</html>
+1.
+    <body><script>
+    document.write("<h1>This is a heading</h1>");
+    document.write("<p>This is a paragraph</p>");
+    </script></body>
+2.
+    <body>
+    <button type="button" onclick="alert('Welcome!')">点击这里</button>
+    </body>
+3.change element
+    <body>
+    <script>
+    function myFunction()
+    {
+    x=document.getElementById("demo");  // 找到元素
+    x.innerHTML="Hello JavaScript!";    // 改变内容
+    }
+    </script>
+    <button type="button" onclick="myFunction()">点击这里</button>
+    </body>
+4. cahnge image
+    <script>
+    function changeImage()
+    {
+    element=document.getElementById('myimage')
+    if (element.src.match("bulbon"))
+      {
+      element.src="/i/eg_bulboff.gif";
+      }
+    else
+      {
+      element.src="/i/eg_bulbon.gif";
+      }
+    }
+    </script>
+    <img id="myimage" onclick="changeImage()" src="/i/eg_bulboff.gif">
+5.
+    <script>
+    function myFunction()
+    {
+    x=document.getElementById("demo") // 找到元素
+    x.style.color="#ff0000";          // 改变样式
+    }
+    </script>
+    <button type="button" onclick="myFunction()">点击这里</button>
+6.
+    <input id="demo" type="text">
+    <script>
+    function myFunction()
+    {
+    var x=document.getElementById("demo").value;
+    if(x==""||isNaN(x))
+        {
+        alert("Not Numeric");
+        }
+    }
+    </script>
+    <button type="button" onclick="myFunction()">点击这里</button>
+7.  alert("My First JavaScript");
+8.
+    <head>
+    <script>
+    function myFunction(){
+    document.getElementById("demo").innerHTML="My First JavaScript Function";
+    }
+    </script>
+    </head>
+    <body>
+    <p id="demo">A Paragraph</p>
+    <button type="button" onclick="myFunction()">Try it</button>
+    </body>
+9.access html element through
+    document.getElementById("demo").innerHTML="My First JavaScript";
+10
+    document.write("<p>My First JavaScript</p>");
+11.
+    <p id="myP"></p>
+    <script>
+    var x=2;
+    var y=3;
+    var z=2+3;
+
+    document.write(x + "<br>");
+    document.write(y + "<br>");
+    document.write(z + "<br>");
+    document.getElementById("myP").innerHTML=y // 把 y 的值写到 myP
+    </script>
+12.
+    <p id="demo"></p>
+
+    <script>
+    function myFunction()
+    {
+    var carname="Volvo";
+    document.getElementById("demo").innerHTML=carname;
+    }
+    </script>
+13.
+    var demoP=document.getElementById("demo")
+    demoP.innerHTML="x=" + x;
+14.
+    var cars=new Array();
+    cars[0]="Audi";
+    cars[1]="BMW";
+    cars[2]="Volvo";
+    var cars=new Array("Audi","BMW","Volvo");
+    var cars=["Audi","BMW","Volvo"];
+
+    var person={firstname:"Bill", lastname:"Gates", id:5566};
+    name=person.lastname;
+    name=person["lastname"];
+
+    var carname=new String;
+    var x=      new Number;
+    var y=      new Boolean;
+    var cars=   new Array;
+    var person= new Object;
+15.
+    <script>
+    person=new Object();
+    person.firstname="Bill";
+    person.lastname="Gates";
+    person.age=56;
+    person.eyecolor="blue";
+    document.write(person.firstname + " is " + person.age + " years old.");
+    </script>
+16.
+    function myFunction()
+    {
+    alert("Hello World!");
+    }
+    </script>
+    </head>
+    <body>
+    <button onclick="myFunction()">点击这里</button>
+17.
+    alert("Welcome " + name + ", the " + job);
+18.
+    function myFunction(){
+    var x=5;
+    return x;
+    }
+    var myVar=myFunction();
+19.
+    对字符串和数字进行加法运算--如果把数字与字符串相加，结果将成为字符串
+20. for while
+    cars=["BMW","Volvo","Saab","Ford"];
+    var i=0;
+    for (;cars[i];){
+    document.write(cars[i] + "<br>");
+    i++;
+    }
+    cars=["BMW","Volvo","Saab","Ford"];
+    var i=0;
+    while (cars[i]){
+    document.write(cars[i] + "<br>");
+    i++;
+    }
+21. try catch
+try
+  {
+  adddlert("Welcome guest!");
+  }
+catch(err)
+  {
+  txt="There was an error on this page.\n\n";
+  txt+="Error description: " + err.message + "\n\n";
+  txt+="Click OK to continue.\n\n";
+  alert(txt);
+  }
