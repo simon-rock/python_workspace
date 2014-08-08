@@ -1,7 +1,10 @@
-http://www.codecademy.com/  simon29rock@gmail.com
+﻿http://www.codecademy.com/  simon29rock@gmail.com
 http://www.w3school.com.cn/js/
 http://www.w3schools.com/js/default.asp
 http://blog.csdn.net/ithomer/article/details/5784002
+
+// google map api
+https://developers.google.com/maps/documentation/javascript/reference?hl=zh-CN
 
 <!DOCTYPE html>
 <html>

@@ -1,1 +1,99 @@
-﻿模板类的默认模板参数、模板函数不支持默认模板参数
+﻿1.  模板类的模板成员函数不支持默认模板参数
+linux：
+2.  "warning: integer constant is too large for 'long' type".
+    long long ll = 960822775440                 ==> can use it on msvc
+    ==> long long ll = 960822775440LL
+    
+2.  type/value mismatch at argument 1
+        missing a argument of template
+3.  file not recognized: Is a directory
+        -L..\lib                                    ==> no space after -L
+        -L 后面为绝对目录                            ==> 新版本可不是
+4.  makefile flag 后面下一行\t 开头
+
+5.  error: ‘value_type’ does not name a type
+        tmp_test.cpp:17: note: (perhaps ‘typename base_class<T>::value_type’ was intended)
+        模板类中不能是模板基类中内嵌类型                  == can use it on msvc
+        不能使using base_class<T>::type;
+        只能通过typedef base_class<T>::type type;
+6.  关于接口导出  error 
+       #ifdef  WIN32
+         #ifdef __cplusplus 
+           #define DLL_EXPORT_C_DECL extern "C" __declspec(dllexport)
+           #define DLL_IMPORT_C_DECL extern "C" __declspec(dllimport)
+           #define DLL_EXPORT_DECL extern __declspec(dllexport)
+           #define DLL_IMPORT_DECL extern __declspec(dllimport)
+           #define DLL_EXPORT_CLASS_DECL __declspec(dllexport)
+           #define DLL_IMPORT_CLASS_DECL __declspec(dllimport)
+         #else
+           #define DLL_EXPORT_DECL __declspec(dllexport)
+           #define DLL_IMPORT_DECL __declspec(dllimport)
+         #endif
+        #else
+         #ifdef __cplusplus
+           #define DLL_EXPORT_C_DECL extern "C"
+           #define DLL_IMPORT_C_DECL extern "C"
+           #define DLL_EXPORT_DECL extern
+           #define DLL_IMPORT_DECL extern
+           #define DLL_EXPORT_CLASS_DECL
+           #define DLL_IMPORT_CLASS_DECL
+         #else
+           #define DLL_EXPORT_DECL extern
+           #define DLL_IMPORT_DECL extern
+         #endif
+       #endif
+   "something.h"中包括：
+    #include "common.h"
+    #ifdef SOME_EXPORTS
+       #define SOME_CLASS DLL_EXPORT_CLASS_DECL
+       #define SOME_API   DLL_EXPORT_DECL
+    #else
+       #define SOME_CLASS DLL_IMPORT_CLASS_DECL
+       #define SOME_API   DLL_IMPORT_DECL
+    #endif
+    ////
+    #ifdef _MSC_VER
+        // Switching on Windows Memory leaks detection.
+        #ifndef _CRTDBG_MAP_ALLOC
+            #define _CRTDBG_MAP_ALLOC   
+        #endif
+        #include <stdlib.h>
+        #include <crtdbg.h>
+        #pragma warning(disable : 4996)
+        #ifdef NCDB_EXPORTS
+            #ifndef NCDB_API
+                #define NCDB_API  __declspec (dllexport)
+            #endif
+        #elif NCDB_STATIC_IMPORT
+            #ifndef NCDB_API
+            #define NCDB_API
+            #endif
+        #else
+            #ifndef NCDB_API
+            #define NCDB_API  __declspec (dllimport) // 对于带有静态成员的class 引用
+            #endif
+        #endif
+    #else // linux
+        #ifndef NCDB_API
+        #define NCDB_API
+    #endif
+    #endif
+
+7.  __declspec(dllimport)
+    API_DECLSPEC
+    只在windows 到处带有静态成员变量的class时是必需的（windows）
+    也就是说dll 工程__declspec(dllexport)
+    引入工程        __declspec(dllimport)
+8.  gcc  -fpic   -shared add.c  sub.c  -o libtiger.so
+    export LD_LIBRARY_PATH=`pwd`:$LD_LIBRARY_PATH
+9.  模板中使用类的内嵌类行需要template
+    template<typename T>
+    int ttv(){typename vector<T>::const_iterator item;return 0;}  // ok on windows, erro on linux
+10.         
+    index_rect::iterator<index_rect::column> cend = r.end_impl<index_rect::column>();
+    for (index_rect::iterator<index_rect::column> item_l = r.begin_impl<index_rect::column>();
+        //item_l != r.end_impl<index_rect::column>(); // error on linux, exist operator != in index_rect::iterator
+        item_l != cend;
+            ++item_l)
+            
+11. 函数模板不能成为模板的模板参数  => boost::bind 不能绑定函数模板， 可以func，class， template class
