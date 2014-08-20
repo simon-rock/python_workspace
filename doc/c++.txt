@@ -97,3 +97,9 @@ linux：
             ++item_l)
             
 11. 函数模板不能成为模板的模板参数  => boost::bind 不能绑定函数模板， 可以func，class， template class
+
+12.
+    SGI http://www.sgi.com/tech/stl/download.html
+    线说明文档由Austern编写，参见网址：http://www.sgi.com/tech/stl/
+    about stl/boost
+    http://stlchina.huhoo.net/twiki/bin/view.pl/Main/WebHome
