@@ -103,3 +103,15 @@ linux：
     线说明文档由Austern编写，参见网址：http://www.sgi.com/tech/stl/
     about stl/boost
     http://stlchina.huhoo.net/twiki/bin/view.pl/Main/WebHome
+13.
+    diff –uN from-file to-file >to-file.patch
+    patch –p0 < to-file.patch
+    patch –RE –p0 < to-file.patch
+    多个文件
+    diff –uNr from-docu to-docu >to-docu.patch
+    patch –p1 < to-docu.patch
+    patch –R –p1 <to-docu.patch
+    //out
+    .rej  reject
+    .orig   multi version
+14 template 中 使用带有template 参数的template 中before type add typename， before template add template
