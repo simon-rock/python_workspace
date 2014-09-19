@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/css" href="../../customcolors.css"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="text/ecmascript" zoomAndPan="magnify" contentStyleType="text/css" id="SR_US_783578430" version="1.1" width="960" xml:space="preserve" preserveAspectRatio="xMidYMid meet" viewBox="0 0 960 720" height="720" x="0px" y="0px">
+  <mr:routes xmlns:mr="http://www.navteq.com/SaR3/1.0" sourceLinkPVId="783578430">
+    <mr:route conditionId="701155902" destinationLinkPVId="122943580">
+      <mr:lane destinationLanePVId="20662945" sourceLanePVId="20662944"/>
+      <mr:lane destinationLanePVId="20662946" sourceLanePVId="20662938"/>
+    </mr:route>
+    <mr:route conditionId="701155901" destinationLinkPVId="777802568">
+      <mr:lane destinationLanePVId="20662939" sourceLanePVId="20662938">
+        <mr:SVGObject refId="A1"/>
+      </mr:lane>
+    </mr:route>
+  </mr:routes>
+  <g id="Signs" transform="translate(48.000000,47.825363) scale(3.352729,3.352729)">
+    <g id="SIGN_R1">
+      <g type="Panel" id="A1">
+        <g type="Background" id="A2">
+          <path class="background_fill_8" d="M161.413,26.914c0,2.476-2.025,4.5-4.5,4.5H4.5c-2.475,0-4.5-2.024-4.5-4.5V4.5C0,2.025,2.025,0,4.5,0h152.413c2.475,0,4.5,2.025,4.5,4.5V26.914z"/>
+        </g>
+        <g type="Text" id="A3">
+          <text x="5.4131" font-size="16.5" y="21.8101" class="text_fill_22 text_font-family_2 text_font-weight_2">FULLER WISER RD</text>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="144pt" height="144pt" viewBox="0 0 144 144" version="1.1">
+<g id="surface74">
+<path style="fill:none;stroke-width:0.12;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0.25 0.200005 L 0.25 0.799995 " transform="matrix(144,0,0,144,0,0)"/>
+<path style="fill:none;stroke-width:0.12;stroke-linecap:round;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0.5 0.200005 L 0.5 0.799995 " transform="matrix(144,0,0,144,0,0)"/>
+<path style="fill:none;stroke-width:0.12;stroke-linecap:square;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0.75 0.200005 L 0.75 0.799995 " transform="matrix(144,0,0,144,0,0)"/>
+<path style="fill:none;stroke-width:0.01;stroke-linecap:square;stroke-linejoin:miter;stroke:rgb(100%,20%,20%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0.25 0.200005 L 0.25 0.799995 M 0.5 0.200005 L 0.5 0.799995 M 0.75 0.200005 L 0.75 0.799995 " transform="matrix(144,0,0,144,0,0)"/>
+</g>
+</svg>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="144pt" height="144pt" viewBox="0 0 144 144" version="1.1">
+<defs>
+<filter id="alpha" filterUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
+  <feColorMatrix type="matrix" in="SourceGraphic" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+</filter>
+<mask id="mask0">
+  <g filter="url(#alpha)">
+<rect x="0" y="0" width="144" height="144" style="fill:rgb(0%,0%,0%);fill-opacity:0.5;stroke:none;"/>
+  </g>
+</mask>
+<clipPath id="clip1">
+  <rect width="144" height="144"/>
+</clipPath>
+<g id="surface61" clip-path="url(#clip1)">
+<path style="fill-rule:nonzero;fill:rgb(100%,0%,0%);fill-opacity:1;stroke-width:0.03;stroke-linecap:butt;stroke-linejoin:miter;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 0.299995 0.299995 L 0.899984 0.299995 L 0.899984 0.899984 L 0.299995 0.899984 Z " transform="matrix(144,0,0,144,0,0)"/>
+</g>
+</defs>
+<g id="surface56">
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(80%,80%,80%);fill-opacity:1;" d="M 14.398438 14.398438 L 100.796875 14.398438 L 100.796875 100.796875 L 14.398438 100.796875 Z "/>
+<use xlink:href="#surface61" mask="url(#mask0)"/>
+</g>
+</svg>

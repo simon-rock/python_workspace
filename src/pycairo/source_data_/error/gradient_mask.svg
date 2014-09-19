@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="144pt" height="144pt" viewBox="0 0 144 144" version="1.1">
+<defs>
+<filter id="alpha" filterUnits="objectBoundingBox" x="0%" y="0%" width="100%" height="100%">
+  <feColorMatrix type="matrix" in="SourceGraphic" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+</filter>
+<radialGradient id="radial0" gradientUnits="userSpaceOnUse" cx="0.5" cy="0.5" fx="0.5" fy="0.5" r="0.5" gradientTransform="matrix(144,0,0,144,0,0)">
+<stop offset="0.5" style="stop-color:rgb(0%,0%,0%);stop-opacity:1;"/>
+<stop offset="0.75" style="stop-color:rgb(0%,0%,0%);stop-opacity:0;"/>
+</radialGradient>
+<mask id="mask0">
+  <g filter="url(#alpha)">
+<rect x="0" y="0" width="144" height="144" style="fill:url(#radial0);stroke:none;"/>
+  </g>
+</mask>
+<linearGradient id="linear0" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="1" y2="1" gradientTransform="matrix(144,0,0,144,0,0)">
+<stop offset="0" style="stop-color:rgb(0%,30%,80%);stop-opacity:1;"/>
+<stop offset="1" style="stop-color:rgb(0%,80%,30%);stop-opacity:1;"/>
+</linearGradient>
+</defs>
+<g id="surface51">
+<rect x="0" y="0" width="144" height="144" style="fill:url(#linear0);stroke:none;" mask="url(#mask0)"/>
+</g>
+</svg>

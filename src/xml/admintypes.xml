@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<config version="1.2" date="2014-06">
+	<MultiMap>
+		<Region name="NA">
+			<SubRegion name="NA-CAN">CAN</SubRegion>
+			<SubRegion name="NA-MEX">MEX</SubRegion>
+			<SubRegion name="NA-USA">USA</SubRegion>
+			<SubRegion name="SA-VEN" copy="yes">VEN COL DOM GLP BLM MAF MTQ</SubRegion>
+		</Region>
+		<Region name="EU">
+			<SubRegion name="EU-ALP">AUT CHE LIE</SubRegion>
+			<SubRegion name="EU-BAL">EST LVA LTU UKR MDA BLR</SubRegion>
+			<SubRegion name="EU-BEN">BEL NLD LUX</SubRegion>
+			<SubRegion name="EU-DEU">DEU</SubRegion>
+			<SubRegion name="EU-EEU">POL CZE ROU BGR HUN SVN SVK SRB BIH HRV MNE ALB MKD</SubRegion>
+			<SubRegion name="EU-FRA">FRA AND MCO</SubRegion>
+			<SubRegion name="EU-GBR">GBR IRL</SubRegion>
+			<SubRegion name="EU-IBE">ESP PRT GIB</SubRegion>
+			<SubRegion name="EU-ITA">ITA VAT SMR MLT</SubRegion>
+			<SubRegion name="EU-RUS">RUS</SubRegion>
+			<SubRegion name="EU-SCN">FIN NOR DNK SWE</SubRegion>
+			<SubRegion name="EU-SEU">GRC TUR EGY</SubRegion>
+			<SubRegion name="AF-MWS" copy="yes">MAR</SubRegion>
+		</Region>
+		<Region name="SA">
+			<SubRegion name="SA-ARG">ARG CHL URY PER</SubRegion>
+			<SubRegion name="SA-VEN">VEN COL DOM GLP BLM MAF MTQ</SubRegion>
+			<SubRegion name="SA-BRA">BRA</SubRegion>
+		</Region>
+		<Region name="AP">
+			<SubRegion name="AP-CHN">MAC HKG TWN</SubRegion>
+			<SubRegion name="AP-IND">IND</SubRegion>
+			<SubRegion name="AP-INA">IDN</SubRegion>
+			<SubRegion name="AP-SIN">MYS SGP THA VNM PHL BRN</SubRegion>
+		</Region>
+		<Region name="AU">
+			<SubRegion name="AU-AUS">AUS</SubRegion>
+			<SubRegion name="AU-NZL">NZL</SubRegion>
+		</Region>
+		<Region name="ME">
+			<SubRegion name="ME-GCC">SAU ARE KWT QAT BHR OMN</SubRegion>
+			<SubRegion name="EU-SEU" copy="yes">GRC TUR EGY</SubRegion>
+		</Region>
+		<Region name="AF">
+			<SubRegion name="AF-SAL">ZAF LSO SWZ</SubRegion>
+			<SubRegion name="AF-MWS">MAR</SubRegion>
+			<SubRegion name="AF-RAF">NGA</SubRegion>
+			<SubRegion name="EU-SEU" copy="yes">GRC TUR EGY</SubRegion>
+		</Region>
+	</MultiMap>
+    <regions>
+        <AF>
+            <NGA path="NGA">nga</NGA>
+            <ZAF path="ZAF">za1 za2 za3 za4 za5 za6</ZAF>
+            <SWZ path="SWZ">swz</SWZ>
+            <LSO path="LSO">lso</LSO>
+            <EGY path="EGY">eg1 eg2 eg3</EGY>
+            <OAT path="OAT" prodtype="4">oa3</OAT>
+            <OES path="OES" prodtype="4">oes</OES>
+            <OGR path="OGR" prodtype="4">ogr</OGR>
+            <OIN path="OIN" prodtype="4">oi2</OIN>
+            <OIT path="OIT" prodtype="4">oit</OIT>
+            <OTR path="OTR" prodtype="4">otr</OTR>
+        </AF>
+        <AP>
+            <HKG path="HKG">hkg</HKG>
+            <TWN path="TWN">tw1 tw2 tw3</TWN>
+            <VNM path="VNM">vn1 vn2 vn3 vn4</VNM>
+            <IDN path="IDN">id1 id2 id3 id4 id5 id6</IDN>
+            <MYS path="MYS">my1 my2 my3 my4 my5</MYS>
+            <PHL path="PHL">ph1 ph2</PHL>
+            <SGP path="SGP">sgp</SGP>
+            <THA path="THA">th1 th2 th3 th4 th5 th6 th7 th8</THA>
+            <BRN path="BRN">brn</BRN>
+            <MAC path="MAC">mac</MAC>
+            <IND path="IND" prodtype="6">n01 n02 n03 n04 n05 n06 n07 n08 n09 n10 n12 n14 n16 n17 n18 n19 n20 n21</IND>
+            <INDFOREST path="IND" prodtype="7">ind</INDFOREST>
+            <OIN path="OIN" prodtype="4">oi4</OIN>
+            <OPA path="OPA" prodtype="4">op3 op4 op6</OPA>
+            <CHN path="CHN" prodtype="6">c11 c12 c13 c14 c15 c21 c22 c23 c31 c32 c33 c34 c35 c36 c37 c41 c42 c43 c44 c45 c46 c50 c51 c52 c53 c54 c61 c62 c63 c64 c65 c71 c81 c82 chn</CHN>
+        </AP>
+        <AU>
+            <AUS path="AUS" prodtype="35">act mgm nsw ntx qld qlr ric rns sax tas war wax</AUS>
+            <NZL path="NZL" prodtype="3">nzn nzs</NZL>
+        </AU>
+        <EU>
+            <AUT path="AUT">at1 at2</AUT>
+            <BEL path="BEL">bel</BEL>
+            <CHE path="CHE">ch1 ch2</CHE>
+            <DEU path="DEU">d51 d52 d53 d54 d55 d56 d57 d58 d60 d61 d64 d68 d69 d70</DEU>
+            <ESP path="ESP">e02 e04 e06 e08 e09 e10 e11 e12 e13 e14 e15</ESP>
+            <FRA path="FRA">F10 F11 F12 F13 F14 F15 F16 F17 F18 F19 F20 F21 F22 F23 F24</FRA>
+            <GBR path="GBR">g21 g23 g24 g26 g27 g28 g29 g30</GBR>
+            <IRL path="IRL">irl</IRL>
+            <ITA path="ITA">I10 I11 I12 I13 I14 I15 I16 I17 I18 I19 I20</ITA>
+            <LUX path="LUX">lux</LUX>
+            <NLD path="NLD">nl1 nl2 nl3</NLD>
+            <PRT path="PRT">prt</PRT>
+            <POL path="POL">pl1 pl2 pl3 pl4</POL>
+            <ROU path="ROU">ro1 ro2 ro3</ROU>
+            <MLT path="MLT">mlt</MLT>
+            <CZE path="CZE">cz2 cz3</CZE>
+            <HUN path="HUN">hu1 hu2</HUN>
+            <SVK path="SVK">svk</SVK>
+            <BGR path="BGR">bgr</BGR>
+            <HRV path="HRV">hrv</HRV>
+            <DNK path="DNK">dnk</DNK>
+            <FIN path="FIN">fi1 fi2</FIN>
+            <GRC path="GRC">gr1 gr2</GRC>
+            <NOR path="NOR">no1 no2 no3</NOR>
+            <SRB path="SRB">srb</SRB>
+            <SVN path="SVN">svn</SVN>
+            <SWE path="SWE">sw1 sw2 sw5</SWE>
+            <UKR path="UKR">ua1 ua2</UKR>
+            <RUS path="RUS">ru1 ru2 ru3 ru4 ru6 ru7 ru8</RUS>
+            <MAR path="MAR">ma1 ma2 ma3</MAR>
+            <TUR path="TUR" prodtype="16">tr2 tr3 tr4 tr5</TUR>
+            <ALB path="ALB">alb</ALB>
+            <AND path="AND">and</AND>
+            <BIH path="BIH">bih</BIH>
+            <BLR path="BLR">blr</BLR>
+            <EST path="EST">est</EST>
+            <LTU path="LTU">ltu</LTU>
+            <MDA path="MDA">mda</MDA>
+            <MNE path="MNE">mne</MNE>
+            <LVA path="LVA">lva</LVA>
+            <SMR path="SMR">smr</SMR>
+            <MKD path="MKD">mkd</MKD>
+            <OBE path="OBE" prodtype="4">obe</OBE>
+            <ODE path="ODE" prodtype="4">ode</ODE>
+            <ODK path="ODK" prodtype="4">odk</ODK>
+            <OES path="OES" prodtype="4">oes</OES>
+            <OFI path="OFI" prodtype="4">ofi</OFI>
+            <OFR path="OFR" prodtype="4">ofr</OFR>
+            <OGB path="OGB" prodtype="4">ogb</OGB>
+            <OGR path="OGR" prodtype="4">ogr</OGR>
+            <OIE path="OIE" prodtype="4">oie</OIE>
+            <OIT path="OIT" prodtype="4">oit</OIT>
+            <ONL path="ONL" prodtype="4">onl</ONL>
+            <ONO path="ONO" prodtype="4">ono</ONO>
+            <OPL path="OPL" prodtype="4">opl</OPL>
+            <OPT path="OPT" prodtype="4">opt</OPT>
+            <ORU path="ORU" prodtype="4">oru</ORU>
+            <OSE path="OSE" prodtype="4">ose</OSE>
+            <OTR path="OTR" prodtype="4">otr</OTR>
+        </EU>
+        <ME>
+            <ARE path="ARE">are</ARE>
+            <SAU path="SAU">sa8 sa9</SAU>
+            <TUR path="TUR" prodtype="16">tr2 tr3 tr4 tr5</TUR>
+            <BHR path="BHR">bhr</BHR>
+            <EGY path="EGY">eg1 eg2 eg3</EGY>
+            <QAT path="QAT">qat</QAT>
+            <KWT path="KWT">kwt</KWT>
+            <GRC path="GRC">gr1 gr2</GRC>
+            <OMN path="OMN">omn</OMN>
+            <OIN path="OIN" prodtype="4">oi2</OIN>
+            <OTR path="OTR" prodtype="4">otr</OTR>
+            <OGR path="OGR" prodtype="4">ogr</OGR>
+        </ME>
+        <NA>
+            <USA path="USA" prodtype="32">ugu ak1 ak2 cx1 cx2 mn1 mn2 mn3 mn4 nc1 nc2 nc3 tn1 tn2 tn3 ual uar uaz uc1 uc2 uc3 uc4 uc5 uc6 uct udc ude uf1 uf3 uf4 uf5 ug1 ug2 uhi ui1 ui2 uia uid uin uks uky ula um1 um2 um6 um7 uma umd ume ums umt un1 un2 und une unh unj unm unv uo1 uo2 uok uor up1 up2 upr uri usc usd ut1 ut2 ut3 ut4 ut5 uut uva uvi uvt uwa uwi uwv uwy</USA>
+            <CAN path="CAN" prodtype="32">cab cbc cmb cnb cnl cns cnt cnu cop cpe csk cyt qc1 qc2 qc3</CAN>
+            <MEX path="MEX">mx1 mx4 mx5 mx6 mx7 mx8</MEX>
+            <OMX path="OMX" prodtype="4">omx</OMX>
+            <OUA path="OUA" prodtype="4">oua</OUA>
+            <DOM path="DOM" prodtype="1">dom</DOM>
+            <GLP path="GLP">anf</GLP>
+            <OAT path="OAT" prodtype="4">oa2</OAT>
+        </NA>
+        <SA>
+            <COL path="COL">co1 co2 co3</COL>
+            <PER path="PER" prodtype="1">per</PER>
+            <VEN path="VEN">ven</VEN>
+            <CHL path="CHL">cl1 cl2</CHL>
+            <BRA path="BRA" prodtype="32">br1 br2 br3 br4 br5 br6 br7 br8 br9</BRA>
+            <ARG path="ARG">ae1 ae2 ae3</ARG>
+            <URY path="URY">ury</URY>
+            <GLP path="GLP">anf</GLP>
+            <OAT path="OAT" prodtype="4">oa2</OAT>
+        </SA>
+    </regions>
+        <AF>
+        </AF>
+        <AP>
+            <PHLTEST path="PHL">ph1</PHLTEST>
+        </AP>
+        <AU>
+            <AUSTEST path="AUS" prodtype="35">ric rns sax tas war wax</AUSTEST>			
+        </AU>
+        <EU>
+            <GBRTEST path="GBR">g24 g30 g21 g26</GBRTEST>
+            <DEUTEST path="DEU">d58 d64 d68</DEUTEST>
+        </EU>
+        <ME>
+            <TURTEST path="TUR" prodtype="16">tr3</TURTEST>
+        </ME>
+        <NA>
+            <CANTEST path="CAN" prodtype="32">cnt cyt cnu</CANTEST>
+            <USATEST path="USA" prodtype="32">un2 uct up1 unj ude umd up2 un1 uva</USATEST>
+        </NA>
+        <SA>
+        </SA>
+</config>
