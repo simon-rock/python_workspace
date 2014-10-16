@@ -1,1 +1,9 @@
-﻿
+﻿1. windows link error
+        libcmtd.lib(crt0dat.obj) : error LNK2005: _exit already defined in msvcrtd.lib(MSVCRTD.dll)
+        or LIBCMTD.lib ..... msvcrtd.lib 
+    resolve :
+        1)Ignore specific library         LIBCMTD.lib msvcrtd.lib 
+        2)Additional dependencies         msvcrtd.lib LIBCMTD.lib  -- make the manually order of linking instead of default order
+        
+        
+        

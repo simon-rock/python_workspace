@@ -115,3 +115,5 @@ linux：
     .rej  reject
     .orig   multi version
 14 template 中 使用带有template 参数的template 中before type add typename， before template add template
+15  long* p = new long[0];
+    delete p;       will lead to unknow error

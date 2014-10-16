@@ -31,3 +31,7 @@
 
 6.res
 http://www.cnblogs.com/tornadomeet/archive/2012/09/23/2699077.html
+7.追加.ui
+通常追加.ui, .h,.cpp
+.h, .ui需要最佳编译方式
+同时追加.ui编译生成的moc_*.cpp 文件
