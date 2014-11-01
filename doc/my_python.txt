@@ -324,3 +324,23 @@ http://www.lfd.uci.edu/~gohlke/pythonlibs/#lxml
         cfg = json.loads(content, object_hook=OrderedDict)      # for python 2.6
         cfg = json.loads(content, object_pairs_hook=OrderedDict) # for python 2.7
     json 使用{} 包含，官网例子错误
+
+33.一些旧的笔记
+    pythen2.* 版本和3.* 语法不同
+    print "aaa"
+    execfile ("New0001.py") 
+    raw_input()
+
+    #linux: 
+    #!/usr/local/bin/python
+    # coding=gbk                # 对于中文不过一般 #encoding: utf-8 或# coding=utf-8
+    
+    退出程序
+    import sys or raise SystemExit
+    sys.exit()
+
+    加载模块
+    reload(module)
+    import New0003 #会执行New0003， 也可从0003退出
+    print New0003.s
+    from myTest import test #使用mytest模块的test可以不用.来访问
