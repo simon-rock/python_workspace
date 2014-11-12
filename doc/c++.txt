@@ -117,3 +117,130 @@ linux：
 14 template 中 使用带有template 参数的template 中before type add typename， before template add template
 15  long* p = new long[0];
     delete p;       will lead to unknow error
+16. 
+    //1
+    基类中虚函数（非纯虚函数） ，如果创建实例是必须有实现
+    class base
+    {
+    public:
+        virtual void fun(int i);
+        void virtual no_use() = 0;
+    };
+    class derive : public base
+    {
+        void fun(int v){return;}
+        void virtual no_use(){};
+    };
+    base b;     // **创建base 类， 提示找不到fun实现
+    derive d;   // **创建derive 类， 先创建base时提示找不到fun实现
+    //2 纯虚函数可以没有实现
+        class base
+    {
+    public:
+        virtual void fun(int i) = 0;
+        void virtual no_use() = 0;
+    };
+    class derive : public base
+    {
+    public：
+        void fun(int v){return;}
+        void virtual no_use(){};
+    };
+    //3 非虚函数可以没有实现， 只要不调用即可，但是不能达到多态
+    class base
+    {
+    public:
+        void fun(int i);
+        void virtual no_use() = 0;
+    };
+    class de : public base
+    {
+    public:
+        void fun(int v){return;}
+        void virtual no_use(){};
+    };
+    需要使用dynamic_cast转换类型， 不会默认使用动态类型的函数， 即覆盖问题
+    base *p = new de;  // de 为动态类型， base是静态类型
+    (dynamic_cast<de*>(p))->fun(1);
+    
+    总结 非纯虚函数的虚函数必须有实现，否则基类和派生类不能创建
+        普通成员函数可以没有实现， 但由于不能多态，使用指针时会调用静态类型的函数，所以也必须有实现， 除非使用dynamic_cast， 这样这个函数也不用声明。
+        class base_report_value
+        {
+        public:    
+            virtual void set_value(unsigned int v){};
+            virtual void set_value(bool v){};
+            virtual void putout(ostream& report) = 0;
+        };
+        template<typename T>
+        class report_value : public base_report_value
+        {
+        public:
+            report_value(int N = 1):_N(N){ _v = T();}
+            void set_value(T v)
+            {
+                _v = v;
+            }
+            void putout(ostream& report)
+            {
+                report << setw(_N) << _v << ',';
+            }
+        private:
+            T _v;
+            unsigned _N;
+        };
+17.vector 基础问题
+    resize   创建新元素
+    reserve  只是分配空间，避免了从分配应该用这个
+    追加vector
+    s.l.insert(s.l.end(),l.begin(), l.end());
+18.只特化模板类中的成员函数
+    template<typename T>
+    class report_value : public base_report_value
+    {
+    public:
+        report_value(int N = 1):_N(N){ _v = T();}
+        void set_value(T v)
+        {
+            _v = v;
+        }
+        void putout(ostream& report)
+        {
+            report << setw(_N) << _v << ',';
+        }
+    private:
+        T _v;
+        unsigned _N;
+    };
+
+    template<>
+    void report_value<bool>::putout(ostream& report)
+    {
+        report << setw(_N) << (_v?'Y':'N') << ',';
+    }
+19.
+    struct test_struct
+    {
+        const char* text;
+        const float x;
+        const float y;
+    };
+    test_struct test_case[] =
+    {
+    	{"name 1"				,50F, 100F},
+        {"name 2"					,52F, 102F},
+    };
+    也可以
+    test_struct test_case[] =
+    {
+    	"name 1"				,50F, 100F,
+        "name 2"					,52F, 102F,
+    };
+    int total = ((int)(sizeof(test_case)/sizeof(test_case[0])));
+    for (int i = 0; i < total; i++)
+	{
+    	center.x = test_case[i].x;
+		center.y = test_case[i].y;
+        char buf[300] = {0};
+		sprintf(buf, "%s", test_case[i].text);
+    }

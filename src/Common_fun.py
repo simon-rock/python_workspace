@@ -333,6 +333,14 @@ def test_getoption(argv = None):
     OPTION = options
     if options.help:
         print HELP
+
+import os
+from subprocess import Popen, PIPE
+def test_commod():
+    f = open("output.txt", "w")
+    Popen("echo \"ok\"", stdout=f)
+    print os.popen('ls').readlines()
+
 if __name__ == "__main__":
     test_getoption()
 
