@@ -21,7 +21,7 @@ def make_writable(path):
         if iswindows():
             win32api.SetFileAttributes(path, win32con.FILE_ATTRIBUTE_NORMAL)
         else:
-            os.chmod(path, stat.S_IWRITE)     # linux
+            os.chmod(path, stat.S_IWRITE | stat.S_IREAD)     # linux
 
 # 遍历文件深度 优先
 def traverse_file(path):
@@ -57,8 +57,11 @@ def traverse_file(path):
             dirpath, filename = os.path.split(path)
             newpath = "%s/root" % dirpath
             make_writable(path)
+            print "remove", path
+            pause  = raw_input()
             os.rename(path, newpath)
             os.rmdir(newpath)
+            pause = raw_input()
         except:
             print "error [%s][%s]" % (path, newpath)
             pass
@@ -69,6 +72,9 @@ if __name__ == "__main__":
     #print os.path.realpath(file)
     if os.path.exists(dirpath):
         traverse_file(dirpath)
-        os.mkdir(dirpath)
+        if iswindows():
+            os.mkdir(dirpath)
+        else:
+            os.mkdir(dirpath, stat.S_IWRITE | stat.S_IREAD | stat.S_IEXEC)
     else:
         print "no path"
