@@ -5,5 +5,12 @@
         1)Ignore specific library         LIBCMTD.lib msvcrtd.lib 
         2)Additional dependencies         msvcrtd.lib LIBCMTD.lib  -- make the manually order of linking instead of default order
         
-        
+2. win32 float 运算时临时变量为 double
+   x64   float 运算是临时变量为 float
+   这会导致32 和64位程序的结果不一致
+   e.g
+        float x1 = 121.12499;
+        float x2 = -180.00000;
+        float x3 = 0.031250000;
+        float result = static_cast<int>((x1 - x2)/x3);
         

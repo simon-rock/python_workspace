@@ -168,9 +168,9 @@ linux：
         class base_report_value
         {
         public:    
-            virtual void set_value(unsigned int v){};
+            virtual void set_value(unsigned int v){};       // 因为基类不能实例化，所以也不会调到
             virtual void set_value(bool v){};
-            virtual void putout(ostream& report) = 0;
+            virtual void putout(ostream& report) = 0;       // 不能实例化
         };
         template<typename T>
         class report_value : public base_report_value
@@ -244,3 +244,10 @@ linux：
         char buf[300] = {0};
 		sprintf(buf, "%s", test_case[i].text);
     }
+
+20.一种assert 方式，失败后打印原因
+    assert((address % m_alignment == 0) || 
+        !"precondition violation: address must be a multiple of m_alignment");
+
+21.初始化3个0
+    std::vector<char> t(3, 0);
