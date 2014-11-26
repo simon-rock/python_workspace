@@ -57,11 +57,11 @@ def traverse_file(path):
             dirpath, filename = os.path.split(path)
             newpath = "%s/root" % dirpath
             make_writable(path)
-            print "remove", path
-            pause  = raw_input()
+            #print "remove", path
+            #pause  = raw_input()
             os.rename(path, newpath)
             os.rmdir(newpath)
-            pause = raw_input()
+            #pause = raw_input()
         except:
             print "error [%s][%s]" % (path, newpath)
             pass
