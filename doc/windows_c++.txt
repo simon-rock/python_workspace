@@ -13,4 +13,18 @@
         float x2 = -180.00000;
         float x3 = 0.031250000;
         float result = static_cast<int>((x1 - x2)/x3);
+   
+   https://connect.microsoft.com/VisualStudio/feedback/details/470663/unexpected-behavior-by-float-computation-on-win32-and-x64
+
+   	string strLat = "6446874";
+	float fLat = 1.0F * atoi(strLat.c_str()) / 100000.F;
+	long long1 = static_cast<int>((fLat + 90.F) / 0.03125F);
+	long long2 = static_cast<int>(((double)fLat + 90.F) / 0.03125F);
+
+	printf("%.8f, %08X, long1:%d, long2:%d\n", fLat, *((int*)&fLat), long1, long2);
+    Result from win32bits application:
+           64.46874237, 4280EFFF, long1:4942, long2:4942
+    Result from 64bits application:
+           64.46874237, 4280EFFF, long1:4943, long2:4942
+
         
