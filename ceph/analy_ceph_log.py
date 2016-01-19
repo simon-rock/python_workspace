@@ -13,9 +13,23 @@ import time
 import sys
 import cPickle as p
 from optparse import OptionParser
+import signal
+
+is_sigint_up = False
+TASKS = {}
+EVENT_STAT = {}
+def sigint_handler(signum, frame):
+    global is_sigint_up
+    global EVENT_STAT
+    is_sigint_up = True
+    print "catch interrupt signal!"
+    time.sleep(1)
+    print ("%-55s "%("key")), ("%-13s "%("avg_cost")),("%-13s "%("max")),("%-13s "%("min")),("%-13s "%("total_count"))
+    for key, val in EVENT_STAT.items():
+        print ("%-55s "%(key)), val["avg_cost"], val["max"], val["min"],  val["total_count"]
+
 test_str = r'2015-12-14 03:15:20.672735 7ff19db41700  5  common/TrackedOp.cc:287 -- op tracker -- seq: 96452, time: 2015-12-14 03:15:20.672371, event: header_read, op: osd_sub_op(client.6125.0:270 4.4 65639084/gc.29/head//4 [] v 94\'14753 snapset=0=[]:[] snapc=0=[])'
 
-TASKS = {}
 def process(log_path, out):
     global TASKS
     fp = open(log_path, 'r')
@@ -28,12 +42,13 @@ def process(log_path, out):
     f = file(out_path, "w")
     p.dump(TASKS, f)
     f.close
-
 def load_analyzed_file(analyzed):
     global TASKS
     f = file(analyzed)
     TASKS = p.load(f)
 def get_seq_info(line, real = False):
+    if is_sigint_up:
+        return
     prog = re.compile(".* -- op tracker -- seq: (\d+), time: (\S+ \S+),.* event: (\S+),")
     res = re.match(prog, line)
     if res is None:
@@ -63,6 +78,7 @@ def get_seq_info(line, real = False):
             if filt_date((seq, item), options.event, int(options.cost)):
                 print_data((seq, item), options.pevent)
     if event_name == "done":
+        proc_stat(TASKS[seq])
         del TASKS[seq]
 
     #print tasks
@@ -81,6 +97,27 @@ p
     datetime_t3 = datetime.datetime.strptime(time3, "%Y-%m-%d %H:%M:%S.%f")
     print datetime_t3 - datetime_t2
     '''
+def proc_stat(req):
+    global EVENT_STAT
+    for val in req:
+        if not EVENT_STAT.has_key(val[0]):
+            item = {}
+            item["max"] = val[2]
+            item["min"] = val[2]
+            item["avg_cost"] = val[2]
+            item["total_count"] = 1
+            EVENT_STAT[val[0]] = item
+        else:
+            try:
+                item = EVENT_STAT[val[0]]
+                if item["max"] < val[2]:
+                    item["max"] = val[2]
+                if item["min"] > val[2]:
+                    item["min"] = val[2]
+                item["avg_cost"] = ((item["avg_cost"]*item["total_count"]) + val[2])/(item["total_count"]+1)
+                item["total_count"] += 1
+            except Exception,ex:
+                print Exception,":",ex,"--",val[2]
 def statistics(filter, event, v):
     # analy tasks
     global TASKS
@@ -186,6 +223,9 @@ def realtime_analy():
     for line in sys.stdin:
          get_seq_info(line, True)
 def main(args=None):
+    signal.signal(signal.SIGINT, sigint_handler)
+    signal.signal(signal.SIGHUP, sigint_handler)
+    signal.signal(signal.SIGTERM, sigint_handler)
     global options
     global argvs
     (options, argvs) = get_options(args)
@@ -195,7 +235,7 @@ def main(args=None):
     print argvs
     print options
     if options.version:
-        print "current version 0.2"
+        print "current version 0.3"
         return
     if options.realtime:
         realtime_analy()
