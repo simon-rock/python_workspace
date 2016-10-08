@@ -20,6 +20,8 @@ import signal
 version = u"0.1"
 ceph_monstore_tool = u"/root/workspace/ceph-monstore-tool"
 mondb_path = u"/var/lib/ceph/mon/mon.a/"
+redc = "\033[1;31;40m"
+defaultc="\033[0m"
 #
 is_sigint_up = False
 TASKS = {}
@@ -46,8 +48,93 @@ def show_versions():
     out = commands.getoutput(cmd)
     for data in out.split():
         print "--", data
-        show_version(data)
-def show_version(map_type):
+        _show_version(data)
+        
+def show_history(s,e):
+    info_last = {}
+    info_curr = {}
+    first = True
+    for i in range(s, e+1):
+        info_curr = _get_history(i)
+        #print info_curr
+        if first:
+            first = False
+            print "-----", info_curr["time_day"], "-----"
+        else:
+            _print_change(info_last, info_curr)
+        info_last = info_curr
+        
+def _print_change(last, curr):
+    if last["time_day"] != curr["time_day"] :
+        print "-----", curr["time_day"], "-----"
+    base = {}
+    if last["max_osd"] > curr["max_osd"] :
+        base = last
+    else:
+        base = curr
+    out_t = base["time_hour"] + " " + base["epoch"] + ": "
+    out = ""
+    for key in base.keys():
+        if key in ["epoch", "fsid", "created", "modified", "flags"]:
+            continue
+        # pool
+        if key.startswith("pool"):
+            if key == "pool" and last[key] != curr[key]:
+                out += "change pool " + str(last["pool"]) + "=>" + str(curr["pool"]) + " "+redc+"|"+defaultc
+            elif last.has_key(key) and curr.has_key(key) and last[key] != curr[key]:
+                out += last[key] + "=>" + curr[key] + " "+redc+"|"+defaultc
+        #osd
+        if key.startswith("osd"):
+            if last.has_key(key) and not curr.has_key(key):
+                out += "lost " + key + " "+redc+"|"+defaultc
+            elif not last.has_key(key) and curr.has_key(key):
+                out += "add " + key + " "+redc+"|"+defaultc
+            elif last.has_key(key) and curr.has_key(key):
+                for m in range(len(base[key])):
+                    if last[key][m] != curr[key][m]:
+                        out += key + ":" + last[key][m] + "=>"+curr[key][m] + " "+redc+"|"+defaultc
+
+    if out == "":
+        out == "pool have a change??"
+    print out_t, out
+        
+    
+def _get_history(version):
+    cmd = ceph_monstore_tool + " " + mondb_path + " " + "get osdmap" + " -- --readable=1 --version " + str(version)
+    out = commands.getoutput(cmd)
+    info = {}
+    for data in out.split("\n"):
+        if data.startswith("epoch"):
+            info["epoch"] = data.split()[1]
+            info["pool"] = 0
+        if data.startswith("modified"):
+            info["time_day"] = data.split()[1]
+            info["time_hour"] = data.split()[2]
+        if data.startswith("pool"):
+            info["pool"] += 1
+        if data.startswith("max_osd"):
+            info["max_osd"] = data.split()[1]
+        if data.startswith("osd"):
+            osdinfo = []
+            osdinfo.append(data.split()[1])     # up or down
+            osdinfo.append(data.split()[2])     # in or out
+            osdinfo.append("uf" + data.split()[6])     # up_from
+            osdinfo.append("ut" + data.split()[8])     # up_thru peering ok
+            osdinfo.append("da" + data.split()[10])    # down_at
+            osdinfo.append("lci" + data.split()[12])    # last_clean_interval
+            osdinfo.append("" + data.split()[13])    # last_clean_interval
+            osdinfo.append("" + data.split()[14])    # last_clean_interval
+            osdinfo.append("" + data.split()[15])    # last_clean_interval
+            osdinfo.append("" + data.split()[16])    # last_clean_interval
+            osdinfo.append("" + data.split()[17])    # last_clean_interval
+            osdinfo.append("" + data.split()[18])    # last_clean_interval
+            info[data.split()[0]] = osdinfo
+        if data.startswith("pool"):
+            info[data.split(" ", 2)[0] + data.split(" ", 2)[1]] = data.split(" ", 2)[2]
+    return info
+        
+# show the first committed and last committed of the map type
+def _show_version(map_type):
     cmd = ceph_monstore_tool + " " + mondb_path + " " + "show-versions -- --map-type " + map_type 
     out = commands.getoutput(cmd)
     print out
@@ -58,6 +145,11 @@ def get_options(args=None):
     parser.add_option('-v', '--version', action="store_true", dest='version', default=False, help='print version')
     parser.add_option('-k', '--listkays', action="store_true", dest='listkeys', default=False, help='list all the keys')
     parser.add_option('-s', '--showversions', action="store_true", dest='showversions', default=False, help='show the version of all the map type')
+
+    # print osdmap chenge list
+    parser.add_option('-o', '--osdhistory', action="store_true", dest='history', default=False, help='show the history of osd map')
+    parser.add_option('', '--sv', action="store", dest='start_version', default="", help='start verson')
+    parser.add_option('', '--ev', action="store", dest='end_version', default="", help='end verson')
     #parser.add_option('-o', '--outnanlyzed',action='store', dest='outdir', default='.', help='dir of analyzed file')
     #parser.add_option('-c', '--threshold',action='store', dest='cost', default='0', help='microseconds, only analy the event which cost over the threshold')
     #parser.add_option('-p', '--print', action="store_true", dest='print_only', default=False, help='print only through the filter')
@@ -87,10 +179,14 @@ def main(args=None):
         print version
         return
     if options.listkeys:
-        list_keys()
-        
+        list_keys()        
     if options.showversions:
         show_versions()
+    if options.history:
+        if options.start_version == "" or options.end_version == "":
+            print "need start and end version"
+            return
+        show_history(int(options.start_version), int(options.end_version))
     print "process"
 if __name__ == "__main__":
     main()
