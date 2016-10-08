@@ -59,14 +59,18 @@ def show_history(s,e):
         #print info_curr
         if first:
             first = False
-            print "-----", info_curr["time_day"], "-----"
+            #print redc+"-----", info_curr["time_day"], "-----"+defaultc
+            print make_red(info_curr["time_day"])
         else:
             _print_change(info_last, info_curr)
         info_last = info_curr
-        
+
+def make_red(s):
+    return redc+s+defaultc
 def _print_change(last, curr):
     if last["time_day"] != curr["time_day"] :
-        print "-----", curr["time_day"], "-----"
+        #print redc+"-----", curr["time_day"], "-----"+defaultc
+        print make_red(curr["time_day"])
     base = {}
     if last["max_osd"] > curr["max_osd"] :
         base = last
@@ -80,19 +84,24 @@ def _print_change(last, curr):
         # pool
         if key.startswith("pool"):
             if key == "pool" and last[key] != curr[key]:
-                out += "change pool " + str(last["pool"]) + "=>" + str(curr["pool"]) + " "+redc+"|"+defaultc
+                out += "change pool " + str(last["pool"]) + "=>" + str(curr["pool"]) + " "+make_red("|")
             elif last.has_key(key) and curr.has_key(key) and last[key] != curr[key]:
-                out += last[key] + "=>" + curr[key] + " "+redc+"|"+defaultc
+                out += last[key] + "=>" + curr[key] + " "+make_red("|")
         #osd
         if key.startswith("osd"):
             if last.has_key(key) and not curr.has_key(key):
-                out += "lost " + key + " "+redc+"|"+defaultc
+                out += "lost " + key + " "+make_red("|")
             elif not last.has_key(key) and curr.has_key(key):
-                out += "add " + key + " "+redc+"|"+defaultc
+                out += "add " + key + " "+make_red("|")
             elif last.has_key(key) and curr.has_key(key):
                 for m in range(len(base[key])):
                     if last[key][m] != curr[key][m]:
-                        out += key + ":" + last[key][m] + "=>"+curr[key][m] + " "+redc+"|"+defaultc
+                        #out += key + ":" + last[key][m] + "=>"+curr[key][m] + " "+make_red("|")
+                        o = key + ":" + last[key][m] + "=>"+curr[key][m] + " "+make_red("|")
+                        if m == 0:
+                            out += make_red(o)
+                        else:
+                            out += o
 
     if out == "":
         out == "pool have a change??"
