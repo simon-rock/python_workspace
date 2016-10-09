@@ -15,10 +15,12 @@ import cPickle as p
 import commands
 from optparse import OptionParser
 import signal
+import json
 
 # global define
 version = u"0.1"
 ceph_monstore_tool = u"/root/workspace/ceph-monstore-tool"
+ceph_dencoder = u"/root/workspace/ceph-dencoder"
 mondb_path = u"/var/lib/ceph/mon/mon.a/"
 redc = "\033[1;31;40m"
 defaultc="\033[0m"
@@ -55,8 +57,9 @@ def show_history(s,e):
     info_curr = {}
     first = True
     for i in range(s, e+1):
-        info_curr = _get_history(i)
+        info_curr = _get_history_old(i)
         #print info_curr
+        #continue
         if first:
             first = False
             #print redc+"-----", info_curr["time_day"], "-----"+defaultc
@@ -76,7 +79,7 @@ def _print_change(last, curr):
         base = last
     else:
         base = curr
-    out_t = base["time_hour"] + " " + base["epoch"] + ": "
+    out_t = base["time_hour"] + " " + str(base["epoch"]) + ": "
     out = ""
     for key in base.keys():
         if key in ["epoch", "fsid", "created", "modified", "flags"]:
@@ -85,8 +88,14 @@ def _print_change(last, curr):
         if key.startswith("pool"):
             if key == "pool" and last[key] != curr[key]:
                 out += "change pool " + str(last["pool"]) + "=>" + str(curr["pool"]) + " "+make_red("|")
-            elif last.has_key(key) and curr.has_key(key) and last[key] != curr[key]:
-                out += last[key] + "=>" + curr[key] + " "+make_red("|")
+            elif last.has_key(key) and curr.has_key(key):
+                if isinstance(last[key], str) and last[key] != curr[key]:
+                    out += key+":"+last[key] + "=>" + curr[key] + " "+make_red("|")
+                elif isinstance(last[key], list):
+                    for m in range(len(base[key])):
+                        if last[key][m] != curr[key][m]:
+                            o = key + ":" + last[key][m] + "=>"+curr[key][m] + " "+make_red("|")
+                            out += o
         #osd
         if key.startswith("osd"):
             if last.has_key(key) and not curr.has_key(key):
@@ -98,16 +107,57 @@ def _print_change(last, curr):
                     if last[key][m] != curr[key][m]:
                         #out += key + ":" + last[key][m] + "=>"+curr[key][m] + " "+make_red("|")
                         o = key + ":" + last[key][m] + "=>"+curr[key][m] + " "+make_red("|")
-                        if m == 0:
+                        if o.find("up->") != -1 or o.find("up=>down") != -1 or o.find("down=>up") != -1:
+                        #if m == 0:
                             out += make_red(o)
                         else:
                             out += o
-
+    if last["pg_temp"] != curr["pg_temp"]:
+        out += "pg_temp:" + str(last["pg_temp"]) + "=>"+str(curr["pg_temp"])+make_red("|")
     if out == "":
         out == "pool have a change??"
     print out_t, out
         
-    
+# for 0.9.45
+def _get_history_old(version):
+    cmd = ceph_monstore_tool + " " + mondb_path + " " + "get osdmap" + " -- --out om_tmp --version " + str(version)
+    out = commands.getoutput(cmd)
+    cmd = ceph_dencoder + " import om_tmp type OSDMap decode dump_json"
+    out = commands.getoutput(cmd)
+    json_out = json.loads(out)
+    #print type(out), out
+    #print type(json_out), json_out
+    info = {}
+    info["epoch"] = json_out["epoch"]
+    info["pool"] = 0
+    info["time_day"] = json_out["modified"].split()[0]
+    info["time_hour"] = json_out["modified"].split()[1]
+    info["max_osd"] = json_out["max_osd"]
+    for data in json_out["pools"]:
+        poolinfo = []
+        poolname = "pool"+str(data["pool"])
+        for k,v in data.items():
+            if k == "pool":
+                continue
+            poolinfo.append(poolname+":"+k+"-"+str(v))
+        info[poolname] = poolinfo
+        info["pool"] += 1
+    for data in json_out["osds"]:
+        osdinfo = []
+        osdname = "osd"+str(data["osd"])
+        for k,v in data.items():
+            if k == "osd":
+                continue
+            if k == "state":
+                continue
+            #if k == "up" or k == "in":
+            #    osdinfo.append(make_red(k+"->"+str(v)))
+            #else:
+            osdinfo.append(k+"->"+str(v))
+        info[osdname] = osdinfo
+    info["pg_temp"] = len(json_out["pg_temp"])
+    return info
+# for 10.2.2
 def _get_history(version):
     cmd = ceph_monstore_tool + " " + mondb_path + " " + "get osdmap" + " -- --readable=1 --version " + str(version)
     out = commands.getoutput(cmd)
@@ -116,6 +166,7 @@ def _get_history(version):
         if data.startswith("epoch"):
             info["epoch"] = data.split()[1]
             info["pool"] = 0
+            info["pg_temp"] = 0
         if data.startswith("modified"):
             info["time_day"] = data.split()[1]
             info["time_hour"] = data.split()[2]
@@ -140,6 +191,8 @@ def _get_history(version):
             info[data.split()[0]] = osdinfo
         if data.startswith("pool"):
             info[data.split(" ", 2)[0] + data.split(" ", 2)[1]] = data.split(" ", 2)[2]
+        if data.startswith("pg_temp"):
+            info["pg_temp"] += 1
     return info
         
 # show the first committed and last committed of the map type
