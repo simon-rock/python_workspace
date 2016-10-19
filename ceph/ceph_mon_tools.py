@@ -20,10 +20,12 @@ import json
 # global define
 version = u"0.1"
 ceph_monstore_tool = u"/root/workspace/ceph-monstore-tool"
+ceph_kvstore_tool = u"/root/workspace/ceph-kvstore-tool"
 ceph_dencoder = u"/root/workspace/ceph-dencoder"
 mondb_path = u"/var/lib/ceph/mon/mon.a/"
 redc = "\033[1;31;40m"
 defaultc="\033[0m"
+ceph_func = {}
 #
 is_sigint_up = False
 TASKS = {}
@@ -50,14 +52,37 @@ def show_versions():
     out = commands.getoutput(cmd)
     for data in out.split():
         print "--", data
-        _show_version(data)
+        ceph_func["show_version"](data)
+        
+# show the first committed and last committed of the map type
+def _show_version(map_type):
+    cmd = ceph_monstore_tool + " " + mondb_path + " " + "show-versions -- --map-type " + map_type 
+    out = commands.getoutput(cmd)
+    print out
+def _show_version_0945(map_type):
+    #10.2 usage need leveldb
+    #cmd = ceph_kvstore_tool + " leveldb " + mondb_path + "store.db/ get " + map_type
+    #0.945 no leveldb
+    cmd = ceph_kvstore_tool + ceph_func["kvtool_cmd"] + mondb_path + "store.db/ get " + map_type
+    out = commands.getoutput(cmd+" first_committed out map_v")
+    if out.find("not exist") ==-1:
+        out = commands.getoutput("cat map_v | hexdump && rm -f map_v")
+        print "first_committed\t", int(out.split()[1],16)
+    else:
+        print "first_committed\t-"
+    out = commands.getoutput(cmd+" last_committed out map_v")
+    if out.find("not exist") ==-1:
+        out = commands.getoutput("cat map_v | hexdump && rm -f map_v")
+        print "last_committed\t", int(out.split()[1],16)
+    else:
+        print "last_committed\t-"
         
 def show_history(s,e):
     info_last = {}
     info_curr = {}
     first = True
     for i in range(s, e+1):
-        info_curr = _get_history_old(i)
+        info_curr = ceph_func["get_history"](i)
         #print info_curr
         #continue
         if first:
@@ -119,7 +144,7 @@ def _print_change(last, curr):
     print out_t, out
         
 # for 0.9.45
-def _get_history_old(version):
+def _get_history_0945(version):
     cmd = ceph_monstore_tool + " " + mondb_path + " " + "get osdmap" + " -- --out om_tmp --version " + str(version)
     out = commands.getoutput(cmd)
     cmd = ceph_dencoder + " import om_tmp type OSDMap decode dump_json"
@@ -194,19 +219,14 @@ def _get_history(version):
         if data.startswith("pg_temp"):
             info["pg_temp"] += 1
     return info
-        
-# show the first committed and last committed of the map type
-def _show_version(map_type):
-    cmd = ceph_monstore_tool + " " + mondb_path + " " + "show-versions -- --map-type " + map_type 
-    out = commands.getoutput(cmd)
-    print out
-    
+            
 def get_options(args=None):
     '''get options'''
     parser = OptionParser()
     parser.add_option('-v', '--version', action="store_true", dest='version', default=False, help='print version')
     parser.add_option('-k', '--listkays', action="store_true", dest='listkeys', default=False, help='list all the keys')
     parser.add_option('-s', '--showversions', action="store_true", dest='showversions', default=False, help='show the version of all the map type')
+    parser.add_option('-n', '--newtools', action="store_true", dest='newtools', default=False, help='use for ceph 10.2, deault ')
 
     # print osdmap chenge list
     parser.add_option('-o', '--osdhistory', action="store_true", dest='history', default=False, help='show the history of osd map')
@@ -237,6 +257,14 @@ def main(args=None):
     (options, argvs) = get_options(args)
     print argvs
     print options
+    if options.newtools:
+        ceph_func["kvtool_cmd"] = " leveldb "
+        ceph_func["show_version"] = _show_version
+        ceph_func["get_history"] = _get_history
+    else:
+        ceph_func["kvtool_cmd"] = ""
+        ceph_func["show_version"] = _show_version_0945
+        ceph_func["get_history"] = _get_history_0945
     if options.version:
         print version
         return
