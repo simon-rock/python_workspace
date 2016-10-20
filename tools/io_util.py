@@ -117,11 +117,15 @@ def watch(_sleep_time, pids):
         total_bytes = (int(process_info_list_second[pid]["read_bytes"]) - int(process_info_list_frist[pid]["read_bytes"]))
         total_cnt = (int(process_info_list_second[pid]["syscr"]) - int(process_info_list_frist[pid]["syscr"]))
         if total_cnt > 0:
-            out += str(total_bytes/total_cnt)
+            out += "%-15s" % str(total_bytes/total_cnt)
+        else:
+            out += "%-15d" % 0
         total_bytes = (int(process_info_list_second[pid]["write_bytes"]) - int(process_info_list_frist[pid]["write_bytes"]))
         total_cnt = (int(process_info_list_second[pid]["syscw"]) - int(process_info_list_frist[pid]["syscw"]))
         if total_cnt > 0:
-            out += str(total_bytes/total_cnt)
+            out += "%-15s" % str(total_bytes/total_cnt)
+        else:
+            out += "%-15d" % 0
         print out
 def list_top(_sleep_time, _list_num):
     print "----------"
