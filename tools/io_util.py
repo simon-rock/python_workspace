@@ -12,6 +12,7 @@ import signal
 sys_proc_path = '/proc/'
 re_find_process_number = '^\d+$'
 version = u"0.1"
+g_debug = False
 ####
 # 通过/proc/$pid/io获取读写信息
 ####
@@ -30,8 +31,14 @@ def collect():
                 #print Exception,":",e
     return _tmp
 def collect_one(i):
-    process_name = open("%s%s/stat" % (sys_proc_path, i), "rb").read().split(" ")[1]
-    rw_io = open("%s%s/io" % (sys_proc_path, i), "rb").readlines()
+    global g_debug
+    try:
+        process_name = open("%s%s/stat" % (sys_proc_path, i), "rb").read().split(" ")[1]
+        rw_io = open("%s%s/io" % (sys_proc_path, i), "rb").readlines()
+    except Exception,e:
+        if g_debug:
+            print Exception,":",e
+        raise
     for _info in rw_io:
         cut_info = strip(_info).split(':')
         if strip(cut_info[0]) == "read_bytes":
@@ -48,7 +55,7 @@ def collect_info():
     re_find_process_dir = re.compile(re_find_process_number)
     for i in os.listdir(sys_proc_path):
         if re_find_process_dir.search(i):
-            try:
+            try:                
                 process_name = open("%s%s/stat" % (sys_proc_path, i), "rb").read().split(" ")[1]
                 rw_io = open("%s%s/io" % (sys_proc_path, i), "rb").readlines()
                 for _info in rw_io:
@@ -66,17 +73,56 @@ def collect_info():
                 print Exception,":",e
     return _tmp
 
-def watch(_sleep_time, pid):
-    process_info_list_frist = collect_one(pid)
-    time.sleep(_sleep_time)
-    process_info_list_second = collect_one(pid)
-    #print process_info_list_frist
-    #print process_info_list_second
-    print "-----", pid, "-----",process_info_list_second["name"]
-    for key in process_info_list_second.keys():
-        if key == "name":
+def watch(_sleep_time, pids):
+    global g_debug
+    print "-----start-----"
+    process_info_list_frist = {}
+    process_info_list_second = {}
+    for pid in pids.split():
+        try:
+            process_info_list_frist[pid]= collect_one(pid)
+        except Exception,e:
             continue
-        print "%-15s" % key, " : ", int(process_info_list_second[key]) - int(process_info_list_frist[key])
+    time.sleep(_sleep_time)
+    for pid in pids.split():
+        try:
+            process_info_list_second[pid] = collect_one(pid)
+        except Exception,e:
+            continue
+    if g_debug:
+        print process_info_list_frist
+        print process_info_list_second
+
+    if len(process_info_list_second) <= 0:
+        print "no process"
+        return
+    # print title
+    title = "%-15s" % "name"
+    for pid in process_info_list_second.keys():
+        for key in process_info_list_second[pid].keys():
+            if key == "name":
+                continue
+            title += "%-15s" % key
+        break
+    title += "%-15s" % "read bytes/c" + "%-15s" % "write bytes/c"
+    print title
+    # print content
+    for pid in process_info_list_second.keys():
+        out = "%-15s" % pid
+        for key in process_info_list_second[pid].keys():
+            if key == "name":
+                continue
+            out +=  "%-15d" % (int(process_info_list_second[pid][key]) - int(process_info_list_frist[pid][key]))
+        '''print sp data'''
+        total_bytes = (int(process_info_list_second[pid]["read_bytes"]) - int(process_info_list_frist[pid]["read_bytes"]))
+        total_cnt = (int(process_info_list_second[pid]["syscr"]) - int(process_info_list_frist[pid]["syscr"]))
+        if total_cnt > 0:
+            out += str(total_bytes/total_cnt)
+        total_bytes = (int(process_info_list_second[pid]["write_bytes"]) - int(process_info_list_frist[pid]["write_bytes"]))
+        total_cnt = (int(process_info_list_second[pid]["syscw"]) - int(process_info_list_frist[pid]["syscw"]))
+        if total_cnt > 0:
+            out += str(total_bytes/total_cnt)
+        print out
 def list_top(_sleep_time, _list_num):
     print "----------"
     _sort_read_dict = {}
@@ -163,12 +209,14 @@ def get_options(args=None):
     parser.add_option('-v', '--version', action="store_true", dest='version', default=False, help='print version')
     #list mode
     parser.add_option('-l', '--listmode', action="store_true", dest='list_mode', default=False, help='list top process with high io(default 3)')
-    parser.add_option('-n', '', action="store_true", dest='top_num', default=3, help='list top(default 3)')
+    parser.add_option('-n', '', action="store", dest='top_num', default=3, help='list top(default 3)')
     #watch mode
     parser.add_option('-w', '--watchmode', action="store_true", dest='watch_mode', default=False, help='watch one process')
-    parser.add_option('-p', '', action="store", dest='pid', default="1", help='watch pid(default 1)')
+    parser.add_option('-p', '', action="store", dest='pids', default="1", help='watch pid(default 1)')
     
     parser.add_option('-s', '--skiptime', action="store", dest='skip_time', default=1, help='skip time(default 1s)')
+    parser.add_option('-c', '--showcount', action="store", type="int", dest='show_count', default=10, help='showcount(default 10, if <0 , forver)')
+    parser.add_option('-d', '--debugmode', action="store_true", dest='debug_mode', default=False, help='debug mode(default false)')
 
     global HELP
     HELP = parser.format_help().strip()
@@ -181,17 +229,20 @@ def main(args=None):
     #signal.signal(signal.SIGTERM, sigint_handler)
     global options
     global argvs
+    global g_debug
     (options, argvs) = get_options(args)
     print argvs
     print options
     if options.version:
         print version
         return
-    for i in range(10):
+    if options.debug_mode:
+        g_debug = options.debug_mode
+    for i in range(options.show_count if options.show_count > 0 else 86400):
         if options.list_mode:
             list_top(options.skip_time, options.top_num)
         if options.watch_mode:
-            watch(options.skip_time, options.pid)
+            watch(options.skip_time, options.pids)
 if __name__ == "__main__":
     main()
     '''try:
