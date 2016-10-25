@@ -5,6 +5,7 @@ import os
 import re
 import sys
 import time
+import csv
 from string import strip
 from optparse import OptionParser
 import signal
@@ -13,6 +14,12 @@ sys_proc_path = '/proc/'
 re_find_process_number = '^\d+$'
 version = u"0.1"
 g_debug = False
+ISOTIMEFORMAT='%Y-%m-%d %X'
+
+# out cvs
+NO_GEN_FILE = "noout"
+g_b_out = False
+g_out_file = NO_GEN_FILE
 ####
 # 通过/proc/$pid/io获取读写信息
 ####
@@ -75,7 +82,9 @@ def collect_info():
 
 def watch(_sleep_time, pids):
     global g_debug
-    print "-----start-----"
+    csv_data = []
+    # time.localtime() return tuple
+    print "-----",time.strftime( ISOTIMEFORMAT, time.localtime() ),"-----"
     process_info_list_frist = {}
     process_info_list_second = {}
     for pid in pids.split():
@@ -127,6 +136,14 @@ def watch(_sleep_time, pids):
         else:
             out += "%-15d" % 0
         print out
+        if g_b_out:
+            csv_data.append(tuple((time.strftime( ISOTIMEFORMAT, time.localtime() ) +" "+ out).split()))
+            print csv_data
+    if g_b_out:
+        csvfile = file(g_out_file, 'ab')
+        writer = csv.writer(csvfile)
+        writer.writerows(csv_data)
+        csvfile.close()
 def list_top(_sleep_time, _list_num):
     print "----------"
     _sort_read_dict = {}
@@ -218,8 +235,9 @@ def get_options(args=None):
     parser.add_option('-w', '--watchmode', action="store_true", dest='watch_mode', default=False, help='watch one process')
     parser.add_option('-p', '', action="store", dest='pids', default="1", help='watch pid(default 1)')
     
-    parser.add_option('-s', '--skiptime', action="store", dest='skip_time', default=1, help='skip time(default 1s)')
+    parser.add_option('-s', '--skiptime', action="store", type="float", dest='skip_time', default=1, help='skip time(default 1s)')
     parser.add_option('-c', '--showcount', action="store", type="int", dest='show_count', default=10, help='showcount(default 10, if <0 , forver)')
+    parser.add_option('-o', '--outfile', action="store", dest='out_file', default=NO_GEN_FILE, help='out csv mode(default no, means don not gen out file)')
     parser.add_option('-d', '--debugmode', action="store_true", dest='debug_mode', default=False, help='debug mode(default false)')
 
     global HELP
@@ -234,6 +252,10 @@ def main(args=None):
     global options
     global argvs
     global g_debug
+
+    global g_b_out
+    global g_out_file
+    
     (options, argvs) = get_options(args)
     print argvs
     print options
@@ -242,6 +264,9 @@ def main(args=None):
         return
     if options.debug_mode:
         g_debug = options.debug_mode
+    if options.out_file != NO_GEN_FILE:
+        g_b_out = True
+        g_out_file = options.out_file
     for i in range(options.show_count if options.show_count > 0 else 86400):
         if options.list_mode:
             list_top(options.skip_time, options.top_num)
@@ -249,17 +274,3 @@ def main(args=None):
             watch(options.skip_time, options.pids)
 if __name__ == "__main__":
     main()
-    '''try:
-        _sleep_time = sys.argv[1]
-    except:
-        _sleep_time = 3
-    try:
-        _num = sys.argv[2]
-    except:
-        _num = 3
-    try:
-        loop = sys.argv[3]
-    except:
-        loop = 1
-    for i in range(int(loop)):
-        list_top(int(_sleep_time), int(_num))'''
