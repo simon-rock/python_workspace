@@ -12,7 +12,7 @@ import signal
 ####
 sys_proc_path = '/proc/'
 re_find_process_number = '^\d+$'
-version = u"0.1"
+version = u"0.22"
 g_debug = False
 ISOTIMEFORMAT='%Y-%m-%d %X'
 
