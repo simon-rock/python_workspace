@@ -19,13 +19,15 @@ import json
 
 # global define
 version = u"0.1"
-ceph_monstore_tool = u"/root/workspace/ceph-monstore-tool"
-ceph_kvstore_tool = u"/root/workspace/ceph-kvstore-tool"
-ceph_dencoder = u"/root/workspace/ceph-dencoder"
+cmd_path = u"/root/workspace/"
+ceph_monstore_tool = cmd_path + u"ceph-monstore-tool"
+ceph_kvstore_tool = cmd_path + u"ceph-kvstore-tool"
+ceph_dencoder = u"/usr/bin/ceph-dencoder"
 mondb_path = u"/var/lib/ceph/mon/mon.a/"
 redc = "\033[1;31;40m"
 defaultc="\033[0m"
 ceph_func = {}
+key_list = "auth logm mdsmap monitor monmap osd_metadata osdmap paxos pgmap pgmap_meta pgmap_osd pgmap_pg"
 #
 is_sigint_up = False
 TASKS = {}
@@ -49,7 +51,8 @@ def list_keys():
 # get version of all the tables
 def show_versions():
     cmd = ceph_monstore_tool + " " + mondb_path + " " + "dump-keys | awk '{print $1}' | uniq" 
-    out = commands.getoutput(cmd)
+    #out = commands.getoutput(cmd)
+    out = key_list
     for data in out.split():
         print "--", data
         ceph_func["show_version"](data)
@@ -262,7 +265,7 @@ def main(args=None):
         ceph_func["show_version"] = _show_version
         ceph_func["get_history"] = _get_history
     else:
-        ceph_func["kvtool_cmd"] = ""
+        ceph_func["kvtool_cmd"] = " "
         ceph_func["show_version"] = _show_version_0945
         ceph_func["get_history"] = _get_history_0945
     if options.version:
