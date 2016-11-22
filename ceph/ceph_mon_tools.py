@@ -99,6 +99,8 @@ def show_history(s,e):
 def make_red(s):
     return redc+s+defaultc
 def _print_change(last, curr):
+    global options
+    
     if last["time_day"] != curr["time_day"] :
         #print redc+"-----", curr["time_day"], "-----"+defaultc
         print make_red(curr["time_day"])
@@ -136,8 +138,8 @@ def _print_change(last, curr):
                         #out += key + ":" + last[key][m] + "=>"+curr[key][m] + " "+make_red("|")
                         o = key + ":" + last[key][m] + "=>"+curr[key][m] + " "+make_red("|")
                         if o.find("up->") != -1 or o.find("up=>down") != -1 or o.find("down=>up") != -1:
-                        #if m == 0:
-                            out += make_red(o)
+                            if options.show_detial:
+                                out += make_red(o)
                         else:
                             out += o
     if last["pg_temp"] != curr["pg_temp"]:
@@ -233,8 +235,9 @@ def get_options(args=None):
 
     # print osdmap chenge list
     parser.add_option('-o', '--osdhistory', action="store_true", dest='history', default=False, help='show the history of osd map')
-    parser.add_option('', '--sv', action="store", dest='start_version', default="", help='start verson')
-    parser.add_option('', '--ev', action="store", dest='end_version', default="", help='end verson')
+    parser.add_option('', '--sv', action="store", dest='start_version', default="", help='start verson, for osd history')
+    parser.add_option('', '--ev', action="store", dest='end_version', default="", help='end verson, for osd history')
+    parser.add_option('', '--sd', action="store_true", dest='show_detial', default=False, help='show the detail ,not only osd up and down, for osd history')
     #parser.add_option('-o', '--outnanlyzed',action='store', dest='outdir', default='.', help='dir of analyzed file')
     #parser.add_option('-c', '--threshold',action='store', dest='cost', default='0', help='microseconds, only analy the event which cost over the threshold')
     #parser.add_option('-p', '--print', action="store_true", dest='print_only', default=False, help='print only through the filter')
