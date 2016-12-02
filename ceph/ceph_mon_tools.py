@@ -138,10 +138,10 @@ def _print_change(last, curr):
                         #out += key + ":" + last[key][m] + "=>"+curr[key][m] + " "+make_red("|")
                         o = key + ":" + last[key][m] + "=>"+curr[key][m] + " "+make_red("|")
                         if o.find("up->") != -1 or o.find("up=>down") != -1 or o.find("down=>up") != -1:
-                            if options.show_detial:
-                                out += make_red(o)
+                            out += make_red(o)
                         else:
-                            out += o
+                            if options.show_detial:
+                                out += o
     if last["pg_temp"] != curr["pg_temp"]:
         out += "pg_temp:" + str(last["pg_temp"]) + "=>"+str(curr["pg_temp"])+make_red("|")
     if out == "":
