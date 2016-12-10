@@ -6,6 +6,7 @@ import re
 import sys
 import time
 import csv
+import commands
 from string import strip
 from optparse import OptionParser
 import signal
@@ -106,7 +107,7 @@ def watch(_sleep_time, pids):
         print "no process"
         return
     # print title
-    title = "%-15s" % "name"
+    title = "%-15s" % "pid(name)"
     for pid in process_info_list_second.keys():
         for key in process_info_list_second[pid].keys():
             if key == "name":
@@ -117,7 +118,7 @@ def watch(_sleep_time, pids):
     print title
     # print content
     for pid in process_info_list_second.keys():
-        out = "%-15s" % pid
+        out = "%-15s" % (pid + process_info_list_second[pid]["name"])
         for key in process_info_list_second[pid].keys():
             if key == "name":
                 continue
@@ -224,6 +225,13 @@ def list_top(_sleep_time, _list_num):
         print res
     print "\n" * 1
 
+def get_pids(sp_str):
+    pids = ""
+    cmd = "ps aux | grep " + sp_str + " | grep -v grep | grep -v io_util | awk '{print $2}'"
+    out = commands.getoutput(cmd)
+    for data in out.split():
+        pids += data + " "
+    return pids
 def get_options(args=None):
     '''get options'''
     parser = OptionParser()
@@ -233,7 +241,8 @@ def get_options(args=None):
     parser.add_option('-n', '', action="store", dest='top_num', default=3, help='list top(default 3)')
     #watch mode
     parser.add_option('-w', '--watchmode', action="store_true", dest='watch_mode', default=False, help='watch one process')
-    parser.add_option('-p', '', action="store", dest='pids', default="1", help='watch pid(default 1)')
+    parser.add_option('-p', '', action="store", dest='pids', default="1", help='watch pids(default 1, you can watch some pids "1 2 3")')
+    parser.add_option('--cmd', '', action="store", dest='cmd', default="", help='watch pids which name have these string (default "", will ignore -p )')
     
     parser.add_option('-s', '--skiptime', action="store", type="float", dest='skip_time', default=1, help='skip time(default 1s)')
     parser.add_option('-c', '--showcount', action="store", type="int", dest='show_count', default=10, help='showcount(default 10, if <0 , forver)')
@@ -271,6 +280,10 @@ def main(args=None):
         if options.list_mode:
             list_top(options.skip_time, options.top_num)
         if options.watch_mode:
-            watch(options.skip_time, options.pids)
+            if options.cmd == "":
+                watch(options.skip_time, options.pids)
+            else:
+                pids = get_pids(options.cmd)
+                watch(options.skip_time, pids)
 if __name__ == "__main__":
     main()
