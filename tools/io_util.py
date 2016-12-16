@@ -48,8 +48,8 @@ def analy_devs(dev_names, show_lwp):
     if len(dev_names) > 0:
         cmd += dev_names[0]
     for i in range(1, len(dev_names)):
-        cmd += " | " + dev_names[i]
-    cmd += " \""
+        cmd += "| " + dev_names[i]
+    cmd += "\""
     debug_print(cmd)
     out = commands.getoutput(cmd)
 
