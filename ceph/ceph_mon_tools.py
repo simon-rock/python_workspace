@@ -18,7 +18,7 @@ import signal
 import json
 
 # global define
-version = u"0.1"
+version = u"0.2"
 cmd_path = u"/root/workspace/"
 ceph_monstore_tool = cmd_path + u"ceph-monstore-tool"
 ceph_kvstore_tool = cmd_path + u"ceph-kvstore-tool"
@@ -238,6 +238,11 @@ def get_options(args=None):
     parser.add_option('', '--sv', action="store", dest='start_version', default="", help='start verson, for osd history')
     parser.add_option('', '--ev', action="store", dest='end_version', default="", help='end verson, for osd history')
     parser.add_option('', '--sd', action="store_true", dest='show_detial', default=False, help='show the detail ,not only osd up and down, for osd history')
+    '''common param'''
+    parser.add_option('', '--ldtp', action="store", dest='ldbtool_path', default="/root/yu/usr/bin/", help='the dir which have dbtools(default /root/yu/usr/bin/)')
+    parser.add_option('', '--dcp', action="store", dest='decode_path', default="/usr/bin/ceph-dencoder", help='the path of ceph-dencoder(default /usr/bin/ceph-dencoder)')
+    parser.add_option('', '--dbp', action="store", dest='mondb_path', default="/var/lib/ceph/mon/mon.a/", help='the path which include store.db(default /var/lib/ceph/mon/mon.a/)')
+    
     #parser.add_option('-o', '--outnanlyzed',action='store', dest='outdir', default='.', help='dir of analyzed file')
     #parser.add_option('-c', '--threshold',action='store', dest='cost', default='0', help='microseconds, only analy the event which cost over the threshold')
     #parser.add_option('-p', '--print', action="store_true", dest='print_only', default=False, help='print only through the filter')
@@ -254,6 +259,31 @@ def get_options(args=None):
     #    parser.error("Please specify the directory of the file to be processed.")
     return options, argvs
 
+def check_param():
+    global options
+    global ceph_monstore_tool
+    global ceph_kvstore_tool
+    global ceph_dencoder
+    global mondb_path
+    
+    if not os.path.exists(options.ldbtool_path + "ceph-monstore-tool"):
+        print "%sceph-monstore-tool does not exist", options.ldbtool_path
+        return False
+    ceph_monstore_tool = options.ldbtool_path + "ceph-monstore-tool"
+    if not os.path.exists(options.ldbtool_path + "ceph-kvstore-tool"):
+        print "%sceph-kvstore-tool does not exist", options.ldbtool_path
+        return False
+    ceph_kvstore_tool = options.ldbtool_path + "ceph-kvstore-tool"
+    if not os.path.exists(options.decode_path):
+        print "%s does not exist", options.decode_path
+        return False
+    ceph_dencoder = options.ldbtool_path + "ceph-kvstore-tool"
+    if not os.path.exists(options.mondb_path):
+        print "%s does not exist", options.mondb_path
+        return False
+    mondb_path = options.mondb_path
+    return True
+    
 def main(args=None):
     signal.signal(signal.SIGINT, sigint_handler)
     signal.signal(signal.SIGHUP, sigint_handler)
@@ -263,6 +293,9 @@ def main(args=None):
     (options, argvs) = get_options(args)
     print argvs
     print options
+    if not check_param():
+        print "cann't find tools or db, please check the param!!!"
+        return
     if options.newtools:
         ceph_func["kvtool_cmd"] = " leveldb "
         ceph_func["show_version"] = _show_version
