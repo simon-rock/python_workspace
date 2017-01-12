@@ -40,10 +40,25 @@ def pre_analy_mode():
     print out
 def analy_devs(dev_names, show_lwp):
     ret = {}
+    #test string
+    #inode = "[4738409.496207] nginx(28798): dirtied inode 6554526 (?) on sde2"
+    #inode2 = "nginx(28798): dirtied inode 6554526 (?) on sde2"
+    #block = "[4762222.817648] ceph-osd(21875): READ block 5929149400 on sdj (8 sectors)"
+    #block2 = "ceph-osd(3090221): READ block 3927644160 on sdf"
     #prog_block = re.compile("\[(\S+)\] (\S+)\((\d+)\): (\S+) block \d+ on (\S+) \((\d+)")
     #prog_inode = re.compile("\[(\S+)\] (\S+)\((\d+)\): (\S+) inode \d+ .* on (\S+)")
-    prog_block = re.compile("\[\S+\] (\S+)\((\d+)\): (\S+) block \d+ on (\S+) \((\d+)")
-    prog_inode = re.compile("\[\S+\] (\S+)\((\d+)\): (\S+) inode \d+ .* on (\S+)")
+    #prog_block = re.compile("\[\S+\] (\S+)\((\d+)\): (\S+) block \d+ on (\S+) \((\d+)")    
+    #prog_inode = re.compile("\[\S+\] (\S+)\((\d+)\): (\S+) inode \d+ .* on (\S+)")
+    prog_block = re.compile("(\[\S+\] )?(\S+)\((\d+)\): (\S+) block \d+ on (\S+)\s?\(?(\d+)?")
+    prog_inode = re.compile("(\[\S+\] )?(\S+)\((\d+)\): (\S+) inode \d+ .* on (\S+)")
+    # define
+    time_index = 1      #??
+    pn_index = 2
+    pid_index = 3
+    io_type_index = 4
+    dev_index = 5
+    io_size_index = 6   #??
+    
     cmd = "dmesg -c | grep -E \" "
     if len(dev_names) > 0:
         cmd += dev_names[0]
@@ -59,8 +74,11 @@ def analy_devs(dev_names, show_lwp):
     out2 = commands.getoutput(cmd)
     for line in out2.split("\n"):
         lwp_pid_map[line.split()[1]] = line.split()[0]
-
+    if out == "":
+        print "-----empty-----"
+        return
     for line in out.split("\n"):
+        debug_print(line)
     #for line in open("/mnt/hgfs/workspace/out", "rb").readlines():
         #print line, line.find("block"), line.find("inode")
         if line.find("block") != -1:
@@ -71,39 +89,42 @@ def analy_devs(dev_names, show_lwp):
             res = re.match(prog_inode, line)
             debug_print(res.groups())
 
-        if ret.has_key(res.group(4)):
-            dev_item = ret[res.group(4)]
-            if dev_item.has_key(res.group(2)):
-                lwp_item = dev_item[res.group(2)]
-                lwp_item[res.group(3)] += 1
+        if ret.has_key(res.group(dev_index)):
+            dev_item = ret[res.group(dev_index)]
+            if dev_item.has_key(res.group(pid_index)):
+                lwp_item = dev_item[res.group(pid_index)]
+                lwp_item[res.group(io_type_index)] += 1
                 if line.find(" block ") != -1:
-                    lwp_item[res.group(3)+"_size"] += int(res.group(5))
+                    if res.group(io_size_index) != None:
+                        lwp_item[res.group(io_type_index)+"_size"] += int(res.group(io_size_index))
             else:
                 lwp_item = {}
-                lwp_item["name"] = res.group(1)
+                lwp_item["name"] = res.group(pn_index)
                 lwp_item["READ"] = 0
                 lwp_item["WRITE"] = 0
                 lwp_item["dirtied"] = 0
                 lwp_item["READ_size"] = 0
                 lwp_item["WRITE_size"] = 0
-                lwp_item[res.group(3)] += 1
+                lwp_item[res.group(io_type_index)] += 1
                 if line.find(" block ") != -1:
-                    lwp_item[res.group(3)+"_size"] += int(res.group(5))
-                dev_item[res.group(2)] = lwp_item
+                    if res.group(io_size_index) != None:
+                        lwp_item[res.group(io_type_index)+"_size"] += int(res.group(io_size_index))
+                dev_item[res.group(pid_index)] = lwp_item
         else:
             new_lwp_item = {}
-            new_lwp_item["name"] = res.group(1)
+            new_lwp_item["name"] = res.group(pn_index)
             new_lwp_item["READ"] = 0
             new_lwp_item["WRITE"] = 0
             new_lwp_item["dirtied"] = 0
             new_lwp_item["READ_size"] = 0
             new_lwp_item["WRITE_size"] = 0
-            new_lwp_item[res.group(3)] += 1
+            new_lwp_item[res.group(io_type_index)] += 1
             if line.find(" block ") != -1:
-                new_lwp_item[res.group(3)+"_size"] += int(res.group(5))
+                if res.group(io_size_index) != None:
+                    new_lwp_item[res.group(io_type_index)+"_size"] += int(res.group(io_size_index))
             dev_item = {}
-            dev_item[res.group(2)] = new_lwp_item
-            ret[res.group(4)] = dev_item
+            dev_item[res.group(pid_index)] = new_lwp_item
+            ret[res.group(dev_index)] = dev_item
     '''print ret'''
     print "-----",time.strftime( ISOTIMEFORMAT, time.localtime() ),"-----", "%15s %15s %15s %15s %15s" % ("READ", "WRITE", "dirtied", "READ_size(KB)", "WRITE_size(KB)")
     for dev in ret.keys():
@@ -359,8 +380,8 @@ def get_options(args=None):
     parser = OptionParser()
     parser.add_option('-v', '--version', action="store_true", dest='version', default=False, help='print version')
     #analy dev mode
-    parser.add_option('-a', '--analy', action="store_true", dest='analy_mode', default=False, help='')
-    parser.add_option('', '--show_lwp', action="store_true", dest='show_lwp', default=False, help='')
+    parser.add_option('-a', '--analymode', action="store_true", dest='analy_mode', default=False, help='analy the sp. dev(e.g. -a sda)')
+    parser.add_option('', '--show_lwp', action="store_true", dest='show_lwp', default=False, help='show the lwp (default False) ')
     #list mode
     parser.add_option('-l', '--listmode', action="store_true", dest='list_mode', default=False, help='list top process with high io(default 3)')
     parser.add_option('-n', '', action="store", dest='top_num', default=3, help='list top(default 3)')
@@ -397,7 +418,7 @@ def main(args=None):
         print version
         return
     if options.debug_mode:
-        g_debug = options.debug_mode
+0        g_debug = options.debug_mode
     if options.out_file != NO_GEN_FILE:
         g_b_out = True
         g_out_file = options.out_file
