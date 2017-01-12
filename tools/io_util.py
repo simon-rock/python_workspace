@@ -418,7 +418,7 @@ def main(args=None):
         print version
         return
     if options.debug_mode:
-0        g_debug = options.debug_mode
+        g_debug = options.debug_mode
     if options.out_file != NO_GEN_FILE:
         g_b_out = True
         g_out_file = options.out_file
