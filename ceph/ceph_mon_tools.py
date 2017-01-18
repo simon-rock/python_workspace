@@ -28,10 +28,14 @@ redc = "\033[1;31;40m"
 defaultc="\033[0m"
 ceph_func = {}
 key_list = "auth logm mdsmap monitor monmap osd_metadata osdmap paxos pgmap pgmap_meta pgmap_osd pgmap_pg"
+g_debug = False
 #
 is_sigint_up = False
 TASKS = {}
 EVENT_STAT = {}
+def debug_print(str):
+    if g_debug:
+        print "debug: ", str
 def sigint_handler(signum, frame):
     global is_sigint_up
     global EVENT_STAT
@@ -44,13 +48,15 @@ def sigint_handler(signum, frame):
 
 # get all the 
 def list_keys():
-    cmd = ceph_monstore_tool + " " + mondb_path + " " + "dump-keys | awk '{print $1}' | uniq -c" 
+    cmd = ceph_monstore_tool + " " + mondb_path + " " + "dump-keys | awk '{print $1}' | uniq -c"
+    debug_print(cmd)
     out = commands.getoutput(cmd)
     print out
 
 # get version of all the tables
 def show_versions():
-    cmd = ceph_monstore_tool + " " + mondb_path + " " + "dump-keys | awk '{print $1}' | uniq" 
+    cmd = ceph_monstore_tool + " " + mondb_path + " " + "dump-keys | awk '{print $1}' | uniq"
+    debug_print(cmd)
     #out = commands.getoutput(cmd)
     out = key_list
     for data in out.split():
@@ -59,7 +65,8 @@ def show_versions():
         
 # show the first committed and last committed of the map type
 def _show_version(map_type):
-    cmd = ceph_monstore_tool + " " + mondb_path + " " + "show-versions -- --map-type " + map_type 
+    cmd = ceph_monstore_tool + " " + mondb_path + " " + "show-versions -- --map-type " + map_type
+    debug_print(cmd)
     out = commands.getoutput(cmd)
     print out
 def _show_version_0945(map_type):
@@ -67,6 +74,7 @@ def _show_version_0945(map_type):
     #cmd = ceph_kvstore_tool + " leveldb " + mondb_path + "store.db/ get " + map_type
     #0.945 no leveldb
     cmd = ceph_kvstore_tool + ceph_func["kvtool_cmd"] + mondb_path + "store.db/ get " + map_type
+    debug_print(cmd)
     out = commands.getoutput(cmd+" first_committed out map_v")
     if out.find("not exist") ==-1:
         out = commands.getoutput("cat map_v | hexdump && rm -f map_v")
@@ -151,8 +159,10 @@ def _print_change(last, curr):
 # for 0.9.45
 def _get_history_0945(version):
     cmd = ceph_monstore_tool + " " + mondb_path + " " + "get osdmap" + " -- --out om_tmp --version " + str(version)
+    debug_print(cmd)
     out = commands.getoutput(cmd)
     cmd = ceph_dencoder + " import om_tmp type OSDMap decode dump_json"
+    debug_print(cmd)
     out = commands.getoutput(cmd)
     json_out = json.loads(out)
     #print type(out), out
@@ -190,6 +200,7 @@ def _get_history_0945(version):
 # for 10.2.2
 def _get_history(version):
     cmd = ceph_monstore_tool + " " + mondb_path + " " + "get osdmap" + " -- --readable=1 --version " + str(version)
+    debug_print(cmd)
     out = commands.getoutput(cmd)
     info = {}
     for data in out.split("\n"):
@@ -242,7 +253,7 @@ def get_options(args=None):
     parser.add_option('', '--ldtp', action="store", dest='ldbtool_path', default="/root/yu/usr/bin/", help='the dir which have dbtools(default /root/yu/usr/bin/)')
     parser.add_option('', '--dcp', action="store", dest='decode_path', default="/usr/bin/ceph-dencoder", help='the path of ceph-dencoder(default /usr/bin/ceph-dencoder)')
     parser.add_option('', '--dbp', action="store", dest='mondb_path', default="/var/lib/ceph/mon/mon.a/", help='the path which include store.db(default /var/lib/ceph/mon/mon.a/)')
-    
+    parser.add_option('-d', '--debugmode', action="store_true", dest='debug_mode', default=False, help='debug mode(default false)')
     #parser.add_option('-o', '--outnanlyzed',action='store', dest='outdir', default='.', help='dir of analyzed file')
     #parser.add_option('-c', '--threshold',action='store', dest='cost', default='0', help='microseconds, only analy the event which cost over the threshold')
     #parser.add_option('-p', '--print', action="store_true", dest='print_only', default=False, help='print only through the filter')
@@ -277,7 +288,7 @@ def check_param():
     if not os.path.exists(options.decode_path):
         print "%s does not exist", options.decode_path
         return False
-    ceph_dencoder = options.ldbtool_path + "ceph-kvstore-tool"
+    #ceph_dencoder = options.ldbtool_path + "ceph-kvstore-tool"
     if not os.path.exists(options.mondb_path):
         print "%s does not exist", options.mondb_path
         return False
@@ -293,6 +304,8 @@ def main(args=None):
     (options, argvs) = get_options(args)
     print argvs
     print options
+    if options.debug_mode:
+        g_debug = options.debug_mode
     if not check_param():
         print "cann't find tools or db, please check the param!!!"
         return
