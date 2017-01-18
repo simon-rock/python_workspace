@@ -144,6 +144,26 @@ def _print_change(last, curr):
                 for m in range(len(base[key])):
                     if last[key][m] != curr[key][m]:
                         #out += key + ":" + last[key][m] + "=>"+curr[key][m] + " "+make_red("|")
+                        #0.94.5
+                        #osd start
+                        #  osd91:heartbeat_back_addr->10.20.29.186:1310/7475800=>heartbeat_back_addr->10.20.29.186:1338/8475800 |
+                        #  osd91:up_from->32956=>up_from->32985 |
+                        #  osd91:heartbeat_front_addr->10.20.29.186:1317/7475800=>heartbeat_front_addr->10.20.29.186:1339/8475800 |
+                        #  osd91:up->0=>up->1 |osd91:last_clean_end->32955=>last_clean_end->32983 |
+                        #  osd91:cluster_addr->10.20.29.186:1309/7475800=>cluster_addr->10.20.29.186:1337/8475800
+                        #osd down
+                        #  osd91:down_at->32954=>down_at->32981 |osd91:up->1=>up->0
+                        #osd out (don't means osd91:up->1=>up->0, maybe osd is up)
+                        #  osd91:down_at->33834=>down_at->33859 |osd91:up->1=>up->0
+                        #  osd91:weight->1.0=>weight->0.0 |osd91:in->1=>in->0
+                        #  sp case:
+                        #    14:09:14.825890 33873:  osd91:weight->1.0=>weight->0.0 |osd91:in->1=>in->0
+                        #    14:10:35.172827 33899:  osd91:down_at->33866=>down_at->33899 |osd91:up->1=>up->0
+                        #  
+                        #osd in
+                        #  osd91:weight->0.0=>weight->1.0 |osd91:in->0=>in->1
+                        #10.2.2
+                        #osd91:up=>down, osd91:down=>up
                         o = key + ":" + last[key][m] + "=>"+curr[key][m] + " "+make_red("|")
                         if o.find("up->") != -1 or o.find("up=>down") != -1 or o.find("down=>up") != -1:
                             out += make_red(o)
