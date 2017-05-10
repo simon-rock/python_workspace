@@ -34,6 +34,7 @@ is_sigint_up = False
 TASKS = {}
 EVENT_STAT = {}
 def debug_print(str):
+    global g_debug
     if g_debug:
         print "debug: ", str
 def sigint_handler(signum, frame):
@@ -321,6 +322,7 @@ def main(args=None):
     signal.signal(signal.SIGTERM, sigint_handler)
     global options
     global argvs
+    global g_debug
     (options, argvs) = get_options(args)
     print argvs
     print options
