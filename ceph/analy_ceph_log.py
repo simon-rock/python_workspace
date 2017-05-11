@@ -4,7 +4,7 @@
 # ceph daemon osd.17 config  set debug_optracker 5
 # so, you can filter the sp. log using tailf osd.17.log | ananly_ceph_log.py -r [-f event or all] [-t print_event or all] [-c cost or 0]
 #
-#
+# usage : | analy_ceph_log.py -r [-f EVENT -c COST] [-t PEVENT] [-d]
 import re
 import string
 import os
@@ -16,8 +16,13 @@ from optparse import OptionParser
 import signal
 
 is_sigint_up = False
+g_debug = False
 TASKS = {}
 EVENT_STAT = {}
+def debug_print(str):
+    global g_debug
+    if g_debug:
+        print "debug: ", str
 def sigint_handler(signum, frame):
     global is_sigint_up
     global EVENT_STAT
@@ -28,8 +33,8 @@ def sigint_handler(signum, frame):
     for key, val in EVENT_STAT.items():
         print ("%-55s "%(key)), val["avg_cost"], val["max"], val["min"],  val["total_count"]
 
-test_str = r'2015-12-14 03:15:20.672735 7ff19db41700  5  common/TrackedOp.cc:287 -- op tracker -- seq: 96452, time: 2015-12-14 03:15:20.672371, event: header_read, op: osd_sub_op(client.6125.0:270 4.4 65639084/gc.29/head//4 [] v 94\'14753 snapset=0=[]:[] snapc=0=[])'
-
+test_str_0945 = r'2015-12-14 03:15:20.672735 7ff19db41700  5  common/TrackedOp.cc:287 -- op tracker -- seq: 96452, time: 2015-12-14 03:15:20.672371, event: header_read, op: osd_sub_op(client.6125.0:270 4.4 65639084/gc.29/head//4 [] v 94\'14753 snapset=0=[]:[] snapc=0=[])'
+test_str_1025 = r'2017-05-11 11:18:08.216603 7fa5063e8700  5  common/TrackedOp.cc:292 -- op tracker -- seq: 4176973, time: 2017-05-11 11:18:08.216603, event: waiting for subops from 5,22, op: osd_op(client.1212883.0:680 28.9de6e907 obj_delete_at_hint.0000000086 [call lock.lock] snapc 0=[] ondisk+write+known_if_redirected e22596)'
 def process(log_path, out):
     global TASKS
     fp = open(log_path, 'r')
@@ -47,13 +52,16 @@ def load_analyzed_file(analyzed):
     f = file(analyzed)
     TASKS = p.load(f)
 def get_seq_info(line, real = False):
+    debug_print(line)
     if is_sigint_up:
         return
-    prog = re.compile(".* -- op tracker -- seq: (\d+), time: (\S+ \S+),.* event: (\S+),")
+    #prog = re.compile(".* -- op tracker -- seq: (\d+), time: (\S+ \S+),.* event: (\S+),")
+    prog = re.compile(".* -- op tracker -- seq: (\d+), time: (\S+ \S+),.* event: (.+), op: ") # update for ceph 10.2.5
     res = re.match(prog, line)
     if res is None:
-        #print "res is None"
+        debug_print("res is None")
         return
+    debug_print(res.groups())
     if len(res.groups()) != 3:
         return
     co_time = datetime.datetime.strptime(res.group(2), "%Y-%m-%d %H:%M:%S.%f")
@@ -172,7 +180,7 @@ def get_options(args=None):
     parser.add_option('-r', '--realtime', action="store_true", dest='realtime', default=False, help='realtime analy')
     parser.add_option('-f', '--filter_event', action="store", dest='event', default="all", help='event name')
     parser.add_option('-t', '--print_event', action="store", dest='pevent', default="all", help='event name')
-    
+    parser.add_option('-d', '--debugmode', action="store_true", dest='debug_mode', default=False, help='debug mode(default false)')    
     global HELP
     HELP = parser.format_help().strip()
     (options, argvs) = parser.parse_args(args)
@@ -228,12 +236,15 @@ def main(args=None):
     signal.signal(signal.SIGTERM, sigint_handler)
     global options
     global argvs
+    global g_debug
     (options, argvs) = get_options(args)
     #if len(sys.argv) == 0:
     #    print "input log path"
     #    return
     print argvs
     print options
+    if options.debug_mode:
+        g_debug = options.debug_mode
     if options.version:
         print "current version 0.3"
         return
