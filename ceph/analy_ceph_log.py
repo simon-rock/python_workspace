@@ -56,30 +56,31 @@ def get_seq_info(line, real = False):
     if is_sigint_up:
         return
     #prog = re.compile(".* -- op tracker -- seq: (\d+), time: (\S+ \S+),.* event: (\S+),")
-    prog = re.compile(".* -- op tracker -- seq: (\d+), time: (\S+ \S+),.* event: (.+), op: ") # update for ceph 10.2.5
+    prog = re.compile(".* -- op tracker -- seq: (\d+), time: (\S+ \S+),.* event: (.+), op: (.+)") # update for ceph 10.2.5
     res = re.match(prog, line)
     if res is None:
         debug_print("res is None")
         return
     debug_print(res.groups())
-    if len(res.groups()) != 3:
+    if len(res.groups()) < 3:
         return
     co_time = datetime.datetime.strptime(res.group(2), "%Y-%m-%d %H:%M:%S.%f")
     seq =  res.group(1)
     event_name = res.group(3)
+    other_info = res.group(4)
     # check if exist (seq) (seq:44459)
     ss = re.compile("\(seq:\d+\)")
     event_name = ss.sub("", event_name)
     if not TASKS.has_key(seq):
         tmp = []
-        tmp.append((event_name, co_time, datetime.timedelta(microseconds = 0)))
+        tmp.append((event_name, co_time, datetime.timedelta(microseconds = 0), other_info))
         TASKS[seq] = tmp
     else:
         item = TASKS[seq]
         #print item, len(item), item[len(item) - 1][1]
         cost = co_time - item[len(item) - 1][1]
         #print cost
-        item.append((event_name, co_time, cost))
+        item.append((event_name, co_time, cost, other_info))
         global options
         if real and ((event_name == "done" and (options.event != options.pevent or options.event == "all"))or ( event_name == options.event and options.event == options.pevent)):        
             global argvs
