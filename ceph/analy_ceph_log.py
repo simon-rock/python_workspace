@@ -175,7 +175,7 @@ def get_options(args=None):
     parser.add_option('-v', '--version', action="store_true", dest='version', default=False, help='print version')
     parser.add_option('-a', '--analyzedfile', action="store_true", dest='analyzed', default=False, help='open a analyzed file')
     parser.add_option('-o', '--outnanlyzed',action='store', dest='outdir', default='.', help='dir of analyzed file')
-    parser.add_option('-c', '--threshold',action='store', dest='cost', default='0', help='microseconds, only analy the event which cost over the threshold')
+    parser.add_option('-c', '--threshold',action='store', dest='cost', default='0', help='microseconds(us), only analy the event which cost over the threshold')
     parser.add_option('-p', '--print', action="store_true", dest='print_only', default=False, help='print only through the filter')
     # for real time
     parser.add_option('-r', '--realtime', action="store_true", dest='realtime', default=False, help='realtime analy')
