@@ -1,0 +1,301 @@
+epoch 23196
+fsid 59701fad-58de-41d5-b8c4-5a15da0b716c
+created 2017-01-18 15:26:30.887518
+modified 2017-06-22 10:24:21.079608
+flags noout,nodeep-scrub,sortbitwise
+pool 24 '.rgw.root' replicated size 3 min_size 1 crush_ruleset 0 object_hash rjenkins pg_num 10 pgp_num 10 last_change 567 flags hashpspool stripe_width 0 expected_num_objects 1000
+pool 25 'default.rgw.control' replicated size 3 min_size 1 crush_ruleset 0 object_hash rjenkins pg_num 50 pgp_num 50 last_change 571 flags hashpspool stripe_width 0 expected_num_objects 10000
+pool 26 'default.rgw.data.root' replicated size 3 min_size 1 crush_ruleset 0 object_hash rjenkins pg_num 50 pgp_num 50 last_change 573 flags hashpspool stripe_width 0 expected_num_objects 10000
+pool 27 'default.rgw.gc' replicated size 3 min_size 1 crush_ruleset 0 object_hash rjenkins pg_num 30 pgp_num 30 last_change 575 flags
+hashpspool stripe_width 0 expected_num_objects 1000
+pool 28 'default.rgw.log' replicated size 3 min_size 1 crush_ruleset 0 object_hash rjenkins pg_num 50 pgp_num 50 last_change 577 flags hashpspool stripe_width 0 expected_num_objects 1000
+pool 29 'default.rgw.users.keys' replicated size 3 min_size 1 crush_ruleset 0 object_hash rjenkins pg_num 10 pgp_num 10 last_change 580 flags hashpspool stripe_width 0 expected_num_objects 1000
+pool 30 'default.rgw.users.uid' replicated size 3 min_size 1 crush_ruleset 0 object_hash rjenkins pg_num 10 pgp_num 10 last_change 582 flags hashpspool stripe_width 0 expected_num_objects 1000
+pool 31 'default.rgw.users.email' replicated size 3 min_size 1 crush_ruleset 0 object_hash rjenkins pg_num 10 pgp_num 10 last_change 585 flags hashpspool stripe_width 0 expected_num_objects 1000
+pool 32 'default.rgw.buckets.index' replicated size 3 min_size 1 crush_ruleset 0 object_hash rjenkins pg_num 100 pgp_num 100 last_change 587 flags hashpspool stripe_width 0 expected_num_objects 1000000
+pool 33 'default.rgw.buckets.non-ec' replicated size 3 min_size 1 crush_ruleset 0 object_hash rjenkins pg_num 100 pgp_num 100 last_change 589 flags hashpspool stripe_width 0 expected_num_objects 1000000
+pool 36 's3cloud.rgw.buckets.index' replicated size 3 min_size 1 crush_ruleset 0 object_hash rjenkins pg_num 100 pgp_num 100 last_change 591 flags hashpspool stripe_width 0 expected_num_objects 1000000
+pool 37 's3cloud.rgw.buckets.non-ec' replicated size 3 min_size 1 crush_ruleset 0 object_hash rjenkins pg_num 100 pgp_num 100 last_change 593 flags hashpspool stripe_width 0 expected_num_objects 1000000
+pool 38 'default.rgw.buckets.data' replicated size 2 min_size 1 crush_ruleset 1 object_hash rjenkins pg_num 4096 pgp_num 4096 last_change 595 flags hashpspool stripe_width 0 expected_num_objects 4177920000
+pool 40 's3cloud.rgw.buckets.data' replicated size 2 min_size 1 crush_ruleset 1 object_hash rjenkins pg_num 3000 pgp_num 3000 last_change 18920 flags hashpspool stripe_width 0 expected_num_objects 12288000000
+max_osd 245
+osd.0 down in  weight 1 up_from 23089 up_thru 23090 down_at 23147 last_clean_interval [23068,23084) 223.203.98.4:1300/7290 10.20.53.10:1300/7290 10.20.53.10:1301/7290 223.203.98.4:1301/7290 exists 0af05eb4-4347-42d1-8137-4e61125f7126
+osd.1 down in  weight 1 up_from 23097 up_thru 23098 down_at 23153 last_clean_interval [23073,23084) 223.203.98.4:1302/7665 10.20.53.10:1302/7665 10.20.53.10:1303/7665 223.203.98.4:1303/7665 exists 955b8b14-4587-4af1-b5d7-263b66b26f75
+osd.2 down in  weight 1 up_from 18338 up_thru 23013 down_at 23188 last_clean_interval [18076,18328) 223.203.98.5:1300/20360 10.20.53.11:1303/20360 10.20.53.11:1313/20360 223.203.98.5:1301/20360 exists 4e699518-7e55-4ac8-a580-4ba3e0d80f23
+osd.3 down in  weight 1 up_from 19772 up_thru 23013 down_at 23188 last_clean_interval [19767,19771) 223.203.98.5:1302/16239 10.20.53.11:1307/1016239 10.20.53.11:1308/1016239 223.203.98.5:1307/1016239 exists 8fdb93ee-21ec-4d1c-b96b-9522f7f309fe
+osd.4 down in  weight 1 up_from 22708 up_thru 23013 down_at 23179 last_clean_interval [18312,22701) 223.203.98.6:1301/28920 10.20.53.12:1300/28920 10.20.53.12:1302/28920 223.203.98.6:1302/28920 exists 03ac4ca2-da32-4ca4-8945-2e27eff54e44
+osd.5 down in  weight 1 up_from 22746 up_thru 23013 down_at 23181 last_clean_interval [22723,22738) 223.203.98.6:1303/6818 10.20.53.12:1304/6818 10.20.53.12:1305/6818 223.203.98.6:1304/6818 exists 8b9a048c-0955-4dc3-8423-6c23a37da3f0
+osd.6 up   in  weight 1 up_from 22143 up_thru 23013 down_at 22136 last_clean_interval [22083,22137) 223.203.98.7:1300/18816 10.20.53.13:1300/18816 10.20.53.13:1301/18816 223.203.98.7:1302/18816 exists,up a763a4c6-86fb-4821-8fd3-81cb30b7b6a6
+osd.7 up   in  weight 1 up_from 22592 up_thru 23013 down_at 22590 last_clean_interval [22587,22589) 223.203.98.7:1301/18024 10.20.53.13:1304/18024 10.20.53.13:1305/18024 223.203.98.7:1304/18024 exists,up 8670e9bb-80ea-4868-92b7-fde8b4dd20b9
+osd.8 up   in  weight 1 up_from 18308 up_thru 23012 down_at 18291 last_clean_interval [16179,18290) 223.203.98.8:1314/6687 10.20.53.14:1304/6687 10.20.53.14:1306/6687 223.203.98.8:1315/6687 exists,up fe0cf38c-36ae-44cf-afe1-d65e217345c3
+osd.9 up   in  weight 1 up_from 18307 up_thru 23013 down_at 18301 last_clean_interval [18026,18300) 223.203.98.8:1302/7723 10.20.53.14:1302/7723 10.20.53.14:1307/7723 223.203.98.8:1344/7723 exists,up f2863d6c-3ec8-439c-8496-61081d5b1378
+osd.10 up   in  weight 1 up_from 22913 up_thru 23190 down_at 22911 last_clean_interval [18258,22912) 223.203.98.9:1305/3296 10.20.53.15:1305/2003296 10.20.53.15:1306/2003296 223.203.98.9:1306/2003296 exists,up 54cc6e4e-05fc-478e-8c58-2c55405161b8
+osd.11 up   in  weight 1 up_from 20967 up_thru 23188 down_at 20699 last_clean_interval [18259,20701) 223.203.98.9:1302/7328 10.20.53.15:1302/7328 10.20.53.15:1303/7328 223.203.98.9:1304/7328 exists,up bb3557e0-4623-4d11-a05a-f43a5139efbb
+osd.12 up   in  weight 1 up_from 18326 up_thru 23188 down_at 18325 last_clean_interval [16507,18320) 223.203.98.10:1304/13567 10.20.53.16:1303/13567 10.20.53.16:1305/13567 223.203.98.10:1305/13567 exists,up 9c44a1fd-746e-4b23-8d03-a27a16aa00ce
+osd.13 up   in  weight 1 up_from 23012 up_thru 23194 down_at 23010 last_clean_interval [18337,23009) 223.203.98.10:1301/31868 10.20.53.16:1300/31868 10.20.53.16:1301/31868 223.203.98.10:1302/31868 exists,up a3e3650d-f42e-493c-b3dd-232218243204
+osd.14 up   in  weight 1 up_from 22741 up_thru 23188 down_at 22737 last_clean_interval [22713,22736) 223.203.98.11:1300/22338 10.20.53.17:1300/22338 10.20.53.17:1301/22338 223.203.98.11:1301/22338 exists,up 50442dea-edca-45e6-848c-c132097d0c0e
+osd.15 up   in  weight 1 up_from 22881 up_thru 23188 down_at 22879 last_clean_interval [22360,22878) 223.203.98.11:1303/33249 10.20.53.17:1302/33249 10.20.53.17:1303/33249 223.203.98.11:1326/33249 exists,up fbcfd896-cbf7-4d77-88a5-d0d84258a45e
+osd.16 up   in  weight 1 up_from 22582 up_thru 23188 down_at 22161 last_clean_interval [22133,22581) 223.203.98.12:1300/22401 10.20.53.18:1302/1022401 10.20.53.18:1306/1022401 223.203.98.12:1302/1022401 exists,up 90226db6-e05b-4901-b85c-8c07a04a5c01
+osd.17 up   in  weight 1 up_from 18341 up_thru 23189 down_at 18333 last_clean_interval [16209,18332) 223.203.98.12:1317/19836 10.20.53.18:1317/19836 10.20.53.18:1318/19836 223.203.98.12:1318/19836 exists,up ed15655a-9861-472a-9967-efb1930eda15
+osd.18 up   in  weight 1 up_from 18338 up_thru 23188 down_at 18330 last_clean_interval [16219,18328) 223.203.98.13:1308/32748 10.20.53.19:1316/32748 10.20.53.19:1318/32748 223.203.98.13:1310/32748 exists,up 9577ff9e-a016-4533-920a-593c7fe10f59
+osd.19 up   in  weight 1 up_from 18404 up_thru 23188 down_at 18388 last_clean_interval [16625,18387) 223.203.98.13:1342/15111 10.20.53.19:1341/15111 10.20.53.19:1342/15111 223.203.98.13:1343/15111 exists,up a56746f6-9d85-4892-9e91-8ded031fff35
+osd.20 up   in  weight 1 up_from 18393 up_thru 23188 down_at 18382 last_clean_interval [16641,18381) 223.203.98.14:1305/36444 10.20.53.20:1302/36444 10.20.53.20:1303/36444 223.203.98.14:1328/36444 exists,up dcf2da5c-dfcd-41b4-8769-3cfe0f7820ab
+osd.21 up   in  weight 1 up_from 22998 up_thru 23188 down_at 22996 last_clean_interval [22991,22995) 223.203.98.14:1304/23429 10.20.53.20:1304/23429 10.20.53.20:1307/23429 223.203.98.14:1306/23429 exists,up 37efb78a-5051-46b9-b8a5-2ba27230c097
+osd.22 up   in  weight 1 up_from 19780 up_thru 23188 down_at 19778 last_clean_interval [19775,19779) 223.203.98.15:1300/38849 10.20.53.21:1304/1038849 10.20.53.21:1307/1038849 223.203.98.15:1305/1038849 exists,up 399c0f10-b27d-4349-b91c-0313d72ef405
+osd.23 up   in  weight 1 up_from 18413 up_thru 23188 down_at 18399 last_clean_interval [16326,18395) 223.203.98.15:1335/26807 10.20.53.21:1320/26807 10.20.53.21:1325/26807 223.203.98.15:1337/26807 exists,up 86648b32-65ae-460c-8035-d927daf387df
+osd.24 up   in  weight 1 up_from 20795 up_thru 23188 down_at 20700 last_clean_interval [18425,20794) 223.203.98.16:1313/20528 10.20.53.22:1302/1020528 10.20.53.22:1304/1020528 223.203.98.16:1304/1020528 exists,up f7be113b-3841-4874-a4ce-c8e72d3a078b
+osd.25 up   in  weight 1 up_from 22705 up_thru 23188 down_at 22700 last_clean_interval [22695,22699) 223.203.98.16:1300/15169 10.20.53.22:1300/15169 10.20.53.22:1301/15169 223.203.98.16:1301/15169 exists,up 39a117f2-acce-46c3-a34d-4c7db232223a
+osd.26 up   in  weight 1 up_from 18411 up_thru 23188 down_at 18402 last_clean_interval [16360,18401) 223.203.98.17:1311/39827 10.20.53.23:1305/39827 10.20.53.23:1306/39827 223.203.98.17:1335/39827 exists,up fbfa8d8f-738a-4d38-acfe-c802609e24ce
+osd.27 up   in  weight 1 up_from 18417 up_thru 23188 down_at 18408 last_clean_interval [18132,18407) 223.203.98.17:1336/2033 10.20.53.23:1331/2033 10.20.53.23:1336/2033 223.203.98.17:1337/2033 exists,up 3923092b-d3ba-404f-a9d3-945f51105f89
+osd.28 up   in  weight 1 up_from 18475 up_thru 23189 down_at 18473 last_clean_interval [18470,18473) 223.203.98.18:1300/39897 10.20.53.24:1304/1039897 10.20.53.24:1305/1039897 223.203.98.18:1310/1039897 exists,up d09fa111-b130-4ea3-8e16-74561d30aedb
+osd.29 up   in  weight 1 up_from 18428 up_thru 23188 down_at 18408 last_clean_interval [16376,18407) 223.203.98.18:1329/36493 10.20.53.24:1303/36493 10.20.53.24:1317/36493 223.203.98.18:1331/36493 exists,up a1de7fa5-7589-4fa5-8e32-f809e7328973
+osd.30 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.31 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.32 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.33 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.34 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.35 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.36 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.37 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.38 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.39 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.40 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.41 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.42 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.43 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.44 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.45 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.46 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.47 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.48 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.49 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.50 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.51 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.52 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.53 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.54 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.55 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.56 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.57 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.58 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.59 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.60 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.61 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.62 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.63 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.64 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.65 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.66 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.67 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.68 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.69 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.70 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.71 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.72 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.73 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.74 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.75 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.76 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.77 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.78 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.79 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
+osd.80 down in  weight 1 up_from 23092 up_thru 23093 down_at 23149 last_clean_interval [18220,23063) 223.203.98.4:1304/8152 10.20.53.10:1304/8152 10.20.53.10:1305/8152 223.203.98.4:1305/8152 exists dec728b0-afc3-4efa-9a9d-27031fd79d5d
+osd.81 down in  weight 1 up_from 23095 up_thru 23096 down_at 23151 last_clean_interval [18223,23063) 223.203.98.4:1306/9124 10.20.53.10:1306/9124 10.20.53.10:1307/9124 223.203.98.4:1307/9124 exists 31351ba1-baa2-43c2-bbd2-e4309dff7672
+osd.82 down in  weight 1 up_from 23100 up_thru 23101 down_at 23151 last_clean_interval [18226,23063) 223.203.98.4:1308/10409 10.20.53.10:1308/10409 10.20.53.10:1309/10409 223.203.98.4:1309/10409 exists 8e9b289a-6024-4eba-bb5f-96a0eb1392be
+osd.83 down in  weight 1 up_from 23103 up_thru 23104 down_at 23130 last_clean_interval [18229,23063) 223.203.98.4:1310/11412 10.20.53.10:1310/11412 10.20.53.10:1311/11412 223.203.98.4:1311/11412 exists f0a45da3-8904-4914-bdc0-f2731725c7ae
+osd.84 down in  weight 1 up_from 23107 up_thru 23113 down_at 23132 last_clean_interval [18229,23063) 223.203.98.4:1312/12282 10.20.53.10:1312/12282 10.20.53.10:1313/12282 223.203.98.4:1313/12282 exists 6ea295dc-deb1-446a-81ba-0f61404ba394
+osd.85 down in  weight 1 up_from 23110 up_thru 23113 down_at 23134 last_clean_interval [18231,23063) 223.203.98.4:1314/13119 10.20.53.10:1314/13119 10.20.53.10:1315/13119 223.203.98.4:1315/13119 exists f9440bc3-8564-480e-a5fd-67d81e22716f
+osd.86 down in  weight 1 up_from 23115 up_thru 23116 down_at 23136 last_clean_interval [18239,23063) 223.203.98.4:1316/14002 10.20.53.10:1316/14002 10.20.53.10:1317/14002 223.203.98.4:1317/14002 exists 15706f7b-fc9f-498c-8b58-816892ee7dfe
+osd.87 down in  weight 1 up_from 23118 up_thru 23119 down_at 23139 last_clean_interval [18242,23063) 223.203.98.4:1318/15050 10.20.53.10:1318/15050 10.20.53.10:1319/15050 223.203.98.4:1319/15050 exists 71b15b86-383d-4979-ada0-eec0b17a3eda
+osd.88 down in  weight 1 up_from 23121 up_thru 23122 down_at 23140 last_clean_interval [18245,23063) 223.203.98.4:1320/15955 10.20.53.10:1320/15955 10.20.53.10:1321/15955 223.203.98.4:1321/15955 exists 656ce82d-e1a2-41b5-8734-1c21b31cf376
+osd.89 down in  weight 1 up_from 23124 up_thru 23125 down_at 23153 last_clean_interval [18247,23063) 223.203.98.4:1322/16907 10.20.53.10:1322/16907 10.20.53.10:1323/16907 223.203.98.4:1323/16907 exists 93aaea07-b463-4323-aaa6-a1d62b4c9f47
+osd.90 down in  weight 1 up_from 23127 up_thru 23128 down_at 23143 last_clean_interval [18971,23064) 223.203.98.4:1324/17833 10.20.53.10:1324/17833 10.20.53.10:1325/17833 223.203.98.4:1325/17833 exists 9ac382a5-b043-459f-81b5-601943f63bde
+osd.91 down in  weight 1 up_from 18354 up_thru 23023 down_at 23191 last_clean_interval [16098,18339) 223.203.98.5:1314/23828 10.20.53.11:1318/23828 10.20.53.11:1322/23828 223.203.98.5:1315/23828 exists 827ca94b-bd63-4c20-8377-acf56eb59360
+osd.92 down in  weight 1 up_from 18352 up_thru 23023 down_at 23187 last_clean_interval [16100,18342) 223.203.98.5:1316/24389 10.20.53.11:1324/24389 10.20.53.11:1326/24389 223.203.98.5:1318/24389 exists 2268b1cf-84a0-4e72-8f44-bbf9842b5d16
+osd.93 down in  weight 1 up_from 18358 up_thru 23023 down_at 23183 last_clean_interval [16106,18345) 223.203.98.5:1320/24988 10.20.53.11:1327/24988 10.20.53.11:1328/24988 223.203.98.5:1322/24988 exists effe91ec-9d03-4312-8dd1-071d3bec2557
+osd.94 down in  weight 1 up_from 23035 up_thru 23036 down_at 23185 last_clean_interval [18359,23034) 223.203.98.5:1324/25551 10.20.53.11:1302/1025551 10.20.53.11:1305/1025551 223.203.98.5:1305/1025551 exists e00776d4-6749-41e2-bea6-0a83db1e0a2c
+osd.95 down in  weight 1 up_from 22961 up_thru 23022 down_at 23193 last_clean_interval [18362,22958) 223.203.98.5:1328/26386 10.20.53.11:1309/2026386 10.20.53.11:1310/2026386 223.203.98.5:1309/2026386 exists e3fba2d3-28a5-49c5-a3d7-cfc171cfaaec
+osd.96 down in  weight 1 up_from 18366 up_thru 23022 down_at 23184 last_clean_interval [16110,18355) 223.203.98.5:1330/27584 10.20.53.11:1337/27584 10.20.53.11:1338/27584 223.203.98.5:1331/27584 exists 34590c44-62d9-4ede-8acb-1fcdc5c848eb
+osd.97 down in  weight 1 up_from 23045 up_thru 23046 down_at 23190 last_clean_interval [18372,23044) 223.203.98.5:1333/28861 10.20.53.11:1314/1028861 10.20.53.11:1315/1028861 223.203.98.5:1311/1028861 exists 8d0eff13-91bf-4a0e-8fb9-6470c0570d50
+osd.98 down in  weight 1 up_from 18372 up_thru 23022 down_at 23183 last_clean_interval [16122,18361) 223.203.98.5:1306/29826 10.20.53.11:1300/29826 10.20.53.11:1306/29826 223.203.98.5:1323/29826 exists 4ddf2e0d-70c8-407d-9f37-7b3b22785fb6
+osd.99 down in  weight 1 up_from 23061 up_thru 23062 down_at 23191 last_clean_interval [18375,23060) 223.203.98.5:1338/30560 10.20.53.11:1311/1030560 10.20.53.11:1312/1030560 223.203.98.5:1310/1030560 exists fa6127e0-4fbe-4ccd-b31c-cda379482c29
+osd.100 down in  weight 1 up_from 18330 up_thru 23022 down_at 23187 last_clean_interval [16084,18320) 223.203.98.5:1303/17606 10.20.53.11:1301/17606 10.20.53.11:1304/17606 223.203.98.5:1304/17606 exists b7a22067-1cd0-4caa-a6a5-d6fb451a00a1
+osd.101 down in  weight 1 up_from 23054 up_thru 23056 down_at 23184 last_clean_interval [18335,23051) 223.203.98.5:1308/18065 10.20.53.11:1316/1018065 10.20.53.11:1317/1018065 223.203.98.5:1313/1018065 exists 99969e83-578a-46d0-9f65-94d9f68090ee
+osd.102 down in  weight 1 up_from 18252 up_thru 23015 down_at 23156 last_clean_interval [16105,18250) 223.203.98.6:1300/19799 10.20.53.12:1301/19799 10.20.53.12:1309/19799 223.203.98.6:1306/19799 exists 7222526e-f3ba-44e9-bf37-7106f8c7d2bc
+osd.103 down in  weight 1 up_from 18260 up_thru 23023 down_at 23158 last_clean_interval [16105,18250) 223.203.98.6:1311/20339 10.20.53.12:1310/20339 10.20.53.12:1311/20339 223.203.98.6:1312/20339 exists bec26aa5-0c76-49a7-8c1a-0e322927cda5
+osd.104 down in  weight 1 up_from 18268 up_thru 23017 down_at 23160 last_clean_interval [16106,18251) 223.203.98.6:1313/21425 10.20.53.12:1312/21425 10.20.53.12:1313/21425 223.203.98.6:1315/21425 exists a7887119-443a-446f-9ace-7bb4fe44fd4c
+osd.105 down in  weight 1 up_from 18267 up_thru 23022 down_at 23162 last_clean_interval [16114,18257) 223.203.98.6:1317/22184 10.20.53.12:1316/22184 10.20.53.12:1318/22184 223.203.98.6:1320/22184 exists 23cb0430-1bbb-4814-b68c-a4352160cb21
+osd.106 down in  weight 1 up_from 18276 up_thru 23015 down_at 23164 last_clean_interval [16116,18260) 223.203.98.6:1322/23405 10.20.53.12:1319/23405 10.20.53.12:1320/23405 223.203.98.6:1323/23405 exists d5e16f1e-5014-4806-b31b-aec1491edc7d
+osd.107 down in  weight 1 up_from 18279 up_thru 22986 down_at 23166 last_clean_interval [16125,18266) 223.203.98.6:1324/24527 10.20.53.12:1321/24527 10.20.53.12:1322/24527 223.203.98.6:1327/24527 exists a786ab9c-5ea6-4391-acf9-71adaf823791
+osd.108 down in  weight 1 up_from 18281 up_thru 23022 down_at 23168 last_clean_interval [16123,18269) 223.203.98.6:1328/24995 10.20.53.12:1326/24995 10.20.53.12:1327/24995 223.203.98.6:1331/24995 exists 6266733d-16df-4363-8fd1-9f9830f30246
+osd.109 down in  weight 1 up_from 18283 up_thru 22980 down_at 23170 last_clean_interval [16126,18273) 223.203.98.6:1332/25865 10.20.53.12:1314/25865 10.20.53.12:1328/25865 223.203.98.6:1337/25865 exists ef0c4404-0840-490c-a554-b4844f83a878
+osd.110 down in  weight 1 up_from 18291 up_thru 23018 down_at 23172 last_clean_interval [16133,18277) 223.203.98.6:1338/26751 10.20.53.12:1330/26751 10.20.53.12:1333/26751 223.203.98.6:1339/26751 exists d98b2b94-e861-4214-95f0-c56bb8a76fd8
+osd.111 down in  weight 1 up_from 18291 up_thru 22987 down_at 23174 last_clean_interval [16136,18280) 223.203.98.6:1340/27898 10.20.53.12:1334/27898 10.20.53.12:1339/27898 223.203.98.6:1341/27898 exists 3b180f86-410d-4b78-99c0-0fa68de718ae
+osd.112 down in  weight 1 up_from 18301 up_thru 23015 down_at 23176 last_clean_interval [16139,18284) 223.203.98.6:1335/28423 10.20.53.12:1338/28423 10.20.53.12:1340/28423 223.203.98.6:1336/28423 exists 3d8a7f09-5875-43b8-901d-d043e5ca3268
+osd.113 up   in  weight 1 up_from 18261 up_thru 22987 down_at 18260 last_clean_interval [16125,18250) 223.203.98.7:1320/31050 10.20.53.13:1314/31050 10.20.53.13:1318/31050 223.203.98.7:1322/31050 exists,up 8b275a64-de83-4131-ae46-9f783a999990
+osd.114 up   in  weight 1 up_from 18265 up_thru 22980 down_at 18253 last_clean_interval [16131,18252) 223.203.98.7:1308/31665 10.20.53.13:1319/31665 10.20.53.13:1320/31665 223.203.98.7:1326/31665 exists,up b1a5cb4d-5736-4a1e-9e33-d02f215efad6
+osd.115 up   in  weight 1 up_from 18269 up_thru 22986 down_at 18255 last_clean_interval [16134,18254) 223.203.98.7:1327/32232 10.20.53.13:1321/32232 10.20.53.13:1322/32232 223.203.98.7:1328/32232 exists,up ca2724af-79fc-4b4c-933d-197512b5f8ae
+osd.116 up   in  weight 1 up_from 18273 up_thru 23023 down_at 18259 last_clean_interval [16134,18258) 223.203.98.7:1307/33366 10.20.53.13:1308/33366 10.20.53.13:1330/33366 223.203.98.7:1329/33366 exists,up e2ce9e1a-d282-4ccd-8f15-13ff541dc6f2
+osd.117 up   in  weight 1 up_from 18277 up_thru 23015 down_at 18266 last_clean_interval [16144,18265) 223.203.98.7:1330/34536 10.20.53.13:1331/34536 10.20.53.13:1332/34536 223.203.98.7:1331/34536 exists,up acc7d6b8-e72a-4de8-89d3-4043793eae31
+osd.118 up   in  weight 1 up_from 22451 up_thru 23015 down_at 0 last_clean_interval [0,0) 223.203.98.7:1303/5869 10.20.53.13:1302/5869 10.20.53.13:1303/5869 223.203.98.7:1305/5869 exists,up f7fde2af-603f-4bb7-a94d-25ca9aebf4b1
+osd.119 up   in  weight 1 up_from 18285 up_thru 23023 down_at 18271 last_clean_interval [16148,18270) 223.203.98.7:1313/36632 10.20.53.13:1313/36632 10.20.53.13:1333/36632 223.203.98.7:1332/36632 exists,up 9b7670d0-4c58-48c4-9b32-c348c1efac3e
+osd.120 up   in  weight 1 up_from 18287 up_thru 23018 down_at 18275 last_clean_interval [16148,18274) 223.203.98.7:1314/37787 10.20.53.13:1326/37787 10.20.53.13:1334/37787 223.203.98.7:1315/37787 exists,up 14004794-dda7-4f77-8383-220d2affb1ad
+osd.121 up   in  weight 1 up_from 18293 up_thru 23023 down_at 18282 last_clean_interval [16152,18281) 223.203.98.7:1310/38562 10.20.53.13:1327/38562 10.20.53.13:1335/38562 223.203.98.7:1333/38562 exists,up 40569890-f43e-4217-80c4-a7c2432c73d8
+osd.122 up   in  weight 1 up_from 18296 up_thru 22986 down_at 18285 last_clean_interval [16156,18285) 223.203.98.7:1318/39937 10.20.53.13:1317/39937 10.20.53.13:1336/39937 223.203.98.7:1334/39937 exists,up 5974f1a5-66fc-42bc-b7bf-1e56e30df8cd
+osd.123 up   in  weight 1 up_from 18306 up_thru 23022 down_at 18290 last_clean_interval [16160,18289) 223.203.98.7:1335/40577 10.20.53.13:1337/40577 10.20.53.13:1338/40577 223.203.98.7:1336/40577 exists,up a63dea9a-b28f-45cb-8a16-f888c9a9cc9e
+osd.124 up   in  weight 1 up_from 18253 up_thru 23015 down_at 18252 last_clean_interval [16140,18250) 223.203.98.8:1304/31165 10.20.53.14:1310/31165 10.20.53.14:1312/31165 223.203.98.8:1306/31165 exists,up 7116de61-b42c-413d-8fad-7a335f1537ae
+osd.125 up   in  weight 1 up_from 18260 up_thru 23022 down_at 18259 last_clean_interval [16145,18250) 223.203.98.8:1307/32036 10.20.53.14:1316/32036 10.20.53.14:1317/32036 223.203.98.8:1308/32036 exists,up 06af9716-3490-453b-aa92-71c802168605
+osd.126 up   in  weight 1 up_from 18264 up_thru 22987 down_at 18253 last_clean_interval [16149,18252) 223.203.98.8:1310/33616 10.20.53.14:1311/33616 10.20.53.14:1315/33616 223.203.98.8:1311/33616 exists,up 830fd239-9d0c-42f8-94f8-1f4f41879894
+osd.127 up   in  weight 1 up_from 18273 up_thru 22973 down_at 18256 last_clean_interval [16156,18255) 223.203.98.8:1312/34775 10.20.53.14:1318/34775 10.20.53.14:1322/34775 223.203.98.8:1316/34775 exists,up a1ee1f29-18fe-42cc-ab21-c4a73dad735a
+osd.128 up   in  weight 1 up_from 18272 up_thru 22987 down_at 18260 last_clean_interval [16160,18260) 223.203.98.8:1317/36134 10.20.53.14:1328/36134 10.20.53.14:1333/36134 223.203.98.8:1320/36134 exists,up 08239206-b84b-4a32-ab8f-485a543dcf06
+osd.129 up   in  weight 1 up_from 18276 up_thru 23015 down_at 18264 last_clean_interval [16160,18262) 223.203.98.8:1322/37245 10.20.53.14:1334/37245 10.20.53.14:1335/37245 223.203.98.8:1324/37245 exists,up 49011f60-8054-4301-afe4-1a97ccd897ba
+osd.130 up   in  weight 1 up_from 18279 up_thru 22986 down_at 18268 last_clean_interval [16165,18267) 223.203.98.8:1326/38027 10.20.53.14:1336/38027 10.20.53.14:1337/38027 223.203.98.8:1337/38027 exists,up 53e14163-488c-4d87-9c8b-8e184c99e130
+osd.131 up   in  weight 1 up_from 18288 up_thru 23022 down_at 18272 last_clean_interval [16162,18271) 223.203.98.8:1338/39586 10.20.53.14:1338/39586 10.20.53.14:1339/39586 223.203.98.8:1339/39586 exists,up 69191a21-a382-4564-8e2a-ea164e3aee10
+osd.132 up   in  weight 1 up_from 18288 up_thru 23022 down_at 18276 last_clean_interval [16177,18276) 223.203.98.8:1334/40834 10.20.53.14:1330/40834 10.20.53.14:1340/40834 223.203.98.8:1340/40834 exists,up 02622e5d-a479-4249-bb73-a1fc4bf8ef51
+osd.133 up   in  weight 1 up_from 18295 up_thru 22973 down_at 18280 last_clean_interval [16176,18279) 223.203.98.8:1327/1368 10.20.53.14:1331/1368 10.20.53.14:1341/1368 223.203.98.8:1341/1368 exists,up 83da67d6-5c69-486f-80df-23a9133938ec
+osd.134 up   in  weight 1 up_from 18299 up_thru 22986 down_at 18284 last_clean_interval [16180,18284) 223.203.98.8:1342/2146 10.20.53.14:1342/2146 10.20.53.14:1343/2146 223.203.98.8:1343/2146 exists,up 8109b2fd-8739-41dc-8442-ebea7874aa8c
+osd.135 up   in  weight 1 up_from 18272 up_thru 23193 down_at 18259 last_clean_interval [16160,18258) 223.203.98.9:1314/5820 10.20.53.15:1311/5820 10.20.53.15:1312/5820 223.203.98.9:1319/5820 exists,up 4936d9ef-e298-4b66-9c10-964565fcbbc0
+osd.136 up   in  weight 1 up_from 18272 up_thru 23191 down_at 18262 last_clean_interval [16160,18262) 223.203.98.9:1320/6326 10.20.53.15:1315/6326 10.20.53.15:1317/6326 223.203.98.9:1322/6326 exists,up 8a234195-b3b9-486c-be96-6eaf34da38c1
+osd.137 up   in  weight 1 up_from 18276 up_thru 23190 down_at 18265 last_clean_interval [16175,18264) 223.203.98.9:1325/6869 10.20.53.15:1318/6869 10.20.53.15:1319/6869 223.203.98.9:1326/6869 exists,up cd71325a-aa76-45c3-a4dd-31b06d5d878f
+osd.138 up   in  weight 1 up_from 18278 up_thru 23193 down_at 18268 last_clean_interval [16168,18267) 223.203.98.9:1310/7428 10.20.53.15:1321/7428 10.20.53.15:1322/7428 223.203.98.9:1329/7428 exists,up ba638f45-dd6b-4603-aebf-ad97be2f080a
+osd.139 up   in  weight 1 up_from 18283 up_thru 23193 down_at 18272 last_clean_interval [16174,18271) 223.203.98.9:1308/8636 10.20.53.15:1323/8636 10.20.53.15:1326/8636 223.203.98.9:1330/8636 exists,up b040e019-1321-405d-a02c-dbe67792a633
+osd.140 up   in  weight 1 up_from 18291 up_thru 23191 down_at 18275 last_clean_interval [16176,18274) 223.203.98.9:1321/10263 10.20.53.15:1328/10263 10.20.53.15:1330/10263 223.203.98.9:1331/10263 exists,up 579ec07f-e800-404d-8b0d-3cf1475a40fa
+osd.141 up   in  weight 1 up_from 18295 up_thru 23193 down_at 18281 last_clean_interval [16191,18280) 223.203.98.9:1333/11188 10.20.53.15:1332/11188 10.20.53.15:1334/11188 223.203.98.9:1336/11188 exists,up df3109c8-d26a-4fd2-a5d3-217c52f9f610
+osd.142 up   in  weight 1 up_from 18301 up_thru 23191 down_at 18284 last_clean_interval [16183,18283) 223.203.98.9:1317/11899 10.20.53.15:1335/11899 10.20.53.15:1336/11899 223.203.98.9:1318/11899 exists,up 8430dcb7-ef58-4ee6-b827-d20bdf531037
+osd.143 up   in  weight 1 up_from 18300 up_thru 23193 down_at 18290 last_clean_interval [16183,18290) 223.203.98.9:1334/12878 10.20.53.15:1337/12878 10.20.53.15:1340/12878 223.203.98.9:1337/12878 exists,up cd8458a2-43bf-49df-b197-aa400e66517e
+osd.144 up   in  weight 1 up_from 18305 up_thru 23191 down_at 18304 last_clean_interval [16191,18293) 223.203.98.9:1338/13525 10.20.53.15:1341/13525 10.20.53.15:1342/13525 223.203.98.9:1339/13525 exists,up e2af32eb-372e-4352-b558-01e006c931ff
+osd.145 up   in  weight 1 up_from 18316 up_thru 23193 down_at 18315 last_clean_interval [16201,18297) 223.203.98.9:1300/14944 10.20.53.15:1300/14944 10.20.53.15:1301/14944 223.203.98.9:1301/14944 exists,up 24898f3e-0f28-46f3-aa9f-daf427d69aba
+osd.146 up   in  weight 1 up_from 18339 up_thru 23193 down_at 18327 last_clean_interval [16174,18326) 223.203.98.10:1310/15654 10.20.53.16:1308/15654 10.20.53.16:1309/15654 223.203.98.10:1313/15654 exists,up 87ce5dea-09de-401d-a771-a848c22f009f
+osd.147 up   in  weight 1 up_from 18344 up_thru 23193 down_at 18330 last_clean_interval [16176,18330) 223.203.98.10:1308/16387 10.20.53.16:1310/16387 10.20.53.16:1311/16387 223.203.98.10:1315/16387 exists,up d8ee4559-cf24-49e9-9338-46a9b4ad8c3f
+osd.148 up   in  weight 1 up_from 18344 up_thru 23193 down_at 18334 last_clean_interval [16181,18334) 223.203.98.10:1316/17265 10.20.53.16:1312/17265 10.20.53.16:1314/17265 223.203.98.10:1317/17265 exists,up abb66c8f-386d-419a-bd80-fcd0a42ac2ee
+osd.149 up   in  weight 1 up_from 18350 up_thru 23191 down_at 18338 last_clean_interval [16186,18337) 223.203.98.10:1312/18848 10.20.53.16:1315/18848 10.20.53.16:1316/18848 223.203.98.10:1314/18848 exists,up 19c4508e-b3ee-4240-b6c1-cd977bc65795
+osd.150 up   in  weight 1 up_from 18353 up_thru 23193 down_at 18342 last_clean_interval [16189,18342) 223.203.98.10:1318/20260 10.20.53.16:1317/20260 10.20.53.16:1318/20260 223.203.98.10:1319/20260 exists,up fdcd8236-ee61-4f5c-a4bf-efbbfffb4591
+osd.151 up   in  weight 1 up_from 18358 up_thru 23193 down_at 18346 last_clean_interval [16193,18346) 223.203.98.10:1321/21308 10.20.53.16:1321/21308 10.20.53.16:1323/21308 223.203.98.10:1323/21308 exists,up 355a852b-7811-4d21-bbb5-12d6c290fc30
+osd.152 up   in  weight 1 up_from 18368 up_thru 23191 down_at 18350 last_clean_interval [16199,18349) 223.203.98.10:1324/23034 10.20.53.16:1327/23034 10.20.53.16:1330/23034 223.203.98.10:1327/23034 exists,up 5ecebac4-8d77-4b33-b994-a7338f5b50b0
+osd.153 up   in  weight 1 up_from 18368 up_thru 23193 down_at 18357 last_clean_interval [16200,18356) 223.203.98.10:1300/24170 10.20.53.16:1331/24170 10.20.53.16:1332/24170 223.203.98.10:1330/24170 exists,up a53fe40e-3f49-44a0-9f87-8f43cf549b91
+osd.154 up   in  weight 1 up_from 18374 up_thru 23190 down_at 18360 last_clean_interval [16203,18360) 223.203.98.10:1331/24954 10.20.53.16:1333/24954 10.20.53.16:1338/24954 223.203.98.10:1336/24954 exists,up 827f83b4-0637-4190-a398-471563340c6b
+osd.155 up   in  weight 1 up_from 18375 up_thru 23191 down_at 18364 last_clean_interval [16207,18364) 223.203.98.10:1322/25791 10.20.53.16:1339/25791 10.20.53.16:1341/25791 223.203.98.10:1325/25791 exists,up 11aa58f2-ce43-4de1-af9b-11d0f92122e4
+osd.156 up   in  weight 1 up_from 18380 up_thru 23191 down_at 18368 last_clean_interval [16210,18368) 223.203.98.10:1337/27377 10.20.53.16:1340/27377 10.20.53.16:1342/27377 223.203.98.10:1338/27377 exists,up 43be1a3f-4ec1-4ae8-9064-7e33436aa9fd
+osd.157 up   in  weight 1 up_from 22778 up_thru 23191 down_at 22775 last_clean_interval [22364,22774) 223.203.98.11:1304/39690 10.20.53.17:1304/39690 10.20.53.17:1305/39690 223.203.98.11:1305/39690 exists,up f17eaa95-dd2f-4865-b5dd-b85cfef0eeb9
+osd.158 up   in  weight 1 up_from 22789 up_thru 23191 down_at 22783 last_clean_interval [22358,22782) 223.203.98.11:1306/32084 10.20.53.17:1306/32084 10.20.53.17:1307/32084 223.203.98.11:1307/32084 exists,up 05be337e-83a8-4ca5-80d5-82705ad68af2
+osd.159 up   in  weight 1 up_from 22798 up_thru 23192 down_at 22792 last_clean_interval [22363,22791) 223.203.98.11:1308/17744 10.20.53.17:1308/17744 10.20.53.17:1309/17744 223.203.98.11:1309/17744 exists,up a53c1ea1-4c07-4519-9ca6-98adf6c39c0a
+osd.160 up   in  weight 1 up_from 22770 up_thru 23191 down_at 22607 last_clean_interval [22361,22606) 223.203.98.11:1310/40398 10.20.53.17:1310/40398 10.20.53.17:1311/40398 223.203.98.11:1311/40398 exists,up ebb07290-f3a0-45ab-a950-58347c3e4198
+osd.161 up   in  weight 1 up_from 22803 up_thru 23190 down_at 22801 last_clean_interval [22368,22800) 223.203.98.11:1312/25067 10.20.53.17:1312/25067 10.20.53.17:1313/25067 223.203.98.11:1313/25067 exists,up 009e3cd2-83ec-4329-a8b8-a29e307fe329
+osd.162 up   in  weight 1 up_from 22822 up_thru 23191 down_at 22806 last_clean_interval [22364,22805) 223.203.98.11:1314/28804 10.20.53.17:1314/28804 10.20.53.17:1315/28804 223.203.98.11:1315/28804 exists,up 88987e29-4c87-4c40-b20d-22857882aebb
+osd.163 up   in  weight 1 up_from 22826 up_thru 23191 down_at 22808 last_clean_interval [22361,22807) 223.203.98.11:1316/29899 10.20.53.17:1316/29899 10.20.53.17:1317/29899 223.203.98.11:1317/29899 exists,up 3614942a-0fef-44d1-a9cc-fa03be1ff4d5
+osd.164 up   in  weight 1 up_from 22829 up_thru 23187 down_at 22810 last_clean_interval [22365,22809) 223.203.98.11:1318/31008 10.20.53.17:1318/31008 10.20.53.17:1319/31008 223.203.98.11:1319/31008 exists,up f6ffdf17-2e17-4967-aae4-1085b2ddbc4c
+osd.165 up   in  weight 1 up_from 22832 up_thru 23191 down_at 22812 last_clean_interval [22365,22811) 223.203.98.11:1320/31579 10.20.53.17:1320/31579 10.20.53.17:1321/31579 223.203.98.11:1321/31579 exists,up 3ef83c82-605d-43d8-9608-31e1e30e9096
+osd.166 up   in  weight 1 up_from 22835 up_thru 23191 down_at 22814 last_clean_interval [22367,22813) 223.203.98.11:1322/33803 10.20.53.17:1322/33803 10.20.53.17:1323/33803 223.203.98.11:1323/33803 exists,up badf6952-35bc-4824-9a2e-eae23105d015
+osd.167 up   in  weight 1 up_from 22838 up_thru 23191 down_at 22816 last_clean_interval [22364,22815) 223.203.98.11:1324/34868 10.20.53.17:1324/34868 10.20.53.17:1325/34868 223.203.98.11:1325/34868 exists,up aa64f98f-9b8d-40ab-aabd-a9ee73adc2e9
+osd.168 up   in  weight 1 up_from 18338 up_thru 23193 down_at 18322 last_clean_interval [16212,18322) 223.203.98.12:1310/16843 10.20.53.18:1311/16843 10.20.53.18:1313/16843 223.203.98.12:1311/16843 exists,up 19b37be3-09d3-42d0-b45f-7d1ce474dae6
+osd.169 up   in  weight 1 up_from 18340 up_thru 23191 down_at 18328 last_clean_interval [16214,18327) 223.203.98.12:1313/18160 10.20.53.18:1314/18160 10.20.53.18:1316/18160 223.203.98.12:1315/18160 exists,up e54de944-116b-40bf-bd7f-47b45d299085
+osd.170 up   in  weight 1 up_from 18361 up_thru 23193 down_at 18338 last_clean_interval [16235,18337) 223.203.98.12:1305/22518 10.20.53.18:1303/22518 10.20.53.18:1319/22518 223.203.98.12:1319/22518 exists,up 2f449b35-3863-45ba-9a45-377b03d86112
+osd.171 up   in  weight 1 up_from 18356 up_thru 23191 down_at 18344 last_clean_interval [16231,18343) 223.203.98.12:1320/23947 10.20.53.18:1322/23947 10.20.53.18:1323/23947 223.203.98.12:1322/23947 exists,up eca82308-6ea7-4062-8770-fd4351fbc032
+osd.172 up   in  weight 1 up_from 18361 up_thru 23193 down_at 18349 last_clean_interval [16235,18348) 223.203.98.12:1312/25343 10.20.53.18:1320/25343 10.20.53.18:1327/25343 223.203.98.12:1323/25343 exists,up 0044295e-a485-42f7-9787-e914d0a685c6
+osd.173 up   in  weight 1 up_from 18370 up_thru 23193 down_at 18354 last_clean_interval [16248,18353) 223.203.98.12:1316/27448 10.20.53.18:1328/27448 10.20.53.18:1331/27448 223.203.98.12:1324/27448 exists,up 2e88ad42-e843-424d-a0e5-af48a7539262
+osd.174 up   in  weight 1 up_from 18375 up_thru 23193 down_at 18363 last_clean_interval [16485,18362) 223.203.98.12:1304/29638 10.20.53.18:1304/29638 10.20.53.18:1305/29638 223.203.98.12:1306/29638 exists,up caf8a604-6899-4202-8115-961852ffe78e
+osd.175 up   in  weight 1 up_from 18377 up_thru 23193 down_at 18368 last_clean_interval [16249,18367) 223.203.98.12:1325/31529 10.20.53.18:1332/31529 10.20.53.18:1333/31529 223.203.98.12:1326/31529 exists,up 7092a0ed-2978-45a1-898a-25c359fdde88
+osd.176 up   in  weight 1 up_from 18383 up_thru 23193 down_at 18373 last_clean_interval [16255,18373) 223.203.98.12:1327/33297 10.20.53.18:1334/33297 10.20.53.18:1338/33297 223.203.98.12:1331/33297 exists,up 117a1d28-f7c0-45e6-87a7-126d072b4800
+osd.177 up   in  weight 1 up_from 18392 up_thru 23193 down_at 18378 last_clean_interval [16261,18378) 223.203.98.12:1333/35049 10.20.53.18:1339/35049 10.20.53.18:1340/35049 223.203.98.12:1334/35049 exists,up 2e1efa1c-1c8d-4066-9709-4372d243ffaf
+osd.178 up   in  weight 1 up_from 18395 up_thru 23193 down_at 18384 last_clean_interval [16265,18383) 223.203.98.12:1335/36714 10.20.53.18:1310/36714 10.20.53.18:1341/36714 223.203.98.12:1336/36714 exists,up 24bb68fe-2869-441b-9ccb-2c5744b4b6cf
+osd.179 up   in  weight 1 up_from 18339 up_thru 23191 down_at 18338 last_clean_interval [16221,18323) 223.203.98.13:1306/31041 10.20.53.19:1314/31041 10.20.53.19:1315/31041 223.203.98.13:1307/31041 exists,up 464f315a-6854-4a1b-b39c-e59748ce5094
+osd.180 up   in  weight 1 up_from 22973 up_thru 23193 down_at 22971 last_clean_interval [18346,22972) 223.203.98.13:1311/35278 10.20.53.19:1305/1035278 10.20.53.19:1306/1035278 223.203.98.13:1301/1035278 exists,up 68d1b2d5-3221-4d36-87e3-581c6c8fb3a9
+osd.181 up   in  weight 1 up_from 23022 up_thru 23193 down_at 23020 last_clean_interval [18352,23021) 223.203.98.13:1315/37599 10.20.53.19:1301/2037599 10.20.53.19:1321/2037599 223.203.98.13:1316/2037599 exists,up 933ebdda-0367-43d6-9377-14acfee911cb
+osd.182 up   in  weight 1 up_from 22986 up_thru 23193 down_at 22984 last_clean_interval [18361,22985) 223.203.98.13:1318/39626 10.20.53.19:1308/1039626 10.20.53.19:1309/1039626 223.203.98.13:1313/1039626 exists,up 84d900ac-6d51-46ae-9ce6-7695899c6d33
+osd.183 up   in  weight 1 up_from 22966 up_thru 23193 down_at 22964 last_clean_interval [18364,22965) 223.203.98.13:1322/1018 10.20.53.19:1311/4001018 10.20.53.19:1312/4001018 223.203.98.13:1304/4001018 exists,up cefec203-1e29-48ef-aafd-9ee7128e7150
+osd.184 up   in  weight 1 up_from 18370 up_thru 23191 down_at 18357 last_clean_interval [16253,18356) 223.203.98.13:1325/2823 10.20.53.19:1330/2823 10.20.53.19:1332/2823 223.203.98.13:1326/2823 exists,up 7a138d8d-fa5e-47e5-90c6-b0255adce1dc
+osd.185 up   in  weight 1 up_from 22898 up_thru 23191 down_at 22895 last_clean_interval [18374,22897) 223.203.98.13:1312/5267 10.20.53.19:1307/1005267 10.20.53.19:1310/1005267 223.203.98.13:1302/1005267 exists,up 4ca5ac34-920a-432d-91c3-89c08f90b74a
+osd.186 up   in  weight 1 up_from 18380 up_thru 23193 down_at 18368 last_clean_interval [16264,18367) 223.203.98.13:1332/7190 10.20.53.19:1333/7190 10.20.53.19:1338/7190 223.203.98.13:1333/7190 exists,up e35bb8d3-6626-4808-b8ce-8eef0a4985f8
+osd.187 up   in  weight 1 up_from 18386 up_thru 23193 down_at 18373 last_clean_interval [16270,18373) 223.203.98.13:1317/9378 10.20.53.19:1304/9378 10.20.53.19:1339/9378 223.203.98.13:1340/9378 exists,up 4ab3d83b-b9bd-452d-a973-ac2ef48f6a34
+osd.188 up   in  weight 1 up_from 22979 up_thru 23193 down_at 22976 last_clean_interval [18391,22978) 223.203.98.13:1309/11397 10.20.53.19:1317/1011397 10.20.53.19:1319/1011397 223.203.98.13:1305/1011397 exists,up 999f721e-28b6-4e56-957e-c8d265a1821c
+osd.189 up   in  weight 1 up_from 23017 up_thru 23191 down_at 23015 last_clean_interval [18394,23016) 223.203.98.13:1320/13205 10.20.53.19:1313/4013205 10.20.53.19:1320/4013205 223.203.98.13:1314/4013205 exists,up a8e11d2c-24a8-4bb1-9e3e-4692ba499be2
+osd.190 up   in  weight 1 up_from 18878 up_thru 23191 down_at 18871 last_clean_interval [18332,18871) 223.203.98.14:1300/36377 10.20.53.20:1305/36377 10.20.53.20:1306/36377 223.203.98.14:1302/36377 exists,up 255aaf06-d5df-4ad5-a88a-adf55d40f683
+osd.191 up   in  weight 1 up_from 18335 up_thru 23187 down_at 18323 last_clean_interval [16250,18323) 223.203.98.14:1309/16123 10.20.53.20:1308/16123 10.20.53.20:1310/16123 223.203.98.14:1311/16123 exists,up 23967736-571e-48c8-a9c5-d5f21caced42
+osd.192 up   in  weight 1 up_from 18343 up_thru 23190 down_at 18330 last_clean_interval [16256,18328) 223.203.98.14:1314/18182 10.20.53.20:1313/18182 10.20.53.20:1314/18182 223.203.98.14:1315/18182 exists,up a33d8b97-1003-418c-a798-6c1f2601faf0
+osd.193 up   in  weight 1 up_from 18351 up_thru 23193 down_at 18336 last_clean_interval [16262,18336) 223.203.98.14:1303/20455 10.20.53.20:1324/20455 10.20.53.20:1327/20455 223.203.98.14:1316/20455 exists,up 9c300a03-38ed-49f4-8ddf-2d97f326437d
+osd.194 up   in  weight 1 up_from 18356 up_thru 23190 down_at 18342 last_clean_interval [16269,18342) 223.203.98.14:1318/22799 10.20.53.20:1320/22799 10.20.53.20:1329/22799 223.203.98.14:1319/22799 exists,up f55ddf3c-b257-4669-a349-2af2860b63b6
+osd.195 up   in  weight 1 up_from 18361 up_thru 23191 down_at 18349 last_clean_interval [16279,18348) 223.203.98.14:1310/24923 10.20.53.20:1321/24923 10.20.53.20:1331/24923 223.203.98.14:1320/24923 exists,up 92eb1400-636a-49fb-8272-11c5de62e3a7
+osd.196 up   in  weight 1 up_from 18373 up_thru 23193 down_at 18355 last_clean_interval [16283,18355) 223.203.98.14:1321/27377 10.20.53.20:1323/27377 10.20.53.20:1334/27377 223.203.98.14:1324/27377 exists,up df5d8c35-7796-4367-965a-2e67f9ae2169
+osd.197 up   in  weight 1 up_from 18377 up_thru 23193 down_at 18363 last_clean_interval [16287,18363) 223.203.98.14:1313/29554 10.20.53.20:1328/29554 10.20.53.20:1335/29554 223.203.98.14:1326/29554 exists,up 0852d3e2-6e77-4fe6-9a59-ed9ee807e3fe
+osd.198 up   in  weight 1 up_from 18381 up_thru 23193 down_at 18369 last_clean_interval [16294,18369) 223.203.98.14:1301/31448 10.20.53.20:1300/31448 10.20.53.20:1301/31448 223.203.98.14:1317/31448 exists,up 8fad413a-c317-4d81-acab-9688fb60ab4a
+osd.199 up   in  weight 1 up_from 18390 up_thru 23193 down_at 18376 last_clean_interval [16299,18375) 223.203.98.14:1312/34161 10.20.53.20:1311/34161 10.20.53.20:1330/34161 223.203.98.14:1327/34161 exists,up e9afd5c1-ff7c-48ff-b423-a926249d5ab9
+osd.200 up   in  weight 1 up_from 18400 up_thru 23193 down_at 18389 last_clean_interval [16315,18388) 223.203.98.14:1329/38558 10.20.53.20:1336/38558 10.20.53.20:1337/38558 223.203.98.14:1331/38558 exists,up ba1b794b-dd97-45ee-a77b-9401c976c3c7
+osd.201 up   in  weight 1 up_from 18329 up_thru 23193 down_at 18328 last_clean_interval [16252,18320) 223.203.98.15:1312/36913 10.20.53.21:1309/36913 10.20.53.21:1311/36913 223.203.98.15:1313/36913 exists,up 7320610a-3e45-4d9b-b7ef-911e8a089b8f
+osd.202 up   in  weight 1 up_from 18337 up_thru 23193 down_at 18323 last_clean_interval [16262,18322) 223.203.98.15:1314/38967 10.20.53.21:1313/38967 10.20.53.21:1314/38967 223.203.98.15:1315/38967 exists,up c28357b0-5514-45da-b465-f46d6a6f24c7
+osd.203 up   in  weight 1 up_from 18344 up_thru 23193 down_at 18330 last_clean_interval [16268,18329) 223.203.98.15:1303/538 10.20.53.21:1305/538 10.20.53.21:1315/538 223.203.98.15:1304/538 exists,up 50ac7bcc-2c62-4498-8a39-bbfee9727e28
+osd.204 up   in  weight 1 up_from 18350 up_thru 23193 down_at 18338 last_clean_interval [16274,18337) 223.203.98.15:1316/3621 10.20.53.21:1317/3621 10.20.53.21:1318/3621 223.203.98.15:1319/3621 exists,up 6cafa354-e358-41de-8adf-e038d70e6e59
+osd.205 up   in  weight 1 up_from 18357 up_thru 23193 down_at 18344 last_clean_interval [16282,18343) 223.203.98.15:1308/6204 10.20.53.21:1324/6204 10.20.53.21:1326/6204 223.203.98.15:1321/6204 exists,up 2179c98e-a4c4-4028-bf91-39951a069e2b
+osd.206 up   in  weight 1 up_from 18365 up_thru 23193 down_at 18351 last_clean_interval [16289,18351) 223.203.98.15:1311/8691 10.20.53.21:1327/8691 10.20.53.21:1330/8691 223.203.98.15:1318/8691 exists,up 510a77d6-e846-4f2b-9f34-d913babcf8d3
+osd.207 up   in  weight 1 up_from 18372 up_thru 23191 down_at 18358 last_clean_interval [16296,18358) 223.203.98.15:1322/11173 10.20.53.21:1303/11173 10.20.53.21:1328/11173 223.203.98.15:1324/11173 exists,up 7b444af9-819a-49d8-a779-2785da8512e9
+osd.208 up   in  weight 1 up_from 18376 up_thru 23193 down_at 18365 last_clean_interval [16302,18364) 223.203.98.15:1329/13614 10.20.53.21:1331/13614 10.20.53.21:1334/13614 223.203.98.15:1332/13614 exists,up e09daff8-03ba-47d0-94bd-a65cc30fa1ea
+osd.209 up   in  weight 1 up_from 18384 up_thru 23189 down_at 18372 last_clean_interval [16309,18371) 223.203.98.15:1306/16257 10.20.53.21:1308/16257 10.20.53.21:1323/16257 223.203.98.15:1325/16257 exists,up 74292007-ce7a-4095-85e0-3f533d76931d
+osd.210 up   in  weight 1 up_from 18391 up_thru 23193 down_at 18378 last_clean_interval [16316,18378) 223.203.98.15:1301/18751 10.20.53.21:1335/18751 10.20.53.21:1337/18751 223.203.98.15:1333/18751 exists,up 9bb37a54-bd1a-4c52-b57b-c7bd69d80185
+osd.211 up   in  weight 1 up_from 18398 up_thru 23193 down_at 18385 last_clean_interval [16324,18385) 223.203.98.15:1320/20979 10.20.53.21:1306/20979 10.20.53.21:1312/20979 223.203.98.15:1327/20979 exists,up be130630-62c8-495d-bd2c-c63c7dc0adc0
+osd.212 up   in  weight 1 up_from 18338 up_thru 23191 down_at 18325 last_clean_interval [16276,18324) 223.203.98.16:1302/31989 10.20.53.22:1306/31989 10.20.53.22:1307/31989 223.203.98.16:1307/31989 exists,up 6f38e4de-63ab-4c20-9f5b-59cb2cc12dba
+osd.213 up   in  weight 1 up_from 18346 up_thru 23193 down_at 18333 last_clean_interval [16282,18332) 223.203.98.16:1309/34320 10.20.53.22:1310/34320 10.20.53.22:1313/34320 223.203.98.16:1310/34320 exists,up b4e925ea-4b7b-4222-8fda-b149dd82dead
+osd.214 up   in  weight 1 up_from 18356 up_thru 23193 down_at 18341 last_clean_interval [16299,18340) 223.203.98.16:1311/37127 10.20.53.22:1317/37127 10.20.53.22:1319/37127 223.203.98.16:1312/37127 exists,up 39428be2-8421-4981-8955-56642ff4834a
+osd.215 up   in  weight 1 up_from 18360 up_thru 23193 down_at 18348 last_clean_interval [16296,18347) 223.203.98.16:1306/39844 10.20.53.22:1321/39844 10.20.53.22:1323/39844 223.203.98.16:1314/39844 exists,up 664deb81-327f-44f4-8c0b-f22e72f14a54
+osd.216 up   in  weight 1 up_from 18370 up_thru 23193 down_at 18355 last_clean_interval [16305,18355) 223.203.98.16:1303/1899 10.20.53.22:1326/1899 10.20.53.22:1327/1899 223.203.98.16:1316/1899 exists,up 8e497b45-6b90-4f63-a4ac-af44c243f5b4
+osd.217 up   in  weight 1 up_from 18376 up_thru 23193 down_at 18362 last_clean_interval [16310,18362) 223.203.98.16:1317/4860 10.20.53.22:1329/4860 10.20.53.22:1330/4860 223.203.98.16:1319/4860 exists,up b9d74569-5bf8-4550-94b1-306cfd328433
+osd.218 up   in  weight 1 up_from 18383 up_thru 23193 down_at 18370 last_clean_interval [16315,18369) 223.203.98.16:1320/7660 10.20.53.22:1331/7660 10.20.53.22:1334/7660 223.203.98.16:1322/7660 exists,up b9c63003-1761-4f53-a200-be2fedf33f3b
+osd.219 up   in  weight 1 up_from 18391 up_thru 23191 down_at 18377 last_clean_interval [16321,18376) 223.203.98.16:1323/10458 10.20.53.22:1303/10458 10.20.53.22:1314/10458 223.203.98.16:1324/10458 exists,up 2deccf7c-ef6a-4383-89d1-eda1f4264b22
+osd.220 up   in  weight 1 up_from 18397 up_thru 23193 down_at 18384 last_clean_interval [16329,18384) 223.203.98.16:1318/13027 10.20.53.22:1320/13027 10.20.53.22:1335/13027 223.203.98.16:1325/13027 exists,up 66e6b90e-24b2-4d6a-a728-e9920a8098ed
+osd.221 up   in  weight 1 up_from 18404 up_thru 23191 down_at 18391 last_clean_interval [16337,18390) 223.203.98.16:1327/15471 10.20.53.22:1336/15471 10.20.53.22:1337/15471 223.203.98.16:1329/15471 exists,up 15f08fb9-564c-4076-8301-1bd40ee8cf5d
+osd.222 up   in  weight 1 up_from 18413 up_thru 23191 down_at 18398 last_clean_interval [16346,18397) 223.203.98.16:1330/17926 10.20.53.22:1318/17926 10.20.53.22:1338/17926 223.203.98.16:1332/17926 exists,up c2fb74fb-d360-4b02-a7b8-a6c38b9fc0d9
+osd.223 up   in  weight 1 up_from 18333 up_thru 23193 down_at 18332 last_clean_interval [16292,18320) 223.203.98.17:1309/10796 10.20.53.23:1308/10796 10.20.53.23:1309/10796 223.203.98.17:1310/10796 exists,up 8919f67b-bfe0-41a9-93ec-22bdca3975d6
+osd.224 up   in  weight 1 up_from 18340 up_thru 23193 down_at 18339 last_clean_interval [16291,18323) 223.203.98.17:1312/13072 10.20.53.23:1313/13072 10.20.53.23:1314/13072 223.203.98.17:1316/13072 exists,up 444ac1e8-fbd7-4a0d-8b6c-1ba92128042a
+osd.225 up   in  weight 1 up_from 18347 up_thru 23191 down_at 18332 last_clean_interval [16307,18331) 223.203.98.17:1318/15604 10.20.53.23:1319/15604 10.20.53.23:1325/15604 223.203.98.17:1320/15604 exists,up 0a83b75d-630f-478b-affc-68c6b83e10c9
+osd.226 up   in  weight 1 up_from 18651 up_thru 23193 down_at 18642 last_clean_interval [18356,18641) 223.203.98.17:1300/20643 10.20.53.23:1300/20643 10.20.53.23:1301/20643 223.203.98.17:1301/20643 exists,up d8285a69-d5f6-4f94-86b4-7a7b7df02f76
+osd.227 up   in  weight 1 up_from 18363 up_thru 23193 down_at 18349 last_clean_interval [16320,18348) 223.203.98.17:1308/20959 10.20.53.23:1329/20959 10.20.53.23:1330/20959 223.203.98.17:1324/20959 exists,up bdd12776-5e9e-4398-aa8a-d9f2636880e9
+osd.228 up   in  weight 1 up_from 18369 up_thru 23191 down_at 18356 last_clean_interval [16324,18356) 223.203.98.17:1326/23701 10.20.53.23:1332/23701 10.20.53.23:1333/23701 223.203.98.17:1329/23701 exists,up a9fbaf5b-488b-4196-9fc7-f1b9c64b3621
+osd.229 up   in  weight 1 up_from 18667 up_thru 23193 down_at 18657 last_clean_interval [18378,18657) 223.203.98.17:1303/3357 10.20.53.23:1302/3357 10.20.53.23:1303/3357 223.203.98.17:1304/3357 exists,up b7dd498e-e9a6-4b3e-970f-53545b975d25
+osd.230 up   in  weight 1 up_from 18384 up_thru 23191 down_at 18371 last_clean_interval [16359,18371) 223.203.98.17:1305/29339 10.20.53.23:1317/29339 10.20.53.23:1318/29339 223.203.98.17:1321/29339 exists,up bc8467ea-62e2-45dd-90cd-2dd798fff7c6
+osd.231 up   in  weight 1 up_from 18393 up_thru 23193 down_at 18379 last_clean_interval [16353,18378) 223.203.98.17:1302/32014 10.20.53.23:1322/32014 10.20.53.23:1326/32014 223.203.98.17:1334/32014 exists,up 74119d21-081e-44d7-99c1-d390bfa828da
+osd.232 up   in  weight 1 up_from 18399 up_thru 23193 down_at 18386 last_clean_interval [16357,18385) 223.203.98.17:1319/34509 10.20.53.23:1315/34509 10.20.53.23:1323/34509 223.203.98.17:1325/34509 exists,up bf6cae56-b1cb-4bdd-9a71-41ab88b320cc
+osd.233 up   in  weight 1 up_from 18405 up_thru 23190 down_at 18393 last_clean_interval [16361,18392) 223.203.98.17:1317/37165 10.20.53.23:1304/37165 10.20.53.23:1324/37165 223.203.98.17:1327/37165 exists,up 877a0a34-7a99-4242-807d-474e83e3fb2e
+osd.234 up   in  weight 1 up_from 18333 up_thru 23193 down_at 18332 last_clean_interval [16299,18320) 223.203.98.18:1312/2862 10.20.53.24:1314/2862 10.20.53.24:1316/2862 223.203.98.18:1313/2862 exists,up 18ac7b8d-b399-4ec9-aa04-99414b479535
+osd.235 up   in  weight 1 up_from 18340 up_thru 23191 down_at 18325 last_clean_interval [16313,18324) 223.203.98.18:1308/5214 10.20.53.24:1319/5214 10.20.53.24:1320/5214 223.203.98.18:1314/5214 exists,up fd2a6f8e-db40-4691-9217-345528483f61
+osd.236 up   in  weight 1 up_from 18344 up_thru 23193 down_at 18333 last_clean_interval [16315,18332) 223.203.98.18:1309/7778 10.20.53.24:1318/7778 10.20.53.24:1328/7778 223.203.98.18:1315/7778 exists,up 1816e4e9-419c-4557-8108-4c969fd3de34
+osd.237 up   in  weight 1 up_from 18355 up_thru 23191 down_at 18341 last_clean_interval [16322,18341) 223.203.98.18:1306/11136 10.20.53.24:1321/11136 10.20.53.24:1329/11136 223.203.98.18:1316/11136 exists,up bb0a43b0-42ba-4111-b17b-d8222a7b2b8f
+osd.238 up   in  weight 1 up_from 18363 up_thru 23191 down_at 18348 last_clean_interval [16343,18347) 223.203.98.18:1303/13956 10.20.53.24:1322/13956 10.20.53.24:1332/13956 223.203.98.18:1307/13956 exists,up f578e8aa-5568-409b-ad92-5147cd0e25a8
+osd.239 up   in  weight 1 up_from 18371 up_thru 23191 down_at 18359 last_clean_interval [16338,18358) 223.203.98.18:1319/16803 10.20.53.24:1333/16803 10.20.53.24:1334/16803 223.203.98.18:1320/16803 exists,up 1f3106d1-4797-4e0b-9510-7350e71e3b1c
+osd.240 up   in  weight 1 up_from 18379 up_thru 23193 down_at 18366 last_clean_interval [16347,18365) 223.203.98.18:1322/19582 10.20.53.24:1325/19582 10.20.53.24:1335/19582 223.203.98.18:1323/19582 exists,up 6926f82f-049a-4f95-85c7-13b89074e937
+osd.241 up   in  weight 1 up_from 18386 up_thru 23193 down_at 18373 last_clean_interval [16350,18372) 223.203.98.18:1301/22480 10.20.53.24:1309/22480 10.20.53.24:1310/22480 223.203.98.18:1305/22480 exists,up f0fe5883-cb79-4956-b2b8-dc2a659ea94c
+osd.242 up   in  weight 1 up_from 18393 up_thru 23193 down_at 18380 last_clean_interval [16361,18379) 223.203.98.18:1318/25261 10.20.53.24:1315/25261 10.20.53.24:1327/25261 223.203.98.18:1324/25261 exists,up 16627379-7d10-4a41-aad7-3d852a9dd583
+osd.243 up   in  weight 1 up_from 18399 up_thru 23195 down_at 18388 last_clean_interval [16363,18388) 223.203.98.18:1321/27940 10.20.53.24:1306/27940 10.20.53.24:1311/27940 223.203.98.18:1328/27940 exists,up 2b7847f3-ffd5-4d4a-87dc-d1db8c1c2290
+osd.244 up   in  weight 1 up_from 18410 up_thru 23187 down_at 18394 last_clean_interval [16369,18393) 223.203.98.18:1304/31041 10.20.53.24:1308/31041 10.20.53.24:1336/31041 223.203.98.18:1317/31041 exists,up e031a1b5-9ad3-40b2-9f4f-fec37afc57de
+pg_temp 24.0 [27,1,13]
+pg_temp 24.1 [1,15,24]
+pg_temp 24.2 [15,26,5]
+pg_temp 24.3 [28,10,5]
+pg_temp 24.6 [26,0,15]
+pg_temp 24.8 [3,20,10]
+pg_temp 25.4 [3,15,27]
+pg_temp 25.5 [24,16,3]
+pg_temp 25.6 [14,22,2]
+pg_temp 25.9 [13,27,2]
+pg_temp 25.b [2,29,16]
+pg_temp 25.c [21,11,1]
+pg_temp 25.d [10,20,0]
+pg_temp 25.e [22,12,0]
+pg_temp 25.f [18,0,21]
+pg_temp 25.13 [13,22,4]
+pg_temp 25.14 [4,14,22]
+pg_temp 25.15 [24,14,0]
+pg_temp 25.16 [28,14,1]
+pg_temp 25.18 [0,16,21]
+pg_temp 25.19 [3,20,19]
+pg_temp 25.1a [13,26,4]
+pg_temp 25.1c [15,1,27]
+pg_temp 25.1d [21,14,1]
+pg_temp 25.21 [29,1,12]
+pg_temp 25.23 [15,0,27]
+pg_temp 25.24 [26,14,2]
+pg_temp 25.25 [12,1,21]
+pg_temp 25.26 [4,15,21]
+pg_temp 25.27 [1,10,24]
+pg_temp 25.2a [22,0,15]
+pg_temp 25.2b [23,2,19]
+pg_temp 25.2d [18,22,5]
+pg_temp 25.2f [27,4,18]
+pg_temp 25.30 [3,10,27]                                                                                                               

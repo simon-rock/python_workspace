@@ -249,7 +249,8 @@ def _get_history(version):
             osdinfo.append("" + data.split()[15])    # last_clean_interval
             osdinfo.append("" + data.split()[16])    # last_clean_interval
             osdinfo.append("" + data.split()[17])    # last_clean_interval
-            osdinfo.append("" + data.split()[18])    # last_clean_interval
+            #osdinfo.append("" + data.split()[18])    # last_clean_interval, there isn't id in some case, if only create it
+                                                      # osd.41 down out weight 0 up_from 0 up_thru 0 down_at 0 last_clean_interval [0,0) :/0 :/0 :/0 :/0 exists,new
             info[data.split()[0]] = osdinfo
         if data.startswith("pool"):
             info[data.split(" ", 2)[0] + data.split(" ", 2)[1]] = data.split(" ", 2)[2]
@@ -298,11 +299,11 @@ def check_param():
     global ceph_dencoder
     global mondb_path
     
-    if not os.path.exists(options.ldbtool_path + "ceph-monstore-tool"):
+    if options.newtools and not os.path.exists(options.ldbtool_path + "ceph-monstore-tool"):
         print "%sceph-monstore-tool does not exist", options.ldbtool_path
         return False
     ceph_monstore_tool = options.ldbtool_path + "ceph-monstore-tool"
-    if not os.path.exists(options.ldbtool_path + "ceph-kvstore-tool"):
+    if not options.newtools and not os.path.exists(options.ldbtool_path + "ceph-kvstore-tool"):
         print "%sceph-kvstore-tool does not exist", options.ldbtool_path
         return False
     ceph_kvstore_tool = options.ldbtool_path + "ceph-kvstore-tool"
