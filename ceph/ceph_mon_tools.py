@@ -264,7 +264,7 @@ def get_options(args=None):
     parser.add_option('-v', '--version', action="store_true", dest='version', default=False, help='print version')
     parser.add_option('-k', '--listkays', action="store_true", dest='listkeys', default=False, help='list all the keys')
     parser.add_option('-s', '--showversions', action="store_true", dest='showversions', default=False, help='show the version of all the map type')
-    parser.add_option('-n', '--newtools', action="store_true", dest='newtools', default=False, help='use for ceph 10.2, deault ')
+    parser.add_option('-n', '--newtools', action="store_true", dest='newtools', default=True, help='use for ceph 10.2, default ')
 
     # print osdmap chenge list
     parser.add_option('-o', '--osdhistory', action="store_true", dest='history', default=False, help='show the history of osd map')
