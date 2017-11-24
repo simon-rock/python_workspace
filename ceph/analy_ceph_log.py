@@ -145,11 +145,13 @@ def cal_cost(item, event_name, co_time):
     ''' is replica '''
     if event_name.find("waiting for subops from ") != -1:
         item[1]= ("replica_start", co_time, datetime.timedelta(microseconds = 0), "")
-        
-    if event_name.find("sub_op_") != -1:
+
+    ''''''
+    if event_name.find("sub_op_commit_rec") != -1 or event_name.find("sub_op_applied_rec") != -1:
         ret_cost= co_time - item[1][1]
     else:
         ret_cost= co_time - item[0][1]
+        print co_time, " --- ", item[0][1] , "--", ret_cost
         item[0]= ("main_cur", co_time, datetime.timedelta(microseconds = 0), "")
     return ret_cost
 
@@ -161,6 +163,7 @@ def proc_stat(req):
     global EVENT_STAT
     if not check_req(req):
         return
+    '''the first request may not been caught'''
     if len(req) < TASKS_LINE + 1 or req[TASKS_LINE][0] != "queued_for_pg" :
         return
     for val in req:
