@@ -149,8 +149,12 @@ def cal_cost(item, event_name, co_time):
     ''''''
     if event_name.find("sub_op_commit_rec") != -1 or event_name.find("sub_op_applied_rec") != -1:
         ret_cost= co_time - item[1][1]
+        if ret_cost < datetime.timedelta(microseconds = 0):
+            ret_cost = datetime.timedelta(microseconds = 0)
     else:
         ret_cost= co_time - item[0][1]
+        if ret_cost < datetime.timedelta(microseconds = 0):
+            ret_cost = datetime.timedelta(microseconds = 0)
         print co_time, " --- ", item[0][1] , "--", ret_cost
         item[0]= ("main_cur", co_time, datetime.timedelta(microseconds = 0), "")
     return ret_cost
