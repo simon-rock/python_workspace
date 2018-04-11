@@ -78,7 +78,13 @@ def get_seq_info(line, real = False):
     else:
         item = TASKS[seq]
         #print item, len(item), item[len(item) - 1][1]
-        cost = co_time - item[len(item) - 1][1]
+        # make cost of commit_sent is user cost
+        #cost = co_time - item[len(item) - 1][1]
+        cost = 0
+        if (event_name != "commit_sent"):
+            cost = co_time - item[len(item) - 1][1]
+        else:
+            cost = co_time - item[0][1]
         #print cost
         item.append((event_name, co_time, cost, other_info))
         global options
