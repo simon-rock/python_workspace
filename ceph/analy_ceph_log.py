@@ -18,11 +18,28 @@ import signal
 is_sigint_up = False
 g_debug = False
 TASKS = {}
+TASKS_LINE = 2
+
 EVENT_STAT = {}
+
+redc = "\033[1;31;40m"
+defaultc="\033[0m"
+def make_red(s):
+    return redc+s+defaultc
+
+zerotime = datetime.datetime.strptime("2000-1-1 00:00:00.000000", "%Y-%m-%d %H:%M:%S.%f")
+
 def debug_print(str):
     global g_debug
     if g_debug:
-        print "debug: ", str
+        #print "debug: ", str
+        print make_red("debug: "), str
+def debug_str(str):
+    global g_debug
+    if g_debug:
+        return str
+    else:
+        return ""
 def sigint_handler(signum, frame):
     global is_sigint_up
     global EVENT_STAT
@@ -51,6 +68,17 @@ def load_analyzed_file(analyzed):
     global TASKS
     f = file(analyzed)
     TASKS = p.load(f)
+'''
+TASKS struct
+seq -> linef
+    -> linef2
+    -> line
+    -> line2
+    -> event_name time cost info
+    -> event_name time cost info
+    ...
+seq -> ...
+'''
 def get_seq_info(line, real = False):
     debug_print(line)
     if is_sigint_up:
@@ -73,19 +101,17 @@ def get_seq_info(line, real = False):
     event_name = ss.sub("", event_name)
     if not TASKS.has_key(seq):
         tmp = []
+        #tmp.append(("main_s", zerotime, datetime.timedelta(microseconds = 0), ""))
+        #tmp.append(("replica_s", zerotime, datetime.timedelta(microseconds = 0), ""))
+        # main_cur means the timestap of last stop, to cal the cost every steps
+        tmp.append(("main_cur", co_time, datetime.timedelta(microseconds = 0), ""))
+        # replica_start means the timestap of send msg to subosd, to cal the cost of subosd
+        tmp.append(("replica_start", zerotime, datetime.timedelta(microseconds = 0), ""))
         tmp.append((event_name, co_time, datetime.timedelta(microseconds = 0), other_info))
         TASKS[seq] = tmp
     else:
         item = TASKS[seq]
-        #print item, len(item), item[len(item) - 1][1]
-        # make cost of commit_sent is user cost
-        #cost = co_time - item[len(item) - 1][1]
-        cost = 0
-        if (event_name != "commit_sent"):
-            cost = co_time - item[len(item) - 1][1]
-        else:
-            cost = co_time - item[0][1]
-        #print cost
+        cost = cal_cost(item, event_name, co_time)
         item.append((event_name, co_time, cost, other_info))
         global options
         if real and ((event_name == "done" and (options.event != options.pevent or options.event == "all"))or ( event_name == options.event and options.event == options.pevent)):        
@@ -112,8 +138,44 @@ p
     datetime_t3 = datetime.datetime.strptime(time3, "%Y-%m-%d %H:%M:%S.%f")
     print datetime_t3 - datetime_t2
     '''
+'''
+cal the cost for every stop
+'''
+def cal_cost(item, event_name, co_time):
+    ''' is replica, cal the cost of sudosd ''' 
+    if event_name.find("waiting for subops from ") != -1:
+        item[1]= ("replica_start", co_time, datetime.timedelta(microseconds = 0), "")
+
+    ''''''
+    if event_name.find("sub_op_commit_rec") != -1 or event_name.find("sub_op_applied_rec") != -1:
+        ret_cost= co_time - item[1][1]
+        if ret_cost < datetime.timedelta(microseconds = 0):
+            ret_cost = datetime.timedelta(microseconds = 0)
+    else:
+        ret_cost = 0
+        '''cost time for every stop'''
+        if (event_name != "commit_sent"):
+            ret_cost = co_time - item[0][1]
+        else:
+            '''cost time for user'''
+            ret_cost = co_time - item[2][1]
+        if ret_cost < datetime.timedelta(microseconds = 0):
+            ret_cost = datetime.timedelta(microseconds = 0)
+        #print co_time, " --- ", item[0][1] , "--", ret_cost
+        item[0]= ("main_cur", co_time, datetime.timedelta(microseconds = 0), "")
+    return ret_cost
+
+'''
+proc_stat
+cal the max, min, avgcost for the part of request
+'''
 def proc_stat(req):
     global EVENT_STAT
+    if not check_req(req):
+        return
+    '''the first request may not been caught'''
+    if len(req) < TASKS_LINE + 1 or req[TASKS_LINE][0] != "queued_for_pg" :
+        return
     for val in req:
         if not EVENT_STAT.has_key(val[0]):
             item = {}
@@ -133,6 +195,36 @@ def proc_stat(req):
                 item["total_count"] += 1
             except Exception,ex:
                 print Exception,":",ex,"--",val[2]
+    if not EVENT_STAT.has_key("reqcost"):
+        item = {}
+        ret = get_all_time(req)
+        item["max"] = ret
+        item["min"] = ret
+        item["avg_cost"] = ret
+        item["total_count"] = 1
+        EVENT_STAT["reqcost"] = item
+    else:
+        try:
+            ret = get_all_time(req)
+            item = EVENT_STAT["reqcost"]
+            if item["max"] < ret:
+                item["max"] = ret
+            if item["min"] > ret:
+                item["min"] = ret
+            item["avg_cost"] = ((item["avg_cost"]*item["total_count"]) + ret)/(item["total_count"]+1)
+            item["total_count"] += 1
+        except Exception,ex:
+            print Exception,":",ex,"--",val[2]
+'''check if the req is main req'''                
+def check_req(req):
+    global options
+    if options.onlymain:
+        for val in req:
+            if val[0].find("waiting for subops from") != -1:
+                return True
+        return False
+    else:
+        return True
 def statistics(filter, event, v):
     # analy tasks
     global TASKS
@@ -164,9 +256,9 @@ def statistics(filter, event, v):
                     item["total_count"] += 1
                 except Exception,ex:
                     print Exception,":",ex,"--",val[2]
-            if val[0] == "done,":
+            if val[0] == "done":
                 success_num += 1
-                all_done_time += val[1] - vals[0][1]
+                all_done_time += get_all_time(vals)
     for key, val in event_stat.items():
         print ("%-55s "%(key)), val["total_cost"]/val["total_count"], val["max"], val["min"], val["total_cost"], val["total_count"]
     if success_num > 0:
@@ -185,6 +277,7 @@ def get_options(args=None):
     parser.add_option('-p', '--print', action="store_true", dest='print_only', default=False, help='print only through the filter')
     # for real time
     parser.add_option('-r', '--realtime', action="store_true", dest='realtime', default=False, help='realtime analy')
+    parser.add_option('-m', '--onlymain', action="store_true", dest='onlymain', default=False, help='only analy main req')
     parser.add_option('-f', '--filter_event', action="store", dest='event', default="all", help='event name')
     parser.add_option('-t', '--print_event', action="store", dest='pevent', default="all", help='event name')
     parser.add_option('-d', '--debugmode', action="store_true", dest='debug_mode', default=False, help='debug mode(default false)')    
@@ -196,11 +289,6 @@ def get_options(args=None):
         parser.error("Please specify the directory of the file to be processed.")
     return options, argvs
 
-def all_time_more(val, v):
-    if len(val) > 1 and (val[len(val)-1][1] - val[0][1]) > datetime.timedelta(microseconds = v):
-        return True
-    else:
-        return False
 def print_sp_data(filter, event_name, event_cost, pevent):
     global TASKS
     '''for key, vals in TASKS.items():
@@ -214,25 +302,27 @@ def print_sp_data(filter, event_name, event_cost, pevent):
             print_data(item, pevent)
 
 def data_filter(item, event_name, event_cost):
-    if len(item) > 1 and get_all_time(item) > datetime.timedelta(microseconds = event_cost):
+    if len(item) > TASKS_LINE and get_all_time(item) > datetime.timedelta(microseconds = event_cost):
         return True
     else:
         return False
-def filt_date(item, event_name, event_cost):
+'''seq_time is (seq, task_item)'''
+def filt_date(seq_item, event_name, event_cost):
     if event_name == "all":
-         if len(item[1]) > 1 and get_all_time(item[1]) > datetime.timedelta(microseconds = event_cost):
+         if len(seq_item[1]) > TASKS_LINE and get_all_time(seq_item[1]) > datetime.timedelta(microseconds = event_cost):
              return True
     else:
-        for val in item[1]:
+        for val in seq_item[1]:
              if val[0] == event_name and val[2] > datetime.timedelta(microseconds = event_cost):
                  return True
     return False
 def print_data(item, event_name):
     for val in item[1]:
         if event_name == "all" or val[0] == event_name :
-            print item[0],"-->", val
-def get_all_time(val):
-    return (val[len(val)-1][1] - val[0][1])
+            print item[0],"-->%-35s"% val[0], debug_str(val[1]), val[2], debug_str(val[3])
+'''cal the total cost of request '''
+def get_all_time(item):
+    return (item[len(item)-1][1] - item[TASKS_LINE][1])
 
 def realtime_analy():
     for line in sys.stdin:
@@ -253,10 +343,13 @@ def main(args=None):
     if options.debug_mode:
         g_debug = options.debug_mode
     if options.version:
-        print "current version 0.3"
+        print "current version 0.4"
         return
     if options.realtime:
         realtime_analy()
+        print ("%-55s "%("key")), ("%-13s "%("avg_cost")),("%-13s "%("max")),("%-13s "%("min")),("%-13s "%("total_count"))
+        for key, val in EVENT_STAT.items():
+            print ("%-55s "%(key)), val["avg_cost"], val["max"], val["min"],  val["total_count"]
         return
     if options.analyzed:
         print "load midfile"
@@ -270,7 +363,8 @@ def main(args=None):
     print "-----"
     if options.print_only:
         print_sp_data(filt_date, options.event, int(options.cost), options.pevent)
-    else:    
+    else:
+        print "statistics"
         statistics(data_filter, options.event, int(options.cost))
 if __name__ == "__main__":
     main()
