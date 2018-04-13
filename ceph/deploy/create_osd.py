@@ -3,18 +3,17 @@
 import commands
 import os
 import sys
-from remotecmd import action
+#from remotecmd import action
 from optparse import OptionParser
 
 PARAM_ERROR      = -1
-CREATE_OSD_ERROR = -2 
+CREATE_OSD_ERROR = -2
 GET_OSDID_ERROR  = -3
 UPDATA_ERROR     = -4
 
 def get_options(args=None):
     '''get options'''
     parser = OptionParser()
-    # print osdmap chenge list
     parser.add_option('', '--uuid', action="store", dest='task_uuid', default="", help='')
     parser.add_option('', '--host', action="store", dest='host', default="", help='')
     parser.add_option('', '--data_dev', action="store", dest='data_dev', default="", help='')
@@ -23,8 +22,6 @@ def get_options(args=None):
     HELP = parser.format_help().strip()
     (options, argvs) = parser.parse_args(args)
 
-    #if not options.realtime and  len(argvs) < 1 and not options.version:
-    #    parser.error("Please specify the directory of the file to be processed.")
     return options, argvs
 
 def main(args=None):
@@ -36,8 +33,8 @@ def main(args=None):
     print options
     if options.task_uuid == "" or options.host == ""or options.data_dev == "":
         print "need <uuid> <host> <data_dev>"
+        update_status(options.task_uuid, "", options.juuid, PARAM_ERROR)
         return PARAM_ERROR
-    username = "root"
     task_uuid = options.task_uuid
     host = options.host
     data_dev = options.data_dev
@@ -53,28 +50,45 @@ def main(args=None):
     cmd = "ceph-deploy osd create --fs-type xfs " + host + ":" + data_dev+journal
     print cmd
     s,o = commands.getstatusoutput(cmd)
+    s = 0
     os.chdir(last_dir)
     if s != 0:
         print s,"---",o
+        update_status(task_uuid, "", juuid, CREATE_OSD_ERROR)
         return CREATE_OSD_ERROR
 
     # get osd id
     cmd = "ceph-disk list | grep " + data_dev + "1 | awk -F \"osd.\" '{print $2}'"
-    conn = action(host,username,cmd)
-    ret, el, ol = conn.ssh_connect()
-    print "--",cmd,"-----",ret, el, ol, len(ol)
-    if ret < 0 or len(ol) != 1:
-        return GET_OSDID_ERROR
-
-    # update info
-    osdid = ol[0].replace("\n", "")
-    cmd = "/usr/bin/updateCephOsd --osd-uuid " + task_uuid + " --osd-id osd."+ osdid + " --status active --journal-uuid "+juuid
     print cmd
     s,o = commands.getstatusoutput(cmd)
+    print s,"---",o
+    if s != 0 or len(o) == 0:
+        print s,"---",o
+        update_status(task_uuid, "", juuid, GET_OSDID_ERROR)
+        return GET_OSDID_ERROR
+    osdid = o.replace("\n", "") 
+    return update_status(task_uuid, osdid, juuid, 0)
+
+def update_status(task_uuid, osdid, juuid, stat ):
+    cmd = "/usr/bin/updateCephOsd --osd-uuid " + task_uuid
+
+    if stat == 0 and osdid != "":
+        cmd += " --status active --osd-id osd."+ osdid
+    elif stat == -1: 
+        cmd += " --status param_error"
+    elif stat == -2:
+        cmd += " --status create_osd_error"
+    elif stat == -3:
+        cmd += " --status get_osdid_error"
+    else: 
+        cmd += " --status unknow_error"
+    cmd += " --journal-uuid "+juuid if (juuid!="") else ""
+    print cmd
+    s,o = commands.getstatusoutput(cmd)
+    s = 0
     if  s != 0:
         print s,"---",o
         return UPDATA_ERROR
     return 0
-
 if __name__ == "__main__":
     main()
