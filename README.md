@@ -1,4 +1,4 @@
 python_workspace
 ================
 
-python
+python project
