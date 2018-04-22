@@ -152,10 +152,18 @@ def cal_cost(item, event_name, co_time):
         if ret_cost < datetime.timedelta(microseconds = 0):
             ret_cost = datetime.timedelta(microseconds = 0)
     else:
-        ret_cost= co_time - item[0][1]
+        if event_name.find("commit_sent") != -1:
+            if len(item) > 2 and item[2][0].find("queued_for_pg") != -1:
+                ret_cost= co_time - item[2][1]
+            else:
+                print "-------------***first request***????---------------"
+                ret_cost= co_time - item[0][1]
+        else:
+            ret_cost= co_time - item[0][1]
+            
         if ret_cost < datetime.timedelta(microseconds = 0):
             ret_cost = datetime.timedelta(microseconds = 0)
-        print co_time, " --- ", item[0][1] , "--", ret_cost
+        #print co_time, " --- ", item[0][1] , "--", ret_cost
         item[0]= ("main_cur", co_time, datetime.timedelta(microseconds = 0), "")
     return ret_cost
 
