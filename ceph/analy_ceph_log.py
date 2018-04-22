@@ -103,14 +103,14 @@ def get_seq_info(line, real = False):
         tmp = []
         #tmp.append(("main_s", zerotime, datetime.timedelta(microseconds = 0), ""))
         #tmp.append(("replica_s", zerotime, datetime.timedelta(microseconds = 0), ""))
+        # main_cur means the timestap of last stop, to cal the cost every steps
         tmp.append(("main_cur", co_time, datetime.timedelta(microseconds = 0), ""))
+        # replica_start means the timestap of send msg to subosd, to cal the cost of subosd
         tmp.append(("replica_start", zerotime, datetime.timedelta(microseconds = 0), ""))
         tmp.append((event_name, co_time, datetime.timedelta(microseconds = 0), other_info))
         TASKS[seq] = tmp
     else:
         item = TASKS[seq]
-        #print item, len(item), item[len(item) - 1][1]
-        #cost = co_time - item[len(item) - 1][1]
         cost = cal_cost(item, event_name, co_time)
         item.append((event_name, co_time, cost, other_info))
         global options
@@ -142,7 +142,7 @@ p
 cal the cost for every stop
 '''
 def cal_cost(item, event_name, co_time):
-    ''' is replica '''
+    ''' is replica, cal the cost of sudosd ''' 
     if event_name.find("waiting for subops from ") != -1:
         item[1]= ("replica_start", co_time, datetime.timedelta(microseconds = 0), "")
 
@@ -152,15 +152,13 @@ def cal_cost(item, event_name, co_time):
         if ret_cost < datetime.timedelta(microseconds = 0):
             ret_cost = datetime.timedelta(microseconds = 0)
     else:
-        if event_name.find("commit_sent") != -1:
-            if len(item) > 2 and item[2][0].find("queued_for_pg") != -1:
-                ret_cost= co_time - item[2][1]
-            else:
-                print "-------------***first request***????---------------"
-                ret_cost= co_time - item[0][1]
+        ret_cost = 0
+        '''cost time for every stop'''
+        if (event_name != "commit_sent"):
+            ret_cost = co_time - item[0][1]
         else:
-            ret_cost= co_time - item[0][1]
-            
+            '''cost time for user'''
+            ret_cost = co_time - item[2][1]
         if ret_cost < datetime.timedelta(microseconds = 0):
             ret_cost = datetime.timedelta(microseconds = 0)
         #print co_time, " --- ", item[0][1] , "--", ret_cost
