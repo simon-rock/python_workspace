@@ -52,6 +52,7 @@ def sigint_handler(signum, frame):
 
 test_str_0945 = r'2015-12-14 03:15:20.672735 7ff19db41700  5  common/TrackedOp.cc:287 -- op tracker -- seq: 96452, time: 2015-12-14 03:15:20.672371, event: header_read, op: osd_sub_op(client.6125.0:270 4.4 65639084/gc.29/head//4 [] v 94\'14753 snapset=0=[]:[] snapc=0=[])'
 test_str_1025 = r'2017-05-11 11:18:08.216603 7fa5063e8700  5  common/TrackedOp.cc:292 -- op tracker -- seq: 4176973, time: 2017-05-11 11:18:08.216603, event: waiting for subops from 5,22, op: osd_op(client.1212883.0:680 28.9de6e907 obj_delete_at_hint.0000000086 [call lock.lock] snapc 0=[] ondisk+write+known_if_redirected e22596)'
+test_str_1225 = r'2018-09-06 06:45:38.278100 7f8fd3dd3700  6 -- op tracker --  seq: 695254, time: 2018-09-06 06:45:38.278100, event: done, op: osd_op(client.44210.0:2191 5.99 5:99d7c4c3:::benchmark_data_node-ceph1_673191_object2190:head [set-alloc-hint object_size 4096 write_size 4096,write 0~4096] snapc 0=[] ondisk+write+known_if_redirected e441)'
 def process(log_path, out):
     global TASKS
     fp = open(log_path, 'r')
@@ -84,7 +85,8 @@ def get_seq_info(line, real = False):
     if is_sigint_up:
         return
     #prog = re.compile(".* -- op tracker -- seq: (\d+), time: (\S+ \S+),.* event: (\S+),")
-    prog = re.compile(".* -- op tracker -- seq: (\d+), time: (\S+ \S+),.* event: (.+), op: (.+)") # update for ceph 10.2.5
+    #prog = re.compile(".* -- op tracker -- seq: (\d+), time: (\S+ \S+),.* event: (.+), op: (.+)") # update for ceph 10.2.5
+    prog = re.compile(".* seq: (\d+), time: (\S+ \S+),.* event: (.+), op: (.+)") # update for ceph 10.2.5
     res = re.match(prog, line)
     if res is None:
         debug_print("res is None")
