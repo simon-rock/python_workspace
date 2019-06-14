@@ -3,7 +3,7 @@
 #
 # ceph daemon osd.17 config  set debug_optracker 5
 # so, you can filter the sp. log using tailf osd.17.log | ananly_ceph_log.py -r [-f event or all] [-t print_event or all] [-c cost or 0]
-#
+# show osdmap history : -k --dbp /var/lib/mon/mon.a --ldtp /bin/ -o --sv 70568 --ev 70658
 #
 import re
 import string
